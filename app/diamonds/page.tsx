@@ -12,6 +12,7 @@ export default function DiamondsPage() {
   const router = useRouter()
   const [cartItems, setCartItems] = useState(0)
   const [viewMode, setViewMode] = useState('grid')
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const diamonds = [
     {
@@ -22,7 +23,7 @@ export default function DiamondsPage() {
       color: "D",
       clarity: "VVS1",
       price: "£8,500",
-      image: "/placeholder-2q1ob.png"
+      image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
     },
     {
       id: 2,
@@ -32,7 +33,7 @@ export default function DiamondsPage() {
       color: "E",
       clarity: "VS1",
       price: "£6,800",
-      image: "/princess-cut-diamond.png"
+      image: "https://images.unsplash.com/photo-1544376664-80b17f09d399?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
     },
     {
       id: 3,
@@ -42,7 +43,7 @@ export default function DiamondsPage() {
       color: "F",
       clarity: "VVS2",
       price: "£12,200",
-      image: "/placeholder-7xfpd.png"
+      image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
     },
     {
       id: 4,
@@ -52,7 +53,7 @@ export default function DiamondsPage() {
       color: "D",
       clarity: "VS2",
       price: "£9,900",
-      image: "/oval-diamond.png"
+      image: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
     },
     {
       id: 5,
@@ -62,7 +63,7 @@ export default function DiamondsPage() {
       color: "G",
       clarity: "VS1",
       price: "£8,200",
-      image: "/cushion-cut-diamond.png"
+      image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
     },
     {
       id: 6,
@@ -72,91 +73,104 @@ export default function DiamondsPage() {
       color: "E",
       clarity: "VVS1",
       price: "£10,500",
-      image: "/pear-shape-diamond.png"
+      image: "https://images.unsplash.com/photo-1544376664-80b17f09d399?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
     }
   ]
 
   return (
-    <div className="min-h-screen bg-stone-50">
+    <div className="min-h-screen bg-white">
       {/* Top Header Bar */}
-      <div className="bg-slate-800 text-white py-2 px-4">
+      <div className="bg-black text-white py-3 px-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center text-sm">
           <div className="flex items-center gap-6">
-            <a href="mailto:studio@martinoliva.co.uk" className="flex items-center gap-2 hover:text-stone-300 transition-colors">
+            <div className="flex items-center gap-2">
               <Mail className="w-4 h-4" />
               <span>studio@martinoliva.co.uk</span>
-            </a>
-            <a href="tel:+447565455568" className="flex items-center gap-2 hover:text-stone-300 transition-colors">
+            </div>
+            <div className="flex items-center gap-2">
               <Phone className="w-4 h-4" />
               <span>+44 7565 455568</span>
-            </a>
+            </div>
           </div>
-          <div className="flex items-center gap-3">
-            <a href="https://facebook.com/martinoliva" target="_blank" rel="noopener noreferrer">
-              <Facebook className="w-4 h-4 hover:text-stone-300 cursor-pointer transition-colors" />
-            </a>
-            <a href="https://instagram.com/martinoliva" target="_blank" rel="noopener noreferrer">
-              <Instagram className="w-4 h-4 hover:text-stone-300 cursor-pointer transition-colors" />
-            </a>
+          <div className="flex items-center gap-4">
+            <span className="text-sm">Follow us:</span>
+            <Facebook className="w-4 h-4 hover:text-gray-300 cursor-pointer transition-colors" />
+            <Instagram className="w-4 h-4 hover:text-gray-300 cursor-pointer transition-colors" />
           </div>
         </div>
       </div>
 
       {/* Main Navigation */}
-      <header className="bg-white border-b border-stone-200">
+      <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <Search className="w-5 h-5 text-stone-600 cursor-pointer hover:text-stone-800 transition-colors" />
-            
-            <div className="flex items-center">
-              <Link href="/" className="text-2xl font-serif tracking-wider">
-                <div className="flex flex-col items-center">
-                  <div className="relative w-12 h-12 mb-2">
-                    <div className="w-12 h-12 border-2 border-stone-800 rounded-full flex items-center justify-center bg-white">
-                      <div className="relative">
-                        <div className="w-6 h-0.5 bg-stone-800"></div>
-                        <div className="w-0.5 h-6 bg-stone-800 absolute top-[-12px] left-[11px]"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <span className="text-stone-800 font-bold text-lg tracking-[0.1em]">MARTIN OLIVA</span>
-                  <span className="text-xs tracking-[0.3em] text-stone-600 font-light">LONDON</span>
-                </div>
-              </Link>
-            </div>
+            {/* Mobile Menu Button */}
+            <button 
+              className="lg:hidden flex flex-col gap-1 p-2"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              <div className="w-6 h-0.5 bg-yellow-600 transition-all"></div>
+              <div className="w-6 h-0.5 bg-yellow-600 transition-all"></div>
+              <div className="w-6 h-0.5 bg-yellow-600 transition-all"></div>
+            </button>
 
-            <div className="flex items-center gap-4">
-              <User className="w-5 h-5 text-stone-600 cursor-pointer hover:text-stone-800 transition-colors" />
+            <Link href="/" className="flex items-center">
+              <div className="text-xl md:text-2xl font-bold tracking-wider">
+                <span className="text-black">MARTIN OLIVA</span>
+                <div className="text-xs text-gray-600 tracking-[0.3em] font-light">FINE JEWELLERY</div>
+              </div>
+            </Link>
+
+            <nav className="hidden lg:flex items-center space-x-8">
+              <Link href="/" className="text-black hover:text-yellow-600 transition-colors font-medium">Home</Link>
+              <Link href="/diamonds" className="text-yellow-600 font-medium border-b-2 border-yellow-600 pb-1">Diamonds</Link>
+              <Link href="/engagement-rings" className="text-black hover:text-yellow-600 transition-colors font-medium">Engagement Rings</Link>
+              <Link href="/wedding-bands" className="text-black hover:text-yellow-600 transition-colors font-medium">Wedding Bands</Link>
+              <Link href="/watches" className="text-black hover:text-yellow-600 transition-colors font-medium">Watches</Link>
+              <Link href="/jewellery" className="text-black hover:text-yellow-600 transition-colors font-medium">Jewellery</Link>
+              <Link href="/bespoke" className="text-black hover:text-yellow-600 transition-colors font-medium">Bespoke</Link>
+              <Link href="/services" className="text-black hover:text-yellow-600 transition-colors font-medium">Services</Link>
+              <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium">Sale</Link>
+            </nav>
+
+            <div className="flex items-center gap-3 md:gap-4">
+              <Search className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
+              <User className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
               <div className="relative">
-                <ShoppingBag className="w-5 h-5 text-stone-600 cursor-pointer hover:text-stone-800 transition-colors" />
-                <span className="absolute -top-2 -right-2 bg-stone-800 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                  {cartItems}
-                </span>
+                <ShoppingBag className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
+                {cartItems > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-yellow-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                    {cartItems}
+                  </span>
+                )}
               </div>
             </div>
           </div>
 
-          <nav className="mt-8">
-            <ul className="flex justify-center items-center gap-8 text-sm font-medium tracking-wider">
-              <li><Link href="/" className="text-stone-800 hover:text-stone-600 transition-colors">HOME</Link></li>
-              <li><Link href="/diamonds" className="text-stone-800 hover:text-stone-600 transition-colors border-b-2 border-stone-800 pb-1">DIAMONDS</Link></li>
-              <li><Link href="/engagement-rings" className="text-stone-800 hover:text-stone-600 transition-colors">ENGAGEMENT RINGS</Link></li>
-              <li><Link href="/wedding-bands" className="text-stone-800 hover:text-stone-600 transition-colors">WEDDING BANDS</Link></li>
-              <li><Link href="/watches" className="text-stone-800 hover:text-stone-600 transition-colors">WATCHES</Link></li>
-              <li><Link href="/jewellery" className="text-stone-800 hover:text-stone-600 transition-colors">JEWELLERY</Link></li>
-              <li><Link href="/bespoke" className="text-stone-800 hover:text-stone-600 transition-colors">BESPOKE</Link></li>
-              <li><Link href="/services" className="text-stone-800 hover:text-stone-600 transition-colors">SERVICES</Link></li>
-              <li><Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors">SALE ITEMS</Link></li>
-            </ul>
-          </nav>
+          {/* Mobile Menu */}
+          {mobileMenuOpen && (
+            <div className="lg:hidden mt-4 pb-4 border-t border-yellow-200">
+              <nav className="flex flex-col space-y-4 pt-4">
+                <Link href="/" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Home</Link>
+                <Link href="/diamonds" className="text-yellow-600 font-medium border-l-4 border-yellow-600 pl-4">Diamonds</Link>
+                <Link href="/engagement-rings" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Engagement Rings</Link>
+                <Link href="/wedding-bands" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Wedding Bands</Link>
+                <Link href="/watches" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Watches</Link>
+                <Link href="/jewellery" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Jewellery</Link>
+                <Link href="/bespoke" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Bespoke</Link>
+                <Link href="/services" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Services</Link>
+                <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium border-l-4 border-transparent hover:border-red-600 pl-4">Sale</Link>
+              </nav>
+            </div>
+          )}
         </div>
       </header>
 
       {/* Page Header */}
-      <div className="bg-stone-100 py-16">
+      <div className="bg-gray-50 py-16">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <h1 className="text-4xl font-serif text-stone-800 mb-4 tracking-wide">Premium Diamonds</h1>
-          <p className="text-lg text-stone-600 max-w-2xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold text-black mb-4">Premium Diamonds</h1>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Discover our exceptional collection of certified diamonds, each carefully selected for their brilliance, fire, and scintillation.
           </p>
         </div>
@@ -164,8 +178,8 @@ export default function DiamondsPage() {
 
       {/* Filters and Controls */}
       <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="flex justify-between items-center mb-8">
-          <div className="flex items-center gap-4">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+          <div className="flex flex-wrap items-center gap-4">
             <Select defaultValue="all">
               <SelectTrigger className="w-40">
                 <SelectValue placeholder="Cut" />
@@ -208,6 +222,7 @@ export default function DiamondsPage() {
               variant={viewMode === 'grid' ? 'default' : 'outline'}
               size="sm"
               onClick={() => setViewMode('grid')}
+              className="bg-black text-white hover:bg-gray-800"
             >
               <Grid className="w-4 h-4" />
             </Button>
@@ -215,6 +230,7 @@ export default function DiamondsPage() {
               variant={viewMode === 'list' ? 'default' : 'outline'}
               size="sm"
               onClick={() => setViewMode('list')}
+              className="bg-black text-white hover:bg-gray-800"
             >
               <List className="w-4 h-4" />
             </Button>
@@ -222,30 +238,30 @@ export default function DiamondsPage() {
         </div>
 
         {/* Diamond Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {diamonds.map((diamond) => (
-            <Card key={diamond.id} className="group cursor-pointer hover:shadow-lg transition-shadow">
+            <Card key={diamond.id} className="group cursor-pointer hover:shadow-xl transition-all duration-300 border-0 shadow-md">
               <CardContent className="p-0">
-                <div className="aspect-square bg-stone-100 rounded-t-lg overflow-hidden">
+                <div className="aspect-square bg-gray-100 overflow-hidden">
                   <img 
                     src={diamond.image || "/placeholder.svg"} 
                     alt={diamond.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-lg font-semibold text-stone-800 mb-2">{diamond.name}</h3>
-                  <div className="grid grid-cols-2 gap-2 text-sm text-stone-600 mb-4">
+                  <h3 className="text-xl font-semibold text-black mb-3">{diamond.name}</h3>
+                  <div className="grid grid-cols-2 gap-2 text-sm text-gray-600 mb-4">
                     <div>Carat: {diamond.carat}</div>
                     <div>Cut: {diamond.cut}</div>
                     <div>Color: {diamond.color}</div>
                     <div>Clarity: {diamond.clarity}</div>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-xl font-bold text-stone-800">{diamond.price}</span>
+                    <span className="text-2xl font-bold text-black">{diamond.price}</span>
                     <Button 
                       size="sm"
-                      className="bg-stone-900 hover:bg-stone-800 text-white"
+                      className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
                       onClick={() => setCartItems(cartItems + 1)}
                     >
                       Add to Cart

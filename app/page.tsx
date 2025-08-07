@@ -2,259 +2,318 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Mail, Phone, Facebook, Instagram, Search, User, ShoppingBag, Package, Shield, Headphones, CreditCard } from 'lucide-react'
+import { Mail, Phone, Facebook, Instagram, Search, User, ShoppingBag, ChevronDown } from 'lucide-react'
 import Link from "next/link"
-import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
 
-export default function Component() {
+export default function HomePage() {
   const router = useRouter()
   const [cartItems, setCartItems] = useState(0)
-  const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <div className="min-h-screen bg-stone-50">
+    <div className="min-h-screen bg-white">
       {/* Top Header Bar */}
-      <div className="bg-slate-800 text-white py-2 px-4">
+      <div className="bg-black text-white py-3 px-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center text-sm">
           <div className="flex items-center gap-6">
-            <a href="mailto:studio@martinoliva.co.uk" className="flex items-center gap-2 hover:text-stone-300 transition-colors">
+            <div className="flex items-center gap-2">
               <Mail className="w-4 h-4" />
               <span>studio@martinoliva.co.uk</span>
-            </a>
-            <a href="tel:+447565455568" className="flex items-center gap-2 hover:text-stone-300 transition-colors">
+            </div>
+            <div className="flex items-center gap-2">
               <Phone className="w-4 h-4" />
               <span>+44 7565 455568</span>
-            </a>
+            </div>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
+            <span className="text-sm">Follow us:</span>
             <a href="https://facebook.com/martinoliva" target="_blank" rel="noopener noreferrer">
-              <Facebook className="w-4 h-4 hover:text-stone-300 cursor-pointer transition-colors" />
+              <Facebook className="w-4 h-4 hover:text-gray-300 cursor-pointer transition-colors" />
             </a>
             <a href="https://instagram.com/martinoliva" target="_blank" rel="noopener noreferrer">
-              <Instagram className="w-4 h-4 hover:text-stone-300 cursor-pointer transition-colors" />
+              <Instagram className="w-4 h-4 hover:text-gray-300 cursor-pointer transition-colors" />
             </a>
           </div>
         </div>
       </div>
 
       {/* Main Navigation */}
-      <header className="bg-white border-b border-stone-200">
+      <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <Search 
-              className="w-5 h-5 text-stone-600 cursor-pointer hover:text-stone-800 transition-colors" 
-              onClick={() => setIsSearchOpen(!isSearchOpen)}
-            />
-            
-            <div className="flex items-center">
-              <Link href="/" className="text-2xl font-serif tracking-wider">
-                <div className="flex flex-col items-center">
-                  {/* Martin Oliva Logo */}
-                  <div className="relative w-12 h-12 mb-2">
-                    <div className="w-12 h-12 border-2 border-stone-800 rounded-full flex items-center justify-center bg-white">
-                      <div className="relative">
-                        <div className="w-6 h-0.5 bg-stone-800"></div>
-                        <div className="w-0.5 h-6 bg-stone-800 absolute top-[-12px] left-[11px]"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <span className="text-stone-800 font-bold text-lg tracking-[0.1em]">MARTIN OLIVA</span>
-                  <span className="text-xs tracking-[0.3em] text-stone-600 font-light">LONDON</span>
-                </div>
-              </Link>
-            </div>
+            {/* Mobile Menu Button */}
+            <button 
+              className="lg:hidden flex flex-col gap-1 p-2"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              <div className="w-6 h-0.5 bg-yellow-600 transition-all"></div>
+              <div className="w-6 h-0.5 bg-yellow-600 transition-all"></div>
+              <div className="w-6 h-0.5 bg-yellow-600 transition-all"></div>
+            </button>
 
-            <div className="flex items-center gap-4">
+            {/* Logo */}
+            <Link href="/" className="flex items-center">
+              <div className="text-xl md:text-2xl font-bold tracking-wider">
+                <span className="text-black">MARTIN OLIVA</span>
+                <div className="text-xs text-gray-600 tracking-[0.3em] font-light">FINE JEWELLERY</div>
+              </div>
+            </Link>
+
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center space-x-8">
+              <Link href="/" className="text-black hover:text-yellow-600 transition-colors font-medium">Home</Link>
+              <Link href="/diamonds" className="text-black hover:text-yellow-600 transition-colors font-medium">Diamonds</Link>
+              <Link href="/engagement-rings" className="text-black hover:text-yellow-600 transition-colors font-medium">Engagement Rings</Link>
+              <Link href="/wedding-bands" className="text-black hover:text-yellow-600 transition-colors font-medium">Wedding Bands</Link>
+              <Link href="/watches" className="text-black hover:text-yellow-600 transition-colors font-medium">Watches</Link>
+              <Link href="/jewellery" className="text-black hover:text-yellow-600 transition-colors font-medium">Jewellery</Link>
+              <Link href="/bespoke" className="text-black hover:text-yellow-600 transition-colors font-medium">Bespoke</Link>
+              <Link href="/services" className="text-black hover:text-yellow-600 transition-colors font-medium">Services</Link>
+              <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium">Sale</Link>
+            </nav>
+
+            {/* Right Icons */}
+            <div className="flex items-center gap-3 md:gap-4">
+              <Search className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
               <User 
-                className="w-5 h-5 text-stone-600 cursor-pointer hover:text-stone-800 transition-colors" 
+                className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" 
                 onClick={() => router.push('/account')}
               />
               <div className="relative">
                 <ShoppingBag 
-                  className="w-5 h-5 text-stone-600 cursor-pointer hover:text-stone-800 transition-colors" 
+                  className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" 
                   onClick={() => router.push('/cart')}
                 />
-                <span className="absolute -top-2 -right-2 bg-stone-800 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                  {cartItems}
-                </span>
+                {cartItems > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-yellow-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                    {cartItems}
+                  </span>
+                )}
               </div>
             </div>
           </div>
 
-          <nav className="mt-8">
-            <ul className="flex justify-center items-center gap-8 text-sm font-medium tracking-wider">
-              <li><Link href="/" className="text-stone-800 hover:text-stone-600 transition-colors">HOME</Link></li>
-              <li><Link href="/diamonds" className="text-stone-800 hover:text-stone-600 transition-colors">DIAMONDS</Link></li>
-              <li><Link href="/engagement-rings" className="text-stone-800 hover:text-stone-600 transition-colors">ENGAGEMENT RINGS</Link></li>
-              <li><Link href="/wedding-bands" className="text-stone-800 hover:text-stone-600 transition-colors">WEDDING BANDS</Link></li>
-              <li><Link href="/watches" className="text-stone-800 hover:text-stone-600 transition-colors">WATCHES</Link></li>
-              <li><Link href="/jewellery" className="text-stone-800 hover:text-stone-600 transition-colors">JEWELLERY</Link></li>
-              <li><Link href="/bespoke" className="text-stone-800 hover:text-stone-600 transition-colors">BESPOKE</Link></li>
-              <li><Link href="/services" className="text-stone-800 hover:text-stone-600 transition-colors">SERVICES</Link></li>
-              <li><Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors">SALE ITEMS</Link></li>
-            </ul>
-          </nav>
+          {/* Mobile Menu */}
+          {mobileMenuOpen && (
+            <div className="lg:hidden mt-4 pb-4 border-t border-yellow-200">
+              <nav className="flex flex-col space-y-4 pt-4">
+                <Link href="/" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Home</Link>
+                <Link href="/diamonds" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Diamonds</Link>
+                <Link href="/engagement-rings" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Engagement Rings</Link>
+                <Link href="/wedding-bands" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Wedding Bands</Link>
+                <Link href="/watches" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Watches</Link>
+                <Link href="/jewellery" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Jewellery</Link>
+                <Link href="/bespoke" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Bespoke</Link>
+                <Link href="/services" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Services</Link>
+                <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium border-l-4 border-transparent hover:border-red-600 pl-4">Sale</Link>
+              </nav>
+            </div>
+          )}
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 py-20">
-        {/* Hero Section */}
-        <section className="relative bg-stone-100 py-32">
-          <div className="max-w-7xl mx-auto px-4 text-center">
-            <h1 className="text-5xl md:text-6xl font-serif text-stone-800 mb-6 tracking-wide">
-              Exquisite Jewelry
+      {/* Hero Section */}
+      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+        {/* Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')`
+          }}
+        >
+          <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+        </div>
+
+        {/* Hero Content */}
+        <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
+          <div className="mb-6">
+            <p className="text-sm tracking-[0.3em] uppercase mb-4 text-yellow-400">GLOW WITH OUR JEWELS</p>
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+              Exclusive Diamond
+              <br />
+              <span className="text-yellow-400">Jewellery</span>
             </h1>
-            <p className="text-xl text-stone-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-              Discover our collection of handcrafted diamonds, engagement rings, and bespoke jewelry pieces
+            <div className="w-16 h-0.5 bg-yellow-400 mx-auto mb-8"></div>
+            <p className="text-lg md:text-xl leading-relaxed mb-12 max-w-2xl mx-auto">
+              Explore our unique designs crafted with the finest diamonds and precious metals. 
+              Each piece tells a story of elegance and timeless beauty.
             </p>
-            <div className="flex gap-4 justify-center">
-              <Button 
-                onClick={() => router.push('/engagement-rings')}
-                className="bg-stone-900 hover:bg-stone-800 text-white px-8 py-3 text-sm tracking-widest"
-              >
-                ENGAGEMENT RINGS
-              </Button>
-              <Button 
-                onClick={() => router.push('/diamonds')}
-                variant="outline"
-                className="border-stone-900 text-stone-900 hover:bg-stone-900 hover:text-white px-8 py-3 text-sm tracking-widest"
-              >
-                VIEW DIAMONDS
-              </Button>
-            </div>
           </div>
-        </section>
 
-        {/* Featured Categories */}
-        <section className="py-20">
-          <div className="max-w-7xl mx-auto px-4">
-            <h2 className="text-3xl font-serif text-center text-stone-800 mb-16 tracking-wide">
-              Our Collections
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="group cursor-pointer" onClick={() => router.push('/engagement-rings')}>
-                <div className="bg-stone-200 h-80 rounded-sm mb-4 flex items-center justify-center group-hover:bg-stone-300 transition-colors">
-                  <div className="w-20 h-20 border-2 border-stone-600 rounded-full flex items-center justify-center">
-                    <div className="w-8 h-8 bg-stone-600 rounded-full"></div>
-                  </div>
-                </div>
-                <h3 className="text-xl font-semibold text-stone-800 mb-2 tracking-wide">Engagement Rings</h3>
-                <p className="text-stone-600">Timeless symbols of eternal love</p>
-              </div>
-              
-              <div className="group cursor-pointer" onClick={() => router.push('/diamonds')}>
-                <div className="bg-stone-200 h-80 rounded-sm mb-4 flex items-center justify-center group-hover:bg-stone-300 transition-colors">
-                  <div className="w-20 h-20 border-2 border-stone-600 rounded-full flex items-center justify-center">
-                    <div className="w-8 h-8 bg-gradient-to-br from-stone-400 to-stone-600 rounded-full"></div>
-                  </div>
-                </div>
-                <h3 className="text-xl font-semibold text-stone-800 mb-2 tracking-wide">Diamonds</h3>
-                <p className="text-stone-600">Exceptional quality and brilliance</p>
-              </div>
-              
-              <div className="group cursor-pointer" onClick={() => router.push('/wedding-bands')}>
-                <div className="bg-stone-200 h-80 rounded-sm mb-4 flex items-center justify-center group-hover:bg-stone-300 transition-colors">
-                  <div className="w-20 h-20 border-4 border-stone-600 rounded-full"></div>
-                </div>
-                <h3 className="text-xl font-semibold text-stone-800 mb-2 tracking-wide">Wedding Bands</h3>
-                <p className="text-stone-600">Perfect companions for life</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* About Section */}
-        <section className="bg-stone-100 py-20">
-          <div className="max-w-4xl mx-auto px-4 text-center">
-            <h2 className="text-3xl font-serif text-stone-800 mb-8 tracking-wide">
-              Crafted with Passion
-            </h2>
-            <p className="text-lg text-stone-600 leading-relaxed mb-8">
-              At Martin Oliva, we believe that every piece of jewelry tells a story. Our master craftsmen 
-              combine traditional techniques with contemporary design to create exceptional pieces that 
-              celebrate life's most precious moments.
-            </p>
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button 
-              onClick={() => router.push('/bespoke')}
-              className="bg-stone-900 hover:bg-stone-800 text-white px-8 py-3 text-sm tracking-widest"
+              onClick={() => router.push('/diamonds')}
+              className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-4 text-lg rounded-none uppercase tracking-wider"
             >
-              DISCOVER BESPOKE
+              SHOP NOW
+            </Button>
+            <Button 
+              onClick={() => router.push('/engagement-rings')}
+              variant="outline"
+              className="border-2 border-white text-white hover:bg-white hover:text-black font-semibold px-8 py-4 text-lg rounded-none uppercase tracking-wider"
+            >
+              VIEW COLLECTIONS
             </Button>
           </div>
-        </section>
 
-        {/* Sidebar */}
-        <div className="w-80 hidden">
-          <Card className="border border-stone-300 shadow-sm">
-            <CardContent className="p-8">
-              <h3 className="text-sm font-semibold text-stone-800 mb-6 tracking-widest">NEED HELP? CALL US</h3>
-              <a href="tel:+442085300382" className="text-3xl font-bold text-stone-900 mb-6 hover:text-stone-700 transition-colors cursor-pointer">
-                +44 20 8530 0382
-              </a>
-              <div className="text-sm text-stone-600 space-y-2 leading-relaxed">
-                <div className="font-medium">Lines open:</div>
-                <div>Mon - Fri 10:00 - 18:00</div>
-                <div>Sat 10:00 - 17:00</div>
-              </div>
-            </CardContent>
-          </Card>
+          {/* Scroll Indicator */}
+          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+            <div className="flex flex-col items-center text-white">
+              <span className="text-sm mb-2 tracking-wider">SCROLL</span>
+              <div className="w-px h-12 bg-white opacity-50"></div>
+            </div>
+          </div>
         </div>
-      </main>
+      </section>
 
-      {/* Footer Features */}
-      <footer className="bg-white border-t border-stone-200 py-20">
+      {/* Featured Collections */}
+      <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
-            <div className="text-center">
-              <div className="flex justify-center mb-6">
-                <div className="w-16 h-16 border border-stone-300 rounded-sm flex items-center justify-center">
-                  <Package className="w-8 h-8 text-stone-600" />
-                </div>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-black mb-4">Our Collections</h2>
+            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+              Discover our carefully curated collections of fine jewelry, each piece crafted with precision and passion.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Engagement Rings */}
+            <div className="group cursor-pointer" onClick={() => router.push('/engagement-rings')}>
+              <div className="relative overflow-hidden mb-6">
+                <img 
+                  src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                  alt="Engagement Rings"
+                  className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-all duration-300"></div>
               </div>
-              <h3 className="font-semibold text-stone-800 mb-4 tracking-wider text-sm">FREE UK SHIPPING</h3>
-              <p className="text-sm text-stone-600 leading-relaxed">
-                Free UK Shipping on all our products. We ship Worldwide, please get in touch for International shipping fees.
-              </p>
+              <h3 className="text-2xl font-semibold text-black mb-2">Engagement Rings</h3>
+              <p className="text-gray-600 mb-4">Symbols of eternal love and commitment</p>
+              <Button variant="outline" className="border-black text-black hover:bg-black hover:text-white">
+                Explore Collection
+              </Button>
             </div>
 
-            <div className="text-center">
-              <div className="flex justify-center mb-6">
-                <div className="w-16 h-16 border border-stone-300 rounded-sm flex items-center justify-center">
-                  <Shield className="w-8 h-8 text-stone-600" />
-                </div>
+            {/* Wedding Bands */}
+            <div className="group cursor-pointer" onClick={() => router.push('/wedding-bands')}>
+              <div className="relative overflow-hidden mb-6">
+                <img 
+                  src="https://images.unsplash.com/photo-1544376664-80b17f09d399?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                  alt="Wedding Bands"
+                  className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-all duration-300"></div>
               </div>
-              <h3 className="font-semibold text-stone-800 mb-4 tracking-wider text-sm">30 DAYS MONEY BACK GUARANTEE</h3>
-              <p className="text-sm text-stone-600 leading-relaxed">
-                Our customer satisfaction is very important to us, should you not be entirely happy with our product, we will gladly offer you a refund or exchange within 30 days. Please note this does not apply to items damaged or
-              </p>
+              <h3 className="text-2xl font-semibold text-black mb-2">Wedding Bands</h3>
+              <p className="text-gray-600 mb-4">Perfect companions for your journey together</p>
+              <Button variant="outline" className="border-black text-black hover:bg-black hover:text-white">
+                Explore Collection
+              </Button>
             </div>
 
-            <div className="text-center">
-              <div className="flex justify-center mb-6">
-                <div className="w-16 h-16 border border-stone-300 rounded-sm flex items-center justify-center">
-                  <Headphones className="w-8 h-8 text-stone-600" />
-                </div>
+            {/* Fine Jewellery */}
+            <div className="group cursor-pointer" onClick={() => router.push('/jewellery')}>
+              <div className="relative overflow-hidden mb-6">
+                <img 
+                  src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                  alt="Fine Jewellery"
+                  className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-all duration-300"></div>
               </div>
-              <h3 className="font-semibold text-stone-800 mb-4 tracking-wider text-sm">PROFESSIONAL SUPPORT</h3>
-              <p className="text-sm text-stone-600 leading-relaxed">
-                We are available to assist you via phone, e-mail or What App. If you prefer face to face consultations, we will be delighted to welcome you in our store. Please get in touch, we love to help.
-              </p>
+              <h3 className="text-2xl font-semibold text-black mb-2">Fine Jewellery</h3>
+              <p className="text-gray-600 mb-4">Exquisite pieces for every occasion</p>
+              <Button variant="outline" className="border-black text-black hover:bg-black hover:text-white">
+                Explore Collection
+              </Button>
             </div>
+          </div>
+        </div>
+      </section>
 
-            <div className="text-center">
-              <div className="flex justify-center mb-6">
-                <div className="w-16 h-16 border border-stone-300 rounded-sm flex items-center justify-center">
-                  <CreditCard className="w-8 h-8 text-stone-600" />
-                </div>
-              </div>
-              <h3 className="font-semibold text-stone-800 mb-4 tracking-wider text-sm">EASY, FLEXIBLE PAYMENTS AND 100% SECURE CHECKOUT</h3>
-              <p className="text-sm text-stone-600 leading-relaxed">
-                We use Klarna to offer our customers a flexible solution: spread your payment into 3 installments. Secure Bank Transfer using our secure payment gateway.
+      {/* About Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-4xl font-bold text-black mb-6">Crafted with Passion</h2>
+              <p className="text-gray-600 text-lg leading-relaxed mb-6">
+                At Martin Oliva, we believe that every piece of jewelry tells a story. Our master craftsmen 
+                combine traditional techniques with contemporary design to create exceptional pieces that 
+                celebrate life's most precious moments.
+              </p>
+              <p className="text-gray-600 text-lg leading-relaxed mb-8">
+                From engagement rings that symbolize eternal love to bespoke pieces that capture your unique style, 
+                we are dedicated to creating jewelry that will be treasured for generations.
+              </p>
+              <Button 
+                onClick={() => router.push('/bespoke')}
+                className="bg-black hover:bg-gray-800 text-white px-8 py-3 uppercase tracking-wider"
+              >
+                Discover Bespoke
+              </Button>
+            </div>
+            <div className="relative">
+              <img 
+                src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Jewelry Craftsmanship"
+                className="w-full h-96 object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-black text-white py-16">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <h3 className="text-xl font-bold mb-4">MARTIN OLIVA</h3>
+              <p className="text-gray-400 mb-4">Fine Jewellery</p>
+              <p className="text-gray-400 text-sm leading-relaxed">
+                Creating exceptional jewelry pieces that celebrate life's most precious moments.
               </p>
             </div>
+            
+            <div>
+              <h4 className="font-semibold mb-4">Collections</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li><Link href="/engagement-rings" className="hover:text-white transition-colors">Engagement Rings</Link></li>
+                <li><Link href="/wedding-bands" className="hover:text-white transition-colors">Wedding Bands</Link></li>
+                <li><Link href="/diamonds" className="hover:text-white transition-colors">Diamonds</Link></li>
+                <li><Link href="/jewellery" className="hover:text-white transition-colors">Fine Jewellery</Link></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="font-semibold mb-4">Services</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li><Link href="/bespoke" className="hover:text-white transition-colors">Bespoke Design</Link></li>
+                <li><Link href="/services" className="hover:text-white transition-colors">Repairs & Maintenance</Link></li>
+                <li><Link href="/services" className="hover:text-white transition-colors">Valuations</Link></li>
+                <li><Link href="/services" className="hover:text-white transition-colors">Consultations</Link></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="font-semibold mb-4">Contact</h4>
+              <div className="space-y-2 text-gray-400">
+                <p>studio@martinoliva.co.uk</p>
+                <p>+44 7565 455568</p>
+                <p>London, UK</p>
+                <div className="flex gap-4 mt-4">
+                  <Facebook className="w-5 h-5 hover:text-white cursor-pointer transition-colors" />
+                  <Instagram className="w-5 h-5 hover:text-white cursor-pointer transition-colors" />
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+            <p>&copy; 2024 Martin Oliva. All rights reserved.</p>
           </div>
         </div>
       </footer>

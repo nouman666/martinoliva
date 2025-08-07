@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label"
 export default function BespokePage() {
   const router = useRouter()
   const [cartItems, setCartItems] = useState(0)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const bespokeProcess = [
     {
@@ -48,86 +49,101 @@ export default function BespokePage() {
   ]
 
   return (
-    <div className="min-h-screen bg-stone-50">
-      {/* Header */}
-      <div className="bg-slate-800 text-white py-2 px-4">
+    <div className="min-h-screen bg-white">
+      {/* Top Header Bar */}
+      <div className="bg-black text-white py-3 px-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center text-sm">
           <div className="flex items-center gap-6">
-            <a href="mailto:studio@martinoliva.co.uk" className="flex items-center gap-2 hover:text-stone-300 transition-colors">
+            <div className="flex items-center gap-2">
               <Mail className="w-4 h-4" />
               <span>studio@martinoliva.co.uk</span>
-            </a>
-            <a href="tel:+447565455568" className="flex items-center gap-2 hover:text-stone-300 transition-colors">
+            </div>
+            <div className="flex items-center gap-2">
               <Phone className="w-4 h-4" />
               <span>+44 7565 455568</span>
-            </a>
+            </div>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
+            <span className="text-sm">Follow us:</span>
             <a href="https://facebook.com/martinoliva" target="_blank" rel="noopener noreferrer">
-              <Facebook className="w-4 h-4 hover:text-stone-300 cursor-pointer transition-colors" />
+              <Facebook className="w-4 h-4 hover:text-gray-300 cursor-pointer transition-colors" />
             </a>
             <a href="https://instagram.com/martinoliva" target="_blank" rel="noopener noreferrer">
-              <Instagram className="w-4 h-4 hover:text-stone-300 cursor-pointer transition-colors" />
+              <Instagram className="w-4 h-4 hover:text-gray-300 cursor-pointer transition-colors" />
             </a>
           </div>
         </div>
       </div>
 
-      <header className="bg-white border-b border-stone-200">
+      <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <Search className="w-5 h-5 text-stone-600 cursor-pointer hover:text-stone-800 transition-colors" />
+            {/* Mobile Menu Button */}
+            <button 
+              className="lg:hidden flex flex-col gap-1 p-2"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              <div className="w-6 h-0.5 bg-yellow-600 transition-all"></div>
+              <div className="w-6 h-0.5 bg-yellow-600 transition-all"></div>
+              <div className="w-6 h-0.5 bg-yellow-600 transition-all"></div>
+            </button>
             
             <div className="flex items-center">
-              <Link href="/" className="text-2xl font-serif tracking-wider">
-                <div className="flex flex-col items-center">
-                  <div className="relative w-12 h-12 mb-2">
-                    <div className="w-12 h-12 border-2 border-stone-800 rounded-full flex items-center justify-center bg-white">
-                      <div className="relative">
-                        <div className="w-6 h-0.5 bg-stone-800"></div>
-                        <div className="w-0.5 h-6 bg-stone-800 absolute top-[-12px] left-[11px]"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <span className="text-stone-800 font-bold text-lg tracking-[0.1em]">MARTIN OLIVA</span>
-                  <span className="text-xs tracking-[0.3em] text-stone-600 font-light">LONDON</span>
-                </div>
+              <Link href="/" className="text-xl md:text-2xl font-bold tracking-wider">
+                <span className="text-black">MARTIN OLIVA</span>
+                <div className="text-xs text-gray-600 tracking-[0.3em] font-light">FINE JEWELLERY</div>
               </Link>
             </div>
 
-            <div className="flex items-center gap-4">
-              <User className="w-5 h-5 text-stone-600 cursor-pointer hover:text-stone-800 transition-colors" />
+            <nav className="hidden lg:flex items-center space-x-8">
+              <Link href="/" className="text-black hover:text-yellow-600 transition-colors font-medium">Home</Link>
+              <Link href="/diamonds" className="text-black hover:text-yellow-600 transition-colors font-medium">Diamonds</Link>
+              <Link href="/engagement-rings" className="text-black hover:text-yellow-600 transition-colors font-medium">Engagement Rings</Link>
+              <Link href="/wedding-bands" className="text-black hover:text-yellow-600 transition-colors font-medium">Wedding Bands</Link>
+              <Link href="/watches" className="text-black hover:text-yellow-600 transition-colors font-medium">Watches</Link>
+              <Link href="/jewellery" className="text-black hover:text-yellow-600 transition-colors font-medium">Jewellery</Link>
+              <Link href="/bespoke" className="text-yellow-600 font-medium border-b-2 border-yellow-600 pb-1">Bespoke</Link>
+              <Link href="/services" className="text-black hover:text-yellow-600 transition-colors font-medium">Services</Link>
+              <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium">Sale</Link>
+            </nav>
+
+            <div className="flex items-center gap-3 md:gap-4">
+              <Search className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
+              <User className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
               <div className="relative">
-                <ShoppingBag className="w-5 h-5 text-stone-600 cursor-pointer hover:text-stone-800 transition-colors" />
-                <span className="absolute -top-2 -right-2 bg-stone-800 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                <ShoppingBag className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
+                <span className="absolute -top-2 -right-2 bg-yellow-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                   {cartItems}
                 </span>
               </div>
             </div>
           </div>
 
-          <nav className="mt-8">
-            <ul className="flex justify-center items-center gap-8 text-sm font-medium tracking-wider">
-              <li><Link href="/" className="text-stone-800 hover:text-stone-600 transition-colors">HOME</Link></li>
-              <li><Link href="/diamonds" className="text-stone-800 hover:text-stone-600 transition-colors">DIAMONDS</Link></li>
-              <li><Link href="/engagement-rings" className="text-stone-800 hover:text-stone-600 transition-colors">ENGAGEMENT RINGS</Link></li>
-              <li><Link href="/wedding-bands" className="text-stone-800 hover:text-stone-600 transition-colors">WEDDING BANDS</Link></li>
-              <li><Link href="/watches" className="text-stone-800 hover:text-stone-600 transition-colors">WATCHES</Link></li>
-              <li><Link href="/jewellery" className="text-stone-800 hover:text-stone-600 transition-colors">JEWELLERY</Link></li>
-              <li><Link href="/bespoke" className="text-stone-800 hover:text-stone-600 transition-colors border-b-2 border-stone-800 pb-1">BESPOKE</Link></li>
-              <li><Link href="/services" className="text-stone-800 hover:text-stone-600 transition-colors">SERVICES</Link></li>
-              <li><Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors">SALE ITEMS</Link></li>
-            </ul>
-          </nav>
+          {/* Mobile Menu */}
+          {mobileMenuOpen && (
+            <div className="lg:hidden mt-4 pb-4 border-t border-yellow-200">
+              <nav className="flex flex-col space-y-4 pt-4">
+                <Link href="/" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Home</Link>
+                <Link href="/diamonds" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Diamonds</Link>
+                <Link href="/engagement-rings" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Engagement Rings</Link>
+                <Link href="/wedding-bands" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Wedding Bands</Link>
+                <Link href="/watches" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Watches</Link>
+                <Link href="/jewellery" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Jewellery</Link>
+                <Link href="/bespoke" className="text-yellow-600 font-medium border-l-4 border-yellow-600 pl-4">Bespoke</Link>
+                <Link href="/services" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Services</Link>
+                <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium border-l-4 border-transparent hover:border-red-600 pl-4">Sale</Link>
+              </nav>
+            </div>
+          )}
         </div>
       </header>
 
       {/* Hero Section */}
-      <div className="bg-stone-100 py-20">
+      <div className="bg-gray-50 py-20">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <Sparkles className="w-12 h-12 text-stone-600 mx-auto mb-6" />
-          <h1 className="text-4xl font-serif text-stone-800 mb-4 tracking-wide">Bespoke Jewellery</h1>
-          <p className="text-lg text-stone-600 max-w-3xl mx-auto leading-relaxed">
+          <Sparkles className="w-12 h-12 text-yellow-600 mx-auto mb-6" />
+          <h1 className="text-4xl font-bold text-black mb-4">Bespoke Jewellery</h1>
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Create something truly unique with our bespoke jewellery service. From initial concept to final creation, 
             we work closely with you to bring your vision to life with exceptional craftsmanship.
           </p>
@@ -135,25 +151,25 @@ export default function BespokePage() {
       </div>
 
       {/* Bespoke Process */}
-      <div className="max-w-7xl mx-auto px-4 py-20">
-        <h2 className="text-3xl font-serif text-center text-stone-800 mb-16 tracking-wide">
+      <div className="max-w-7xl mx-auto px-4 py-12 md:py-20">
+        <h2 className="text-2xl md:text-3xl font-bold text-center text-black mb-8 md:mb-16">
           Our Bespoke Process
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 md:gap-8">
           {bespokeProcess.map((process, index) => {
             const IconComponent = process.icon
             return (
               <div key={process.step} className="text-center">
                 <div className="relative mb-6">
-                  <div className="w-16 h-16 bg-stone-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="w-16 h-16 bg-black rounded-full flex items-center justify-center mx-auto mb-4">
                     <IconComponent className="w-8 h-8 text-white" />
                   </div>
-                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-stone-600 rounded-full flex items-center justify-center text-white text-sm font-bold">
+                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-yellow-600 rounded-full flex items-center justify-center text-white text-sm font-bold">
                     {process.step}
                   </div>
                 </div>
-                <h3 className="text-lg font-semibold text-stone-800 mb-2">{process.title}</h3>
-                <p className="text-sm text-stone-600 leading-relaxed">{process.description}</p>
+                <h3 className="text-lg font-semibold text-black mb-2">{process.title}</h3>
+                <p className="text-sm text-gray-600 leading-relaxed">{process.description}</p>
               </div>
             )
           })}
@@ -161,45 +177,45 @@ export default function BespokePage() {
       </div>
 
       {/* Consultation Form */}
-      <div className="bg-white py-20">
+      <div className="bg-white py-12 md:py-20">
         <div className="max-w-4xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-serif text-stone-800 mb-4 tracking-wide">
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold text-black mb-3 md:mb-4">
               Start Your Bespoke Journey
             </h2>
-            <p className="text-lg text-stone-600">
+            <p className="text-base md:text-lg text-gray-600">
               Tell us about your vision and we'll schedule a consultation to discuss your bespoke piece.
             </p>
           </div>
 
-          <Card className="border-stone-200">
+          <Card className="border-gray-200">
             <CardContent className="p-8">
               <form className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <Label htmlFor="firstName" className="text-stone-800">First Name</Label>
+                    <Label htmlFor="firstName" className="text-black">First Name</Label>
                     <Input id="firstName" className="mt-2" />
                   </div>
                   <div>
-                    <Label htmlFor="lastName" className="text-stone-800">Last Name</Label>
+                    <Label htmlFor="lastName" className="text-black">Last Name</Label>
                     <Input id="lastName" className="mt-2" />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <Label htmlFor="email" className="text-stone-800">Email</Label>
+                    <Label htmlFor="email" className="text-black">Email</Label>
                     <Input id="email" type="email" className="mt-2" />
                   </div>
                   <div>
-                    <Label htmlFor="phone" className="text-stone-800">Phone</Label>
+                    <Label htmlFor="phone" className="text-black">Phone</Label>
                     <Input id="phone" className="mt-2" />
                   </div>
                 </div>
 
                 <div>
-                  <Label htmlFor="projectType" className="text-stone-800">Project Type</Label>
-                  <select id="projectType" className="w-full mt-2 p-3 border border-stone-300 rounded-md">
+                  <Label htmlFor="projectType" className="text-black">Project Type</Label>
+                  <select id="projectType" className="w-full mt-2 p-3 border border-gray-300 rounded-md">
                     <option>Engagement Ring</option>
                     <option>Wedding Bands</option>
                     <option>Necklace</option>
@@ -210,8 +226,8 @@ export default function BespokePage() {
                 </div>
 
                 <div>
-                  <Label htmlFor="budget" className="text-stone-800">Budget Range</Label>
-                  <select id="budget" className="w-full mt-2 p-3 border border-stone-300 rounded-md">
+                  <Label htmlFor="budget" className="text-black">Budget Range</Label>
+                  <select id="budget" className="w-full mt-2 p-3 border border-gray-300 rounded-md">
                     <option>£2,000 - £5,000</option>
                     <option>£5,000 - £10,000</option>
                     <option>£10,000 - £20,000</option>
@@ -221,7 +237,7 @@ export default function BespokePage() {
                 </div>
 
                 <div>
-                  <Label htmlFor="description" className="text-stone-800">Describe Your Vision</Label>
+                  <Label htmlFor="description" className="text-black">Describe Your Vision</Label>
                   <Textarea 
                     id="description" 
                     className="mt-2 min-h-[120px]" 
@@ -230,7 +246,7 @@ export default function BespokePage() {
                 </div>
 
                 <div className="text-center">
-                  <Button className="bg-stone-900 hover:bg-stone-800 text-white px-12 py-3 text-lg">
+                  <Button className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-12 py-3 text-lg">
                     REQUEST CONSULTATION
                   </Button>
                 </div>
@@ -241,29 +257,29 @@ export default function BespokePage() {
       </div>
 
       {/* Portfolio Gallery */}
-      <div className="bg-stone-100 py-20">
+      <div className="bg-gray-50 py-12 md:py-20">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-serif text-stone-800 mb-4 tracking-wide">
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold text-black mb-3 md:mb-4">
               Bespoke Portfolio
             </h2>
-            <p className="text-lg text-stone-600">
+            <p className="text-base md:text-lg text-gray-600">
               Discover some of our recent bespoke creations
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
             {[1, 2, 3, 4, 5, 6].map((item) => (
               <div key={item} className="group cursor-pointer">
-                <div className="aspect-square bg-stone-200 rounded-lg overflow-hidden mb-4">
+                <div className="aspect-square bg-gray-200 rounded-lg overflow-hidden mb-4">
                   <img 
                     src={`/bespoke-portfolio-${item}.png` || "/placeholder.svg"} 
                     alt={`Bespoke piece ${item}`}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
-                <h3 className="text-lg font-semibold text-stone-800 mb-1">Custom Creation {item}</h3>
-                <p className="text-sm text-stone-600">Unique bespoke design</p>
+                <h3 className="text-lg font-semibold text-black mb-1">Custom Creation {item}</h3>
+                <p className="text-sm text-gray-600">Unique bespoke design</p>
               </div>
             ))}
           </div>

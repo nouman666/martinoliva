@@ -136,25 +136,27 @@ export default function SalePage() {
 
   return (
     <div className="min-h-screen bg-stone-50">
-      {/* Header */}
+      {/* Top Header Bar */}
       <div className="bg-slate-800 text-white py-2 px-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center text-sm">
-          <div className="flex items-center gap-6">
-            <a href="mailto:studio@martinoliva.co.uk" className="flex items-center gap-2 hover:text-stone-300 transition-colors">
-              <Mail className="w-4 h-4" />
-              <span>studio@martinoliva.co.uk</span>
+          <div className="flex items-center gap-3 md:gap-6">
+            <a href="mailto:studio@martinoliva.co.uk" className="flex items-center gap-1 md:gap-2 hover:text-stone-300 transition-colors">
+              <Mail className="w-3 h-3 md:w-4 md:h-4" />
+              <span className="hidden sm:inline">studio@martinoliva.co.uk</span>
+              <span className="sm:hidden">Email</span>
             </a>
-            <a href="tel:+447565455568" className="flex items-center gap-2 hover:text-stone-300 transition-colors">
-              <Phone className="w-4 h-4" />
-              <span>+44 7565 455568</span>
+            <a href="tel:+447565455568" className="flex items-center gap-1 md:gap-2 hover:text-stone-300 transition-colors">
+              <Phone className="w-3 h-3 md:w-4 md:h-4" />
+              <span className="hidden sm:inline">+44 7565 455568</span>
+              <span className="sm:hidden">Call</span>
             </a>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 md:gap-3">
             <a href="https://facebook.com/martinoliva" target="_blank" rel="noopener noreferrer">
-              <Facebook className="w-4 h-4 hover:text-stone-300 cursor-pointer transition-colors" />
+              <Facebook className="w-3 h-3 md:w-4 md:h-4 hover:text-stone-300 cursor-pointer transition-colors" />
             </a>
             <a href="https://instagram.com/martinoliva" target="_blank" rel="noopener noreferrer">
-              <Instagram className="w-4 h-4 hover:text-stone-300 cursor-pointer transition-colors" />
+              <Instagram className="w-3 h-3 md:w-4 md:h-4 hover:text-stone-300 cursor-pointer transition-colors" />
             </a>
           </div>
         </div>
@@ -168,15 +170,15 @@ export default function SalePage() {
             <div className="flex items-center">
               <Link href="/" className="text-2xl font-serif tracking-wider">
                 <div className="flex flex-col items-center">
-                  <div className="relative w-12 h-12 mb-2">
-                    <div className="w-12 h-12 border-2 border-stone-800 rounded-full flex items-center justify-center bg-white">
+                  <div className="relative w-8 h-8 md:w-12 md:h-12 mb-1 md:mb-2">
+                    <div className="w-8 h-8 md:w-12 md:h-12 border-2 border-stone-800 rounded-full flex items-center justify-center bg-white">
                       <div className="relative">
-                        <div className="w-6 h-0.5 bg-stone-800"></div>
-                        <div className="w-0.5 h-6 bg-stone-800 absolute top-[-12px] left-[11px]"></div>
+                        <div className="w-4 h-0.5 md:w-6 md:h-0.5 bg-stone-800"></div>
+                        <div className="w-0.5 h-4 md:w-0.5 md:h-6 bg-stone-800 absolute top-[-8px] md:top-[-12px] left-[7px] md:left-[11px]"></div>
                       </div>
                     </div>
                   </div>
-                  <span className="text-stone-800 font-bold text-lg tracking-[0.1em]">MARTIN OLIVA</span>
+                  <span className="text-stone-800 font-bold text-sm md:text-lg tracking-[0.1em]">MARTIN OLIVA</span>
                   <span className="text-xs tracking-[0.3em] text-stone-600 font-light">LONDON</span>
                 </div>
               </Link>
@@ -193,8 +195,10 @@ export default function SalePage() {
             </div>
           </div>
 
-          <nav className="mt-8">
-            <ul className="flex justify-center items-center gap-8 text-sm font-medium tracking-wider">
+          {/* Mobile Navigation */}
+          <nav className="mt-6 md:mt-8">
+            {/* Desktop Navigation */}
+            <ul className="hidden lg:flex justify-center items-center gap-8 text-sm font-medium tracking-wider">
               <li><Link href="/" className="text-stone-800 hover:text-stone-600 transition-colors">HOME</Link></li>
               <li><Link href="/diamonds" className="text-stone-800 hover:text-stone-600 transition-colors">DIAMONDS</Link></li>
               <li><Link href="/engagement-rings" className="text-stone-800 hover:text-stone-600 transition-colors">ENGAGEMENT RINGS</Link></li>
@@ -205,53 +209,71 @@ export default function SalePage() {
               <li><Link href="/services" className="text-stone-800 hover:text-stone-600 transition-colors">SERVICES</Link></li>
               <li><Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors border-b-2 border-red-600 pb-1">SALE ITEMS</Link></li>
             </ul>
+            
+            {/* Mobile Navigation - Horizontal Scroll */}
+            <div className="lg:hidden overflow-x-auto">
+              <ul className="flex gap-6 text-xs font-medium tracking-wider whitespace-nowrap pb-2">
+                <li><Link href="/" className="text-stone-800 hover:text-stone-600 transition-colors">HOME</Link></li>
+                <li><Link href="/diamonds" className="text-stone-800 hover:text-stone-600 transition-colors">DIAMONDS</Link></li>
+                <li><Link href="/engagement-rings" className="text-stone-800 hover:text-stone-600 transition-colors">ENGAGEMENT</Link></li>
+                <li><Link href="/wedding-bands" className="text-stone-800 hover:text-stone-600 transition-colors">WEDDING</Link></li>
+                <li><Link href="/watches" className="text-stone-800 hover:text-stone-600 transition-colors">WATCHES</Link></li>
+                <li><Link href="/jewellery" className="text-stone-800 hover:text-stone-600 transition-colors">JEWELLERY</Link></li>
+                <li><Link href="/bespoke" className="text-stone-800 hover:text-stone-600 transition-colors">BESPOKE</Link></li>
+                <li><Link href="/services" className="text-stone-800 hover:text-stone-600 transition-colors">SERVICES</Link></li>
+                <li><Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors border-b-2 border-red-600 pb-1">SALE</Link></li>
+              </ul>
+            </div>
           </nav>
         </div>
       </header>
 
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-red-600 to-red-700 text-white py-20">
+      <div className="bg-gradient-to-r from-red-600 to-red-700 text-white py-12 md:py-20">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <Tag className="w-12 h-12 mx-auto mb-6" />
-          <h1 className="text-4xl font-serif mb-4 tracking-wide">Exclusive Sale</h1>
-          <p className="text-xl mb-6 max-w-3xl mx-auto leading-relaxed">
+          <Tag className="w-8 h-8 md:w-12 md:h-12 mx-auto mb-4 md:mb-6" />
+          <h1 className="text-2xl md:text-4xl font-serif mb-3 md:mb-4 tracking-wide">Exclusive Sale</h1>
+          <p className="text-base md:text-xl mb-4 md:mb-6 max-w-3xl mx-auto leading-relaxed px-4">
             Discover exceptional savings on our finest jewelry and timepieces. 
             Limited time offers on selected pieces from our luxury collection.
           </p>
-          <div className="flex items-center justify-center gap-8 text-lg">
+          <div className="flex items-center justify-center gap-4 md:gap-8 text-sm md:text-lg">
             <div className="flex items-center gap-2">
-              <Percent className="w-5 h-5" />
+              <Percent className="w-4 h-4 md:w-5 md:h-5" />
               <span>Up to 30% Off</span>
             </div>
             <div className="flex items-center gap-2">
-              <Clock className="w-5 h-5" />
-              <span>Limited Time Only</span>
+              <Clock className="w-4 h-4 md:w-5 md:h-5" />
+              <span className="hidden sm:inline">Limited Time Only</span>
+              <span className="sm:hidden">Limited Time</span>
             </div>
           </div>
         </div>
       </div>
 
       {/* Sale Banner */}
-      <div className="bg-stone-800 text-white py-4">
+      <div className="bg-stone-800 text-white py-3 md:py-4">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <p className="text-lg font-semibold">
-            🔥 FLASH SALE: Additional 10% off when you buy 2 or more items | Use code: SAVE10
+          <p className="text-sm md:text-lg font-semibold">
+            <span className="hidden sm:inline">🔥 FLASH SALE: Additional 10% off when you buy 2 or more items | Use code: SAVE10</span>
+            <span className="sm:hidden">🔥 Extra 10% off 2+ items | Code: SAVE10</span>
           </p>
         </div>
       </div>
 
       {/* Sale Items */}
-      <div className="max-w-7xl mx-auto px-4 py-16">
+      <div className="max-w-7xl mx-auto px-4 py-8 md:py-16">
         <Tabs defaultValue="all" className="w-full">
-          <TabsList className="grid w-full grid-cols-4 mb-12">
-            <TabsTrigger value="all" className="text-lg py-4">All Sale Items</TabsTrigger>
-            <TabsTrigger value="rings" className="text-lg py-4">Rings</TabsTrigger>
-            <TabsTrigger value="jewellery" className="text-lg py-4">Jewellery</TabsTrigger>
-            <TabsTrigger value="watches" className="text-lg py-4">Watches</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 mb-8 md:mb-12">
+            <TabsTrigger value="all" className="text-sm md:text-lg py-3 md:py-4">All Items</TabsTrigger>
+            <TabsTrigger value="rings" className="text-sm md:text-lg py-3 md:py-4">Rings</TabsTrigger>
+            <TabsTrigger value="jewellery" className="text-sm md:text-lg py-3 md:py-4 hidden md:block">Jewellery</TabsTrigger>
+            <TabsTrigger value="jewellery" className="text-sm md:text-lg py-3 md:py-4 md:hidden">Jewelry</TabsTrigger>
+            <TabsTrigger value="watches" className="text-sm md:text-lg py-3 md:py-4">Watches</TabsTrigger>
           </TabsList>
 
           <TabsContent value="all">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
               {allSaleItems.map((item) => (
                 <Card key={item.id} className="group cursor-pointer hover:shadow-xl transition-all duration-300 border-red-200">
                   <CardContent className="p-0">
@@ -313,7 +335,7 @@ export default function SalePage() {
           </TabsContent>
 
           <TabsContent value="rings">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
               {saleItems.rings.map((item) => (
                 <Card key={item.id} className="group cursor-pointer hover:shadow-xl transition-all duration-300 border-red-200">
                   <CardContent className="p-0">
@@ -375,7 +397,7 @@ export default function SalePage() {
           </TabsContent>
 
           <TabsContent value="jewellery">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
               {saleItems.jewellery.map((item) => (
                 <Card key={item.id} className="group cursor-pointer hover:shadow-xl transition-all duration-300 border-red-200">
                   <CardContent className="p-0">
@@ -437,7 +459,7 @@ export default function SalePage() {
           </TabsContent>
 
           <TabsContent value="watches">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
               {saleItems.watches.map((item) => (
                 <Card key={item.id} className="group cursor-pointer hover:shadow-xl transition-all duration-300 border-red-200">
                   <CardContent className="p-0">
@@ -501,12 +523,12 @@ export default function SalePage() {
       </div>
 
       {/* Sale Terms */}
-      <div className="bg-stone-100 py-16">
+      <div className="bg-stone-100 py-8 md:py-16">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-2xl font-serif text-center text-stone-800 mb-8 tracking-wide">
+          <h2 className="text-xl md:text-2xl font-serif text-center text-stone-800 mb-6 md:mb-8 tracking-wide">
             Sale Terms & Conditions
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm text-stone-600">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 text-sm text-stone-600">
             <div>
               <h3 className="font-semibold text-stone-800 mb-3">Sale Information</h3>
               <ul className="space-y-2">
@@ -530,22 +552,22 @@ export default function SalePage() {
       </div>
 
       {/* Urgency CTA */}
-      <div className="bg-red-600 text-white py-12">
+      <div className="bg-red-600 text-white py-8 md:py-12">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-2xl font-serif mb-4">Don't Miss Out!</h2>
-          <p className="text-lg mb-6">
+          <h2 className="text-xl md:text-2xl font-serif mb-3 md:mb-4">Don't Miss Out!</h2>
+          <p className="text-base md:text-lg mb-4 md:mb-6">
             These exclusive offers won't last long. Shop now and save on luxury jewelry and timepieces.
           </p>
-          <div className="flex gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
             <Button 
-              className="bg-white text-red-600 hover:bg-stone-100 px-8 py-3"
+              className="bg-white text-red-600 hover:bg-stone-100 px-6 md:px-8 py-3"
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             >
               SHOP SALE NOW
             </Button>
             <Button 
               variant="outline"
-              className="border-white text-white hover:bg-white hover:text-red-600 px-8 py-3"
+              className="border-white text-white hover:bg-white hover:text-red-600 px-6 md:px-8 py-3"
               onClick={() => router.push('/services')}
             >
               NEED HELP?
