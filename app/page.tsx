@@ -168,7 +168,7 @@ export default function HomePage() {
         </div>
       </section>
 
-{/* Featured Collections */}
+{/* Featured Collections with Hover Reveal */}
 <section className="py-20 bg-gray-50">
   <div className="max-w-7xl mx-auto px-4">
     <div className="text-center mb-16">
@@ -179,73 +179,71 @@ export default function HomePage() {
     </div>
 
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-      
       {/* Engagement Rings */}
       <div
-        className="group shimmer-container cursor-pointer bg-white rounded-xl overflow-hidden shadow-md hover:shadow-yellow-500/60 hover:scale-105 transition-all duration-500 ease-in-out"
+        className="relative group overflow-hidden rounded-xl shadow-lg cursor-pointer"
         onClick={() => router.push('/engagement-rings')}
       >
-        <div className="relative overflow-hidden mb-6">
-          <img
-            src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-            alt="Engagement Rings"
-            className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-          <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-all duration-300 z-0"></div>
-        </div>
-        <div className="px-6 pb-6 relative z-10">
-          <h3 className="text-2xl font-semibold text-black mb-2">Engagement Rings</h3>
-          <p className="text-gray-600 mb-4">Symbols of eternal love and commitment</p>
-          <Button variant="outline" className="border-black text-black hover:bg-black hover:text-white">
-            Explore Collection
+        <img
+          src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+          alt="Engagement Rings"
+          className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+        <div className="absolute bottom-0 left-0 w-full px-6 py-6 opacity-0 group-hover:opacity-100 translate-y-6 group-hover:translate-y-0 transition-all duration-500 text-white z-10">
+          <span className="text-xs uppercase tracking-widest text-yellow-400 mb-1 block">RINGS</span>
+          <h3 className="text-2xl font-semibold mb-1">Engagement Rings</h3>
+          <p className="text-sm mb-4 text-gray-200">Forever Begins</p>
+          <Button className="bg-yellow-400 text-black font-bold px-5 py-2 rounded-none hover:bg-yellow-500">
+            EXPLORE COLLECTION
           </Button>
         </div>
       </div>
 
       {/* Wedding Bands */}
       <div
-        className="group shimmer-container cursor-pointer bg-white rounded-xl overflow-hidden shadow-md hover:shadow-yellow-500/60 hover:scale-105 transition-all duration-500 ease-in-out"
+        className="relative group overflow-hidden rounded-xl shadow-lg cursor-pointer"
         onClick={() => router.push('/wedding-bands')}
       >
-        <div className="relative overflow-hidden mb-6">
-          <img
-            src="https://images.unsplash.com/photo-1544376664-80b17f09d399?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-            alt="Wedding Bands"
-            className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-          <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-all duration-300 z-0"></div>
-        </div>
-        <div className="px-6 pb-6 relative z-10">
-          <h3 className="text-2xl font-semibold text-black mb-2">Wedding Bands</h3>
-          <p className="text-gray-600 mb-4">Perfect companions for your journey together</p>
-          <Button variant="outline" className="border-black text-black hover:bg-black hover:text-white">
-            Explore Collection
+        <img
+          src="https://images.unsplash.com/photo-1544376664-80b17f09d399?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+          alt="Wedding Bands"
+          className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+        <div className="absolute bottom-0 left-0 w-full px-6 py-6 opacity-0 group-hover:opacity-100 translate-y-6 group-hover:translate-y-0 transition-all duration-500 text-white z-10">
+          <span className="text-xs uppercase tracking-widest text-yellow-400 mb-1 block">BANDS</span>
+          <h3 className="text-2xl font-semibold mb-1">Wedding Bands</h3>
+          <p className="text-sm mb-4 text-gray-200">Together Forever</p>
+          <Button className="bg-yellow-400 text-black font-bold px-5 py-2 rounded-none hover:bg-yellow-500">
+            EXPLORE COLLECTION
           </Button>
         </div>
       </div>
 
       {/* Fine Jewellery */}
       <div
-        className="group shimmer-container cursor-pointer bg-white rounded-xl overflow-hidden shadow-md hover:shadow-yellow-500/60 hover:scale-105 transition-all duration-500 ease-in-out"
+        className="relative group overflow-hidden rounded-xl shadow-lg cursor-pointer"
         onClick={() => router.push('/jewellery')}
       >
-        <div className="relative overflow-hidden mb-6">
-          <img
-            src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-            alt="Fine Jewellery"
-            className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-          <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-all duration-300 z-0"></div>
-        </div>
-        <div className="px-6 pb-6 relative z-10">
-          <h3 className="text-2xl font-semibold text-black mb-2">Fine Jewellery</h3>
-          <p className="text-gray-600 mb-4">Exquisite pieces for every occasion</p>
-          <Button variant="outline" className="border-black text-black hover:bg-black hover:text-white">
-            Explore Collection
+        <img
+          src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+          alt="Fine Jewellery"
+          className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+        <div className="absolute bottom-0 left-0 w-full px-6 py-6 opacity-0 group-hover:opacity-100 translate-y-6 group-hover:translate-y-0 transition-all duration-500 text-white z-10">
+          <span className="text-xs uppercase tracking-widest text-yellow-400 mb-1 block">FINE</span>
+          <h3 className="text-2xl font-semibold mb-1">Fine Jewellery</h3>
+          <p className="text-sm mb-4 text-gray-200">Elegance Daily</p>
+          <Button className="bg-yellow-400 text-black font-bold px-5 py-2 rounded-none hover:bg-yellow-500">
+            EXPLORE COLLECTION
           </Button>
         </div>
       </div>
-
     </div>
   </div>
 </section>
