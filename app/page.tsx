@@ -168,70 +168,85 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Featured Collections */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-black mb-4">Our Collections</h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-              Discover our carefully curated collections of fine jewelry, each piece crafted with precision and passion.
-            </p>
-          </div>
+     {/* Featured Collections */}
+<section className="py-20 bg-gray-50">
+  <div className="max-w-7xl mx-auto px-4">
+    <div className="text-center mb-16">
+      <h2 className="text-4xl font-bold text-black mb-4">Our Collections</h2>
+      <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+        Discover our carefully curated collections of fine jewelry, each piece crafted with precision and passion.
+      </p>
+    </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Engagement Rings */}
-            <div className="group cursor-pointer" onClick={() => router.push('/engagement-rings')}>
-              <div className="relative overflow-hidden mb-6">
-                <img 
-                  src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                  alt="Engagement Rings"
-                  className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-all duration-300"></div>
-              </div>
-              <h3 className="text-2xl font-semibold text-black mb-2">Engagement Rings</h3>
-              <p className="text-gray-600 mb-4">Symbols of eternal love and commitment</p>
-              <Button variant="outline" className="border-black text-black hover:bg-black hover:text-white">
-                Explore Collection
-              </Button>
-            </div>
-
-            {/* Wedding Bands */}
-            <div className="group cursor-pointer" onClick={() => router.push('/wedding-bands')}>
-              <div className="relative overflow-hidden mb-6">
-                <img 
-                  src="https://images.unsplash.com/photo-1544376664-80b17f09d399?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                  alt="Wedding Bands"
-                  className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-all duration-300"></div>
-              </div>
-              <h3 className="text-2xl font-semibold text-black mb-2">Wedding Bands</h3>
-              <p className="text-gray-600 mb-4">Perfect companions for your journey together</p>
-              <Button variant="outline" className="border-black text-black hover:bg-black hover:text-white">
-                Explore Collection
-              </Button>
-            </div>
-
-            {/* Fine Jewellery */}
-            <div className="group cursor-pointer" onClick={() => router.push('/jewellery')}>
-              <div className="relative overflow-hidden mb-6">
-                <img 
-                  src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                  alt="Fine Jewellery"
-                  className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-all duration-300"></div>
-              </div>
-              <h3 className="text-2xl font-semibold text-black mb-2">Fine Jewellery</h3>
-              <p className="text-gray-600 mb-4">Exquisite pieces for every occasion</p>
-              <Button variant="outline" className="border-black text-black hover:bg-black hover:text-white">
-                Explore Collection
-              </Button>
-            </div>
-          </div>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {/* Engagement Rings */}
+      <div
+        className="group cursor-pointer bg-white rounded-lg overflow-hidden shadow-md hover:shadow-yellow-500/40 hover:scale-105 transition-all duration-500 ease-in-out" // ✅ added hover glow & zoom
+        onClick={() => router.push('/engagement-rings')}
+      >
+        <div className="relative overflow-hidden mb-6">
+          <img
+            src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            alt="Engagement Rings"
+            className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500" // ✅ smooth zoom
+          />
+          <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-all duration-300"></div>
         </div>
-      </section>
+        <div className="px-6 pb-6"> {/* ✅ added padding */}
+          <h3 className="text-2xl font-semibold text-black mb-2">Engagement Rings</h3>
+          <p className="text-gray-600 mb-4">Symbols of eternal love and commitment</p>
+          <Button variant="outline" className="border-black text-black hover:bg-black hover:text-white">
+            Explore Collection
+          </Button>
+        </div>
+      </div>
+
+      {/* Wedding Bands */}
+      <div
+        className="group cursor-pointer bg-white rounded-lg overflow-hidden shadow-md hover:shadow-yellow-500/40 hover:scale-105 transition-all duration-500 ease-in-out" // ✅ added hover glow & zoom
+        onClick={() => router.push('/wedding-bands')}
+      >
+        <div className="relative overflow-hidden mb-6">
+          <img
+            src="https://images.unsplash.com/photo-1544376664-80b17f09d399?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            alt="Wedding Bands"
+            className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500" // ✅ smooth zoom
+          />
+          <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-all duration-300"></div>
+        </div>
+        <div className="px-6 pb-6"> {/* ✅ added padding */}
+          <h3 className="text-2xl font-semibold text-black mb-2">Wedding Bands</h3>
+          <p className="text-gray-600 mb-4">Perfect companions for your journey together</p>
+          <Button variant="outline" className="border-black text-black hover:bg-black hover:text-white">
+            Explore Collection
+          </Button>
+        </div>
+      </div>
+
+      {/* Fine Jewellery */}
+      <div
+        className="group cursor-pointer bg-white rounded-lg overflow-hidden shadow-md hover:shadow-yellow-500/40 hover:scale-105 transition-all duration-500 ease-in-out" // ✅ added hover glow & zoom
+        onClick={() => router.push('/jewellery')}
+      >
+        <div className="relative overflow-hidden mb-6">
+          <img
+            src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            alt="Fine Jewellery"
+            className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500" // ✅ smooth zoom
+          />
+          <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-all duration-300"></div>
+        </div>
+        <div className="px-6 pb-6"> {/* ✅ added padding */}
+          <h3 className="text-2xl font-semibold text-black mb-2">Fine Jewellery</h3>
+          <p className="text-gray-600 mb-4">Exquisite pieces for every occasion</p>
+          <Button variant="outline" className="border-black text-black hover:bg-black hover:text-white">
+            Explore Collection
+          </Button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* About Section */}
       <section className="py-20 bg-white">
