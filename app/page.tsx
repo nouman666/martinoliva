@@ -11,6 +11,7 @@ export default function HomePage() {
   const [cartItems, setCartItems] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 const [hovered, setHovered] = useState(null) // track which box is active
+const [animationClass, setAnimationClass] = useState('')
 
   return (
     <div className="min-h-screen bg-white">
@@ -182,18 +183,25 @@ const [hovered, setHovered] = useState(null) // track which box is active
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Engagement Rings */}
           <div
-            className={`group shimmer-box rounded-xl shadow-lg cursor-pointer transition-transform duration-700 ease-in-out 
-              ${hovered === 'engagement' ? 'shimmer-left-to-right' : hovered === null ? '' : 'shimmer-right-to-left'}`}
-            onMouseEnter={() => setHovered('engagement')}
-            onMouseLeave={() => setHovered(null)}
+            className="relative group overflow-hidden rounded-xl shadow-lg cursor-pointer"
+            onMouseEnter={() =>
+              setAnimation({ ...animation, engagement: 'animate-sweep-in' })
+            }
+            onMouseLeave={() =>
+              setAnimation({ ...animation, engagement: 'animate-sweep-out' })
+            }
             onClick={() => router.push('/engagement-rings')}
           >
+            <div className={`sweep-line ${animation.engagement}`}></div>
+
             <img
               src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
               alt="Engagement Rings"
               className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700"
             />
+
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+
             <div className="absolute bottom-0 left-0 w-full px-6 py-6 opacity-0 group-hover:opacity-100 translate-y-10 group-hover:translate-y-0 transition-all duration-700 ease-in-out text-white z-20">
               <span className="text-xs uppercase tracking-widest text-yellow-400 mb-1 block">RINGS</span>
               <h3 className="text-2xl font-semibold mb-1">Engagement Rings</h3>
@@ -206,18 +214,25 @@ const [hovered, setHovered] = useState(null) // track which box is active
 
           {/* Wedding Bands */}
           <div
-            className={`group shimmer-box rounded-xl shadow-lg cursor-pointer transition-transform duration-700 ease-in-out 
-              ${hovered === 'wedding' ? 'shimmer-left-to-right' : hovered === null ? '' : 'shimmer-right-to-left'}`}
-            onMouseEnter={() => setHovered('wedding')}
-            onMouseLeave={() => setHovered(null)}
+            className="relative group overflow-hidden rounded-xl shadow-lg cursor-pointer"
+            onMouseEnter={() =>
+              setAnimation({ ...animation, wedding: 'animate-sweep-in' })
+            }
+            onMouseLeave={() =>
+              setAnimation({ ...animation, wedding: 'animate-sweep-out' })
+            }
             onClick={() => router.push('/wedding-bands')}
           >
+            <div className={`sweep-line ${animation.wedding}`}></div>
+
             <img
               src="https://images.unsplash.com/photo-1544376664-80b17f09d399?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
               alt="Wedding Bands"
               className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700"
             />
+
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+
             <div className="absolute bottom-0 left-0 w-full px-6 py-6 opacity-0 group-hover:opacity-100 translate-y-10 group-hover:translate-y-0 transition-all duration-700 ease-in-out text-white z-20">
               <span className="text-xs uppercase tracking-widest text-yellow-400 mb-1 block">BANDS</span>
               <h3 className="text-2xl font-semibold mb-1">Wedding Bands</h3>
@@ -230,18 +245,25 @@ const [hovered, setHovered] = useState(null) // track which box is active
 
           {/* Fine Jewellery */}
           <div
-            className={`group shimmer-box rounded-xl shadow-lg cursor-pointer transition-transform duration-700 ease-in-out 
-              ${hovered === 'jewellery' ? 'shimmer-left-to-right' : hovered === null ? '' : 'shimmer-right-to-left'}`}
-            onMouseEnter={() => setHovered('jewellery')}
-            onMouseLeave={() => setHovered(null)}
+            className="relative group overflow-hidden rounded-xl shadow-lg cursor-pointer"
+            onMouseEnter={() =>
+              setAnimation({ ...animation, jewellery: 'animate-sweep-in' })
+            }
+            onMouseLeave={() =>
+              setAnimation({ ...animation, jewellery: 'animate-sweep-out' })
+            }
             onClick={() => router.push('/jewellery')}
           >
+            <div className={`sweep-line ${animation.jewellery}`}></div>
+
             <img
               src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
               alt="Fine Jewellery"
               className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700"
             />
+
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+
             <div className="absolute bottom-0 left-0 w-full px-6 py-6 opacity-0 group-hover:opacity-100 translate-y-10 group-hover:translate-y-0 transition-all duration-700 ease-in-out text-white z-20">
               <span className="text-xs uppercase tracking-widest text-yellow-400 mb-1 block">FINE</span>
               <h3 className="text-2xl font-semibold mb-1">Fine Jewellery</h3>
