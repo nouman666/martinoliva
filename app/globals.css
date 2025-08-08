@@ -147,4 +147,80 @@
   from { left: 125%; }
   to { left: -75%; }
 }
+@layer components {
+  /* Base gold button */
+  .btn-gold {
+    position: relative;
+    overflow: hidden;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+  }
+
+  /* The sweep shine */
+  .btn-gold::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      120deg,
+      rgba(255,255,255,0) 0%,
+      rgba(255,223,100,.45) 50%,
+      rgba(255,255,255,0) 100%
+    );
+    transform: skewX(-20deg) translateX(-130%);
+    pointer-events: none;
+  }
+
+  /* Glow border on hover */
+  .btn-gold::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    box-shadow: 0 0 0 0 rgba(234,179,8,.0); /* Tailwind's yellow-500-ish */
+    transition: box-shadow .35s ease;
+    pointer-events: none;
+  }
+
+  /* run sweep + glow */
+  .btn-gold:hover::before { animation: btnSweep .8s forwards; }
+  .btn-gold:hover::after { box-shadow: 0 0 0 2px rgba(234,179,8,.9), 0 0 24px 2px rgba(234,179,8,.35); }
+
+  /* focus ring */
+  .btn-gold:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(0,0,0,.6); }
+
+  /* Solid variant */
+  .btn-gold--solid {
+    background: rgb(234 179 8); /* yellow-500 */
+    color: #111;
+  }
+  .btn-gold--solid:hover { background: rgb(234 179 8); } /* keep tone, rely on glow */
+
+  /* Outline variant */
+  .btn-gold--outline {
+    background: transparent;
+    color: #fff;
+    border: 2px solid #fff;
+  }
+  .btn-gold--outline:hover {
+    color: #111;
+    background: #fff;
+  }
+
+  @keyframes btnSweep {
+    from { transform: skewX(-20deg) translateX(-130%); }
+    to   { transform: skewX(-20deg) translateX(130%); }
+  }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .btn-gold::before,
+    .btn-gold::after,
+    .btn-gold:hover::before,
+    .btn-gold:hover::after {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+}
 
