@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Mail, Phone, Facebook, Instagram, Search, User, ShoppingBag, ChevronDown } from 'lucide-react'
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 
@@ -20,7 +19,7 @@ const [animation, setAnimation] = useState({
   return (
     <div className="min-h-screen bg-white">
       {/* Top Header Bar */}
-      <div className="bg-black text-white py-3 px-4">
+      <div className="bg-gradient-to-r from-black to-yellow-500 text-white py-3 px-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center text-sm">
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
