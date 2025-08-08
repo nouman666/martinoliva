@@ -47,151 +47,62 @@
     --input: 12 6.5% 15.1%;
     --ring: 24 5.7% 82.9%;
   }
+
+  * { @apply border-border; } /* optional */
+  body { @apply bg-background text-foreground; }
 }
 
-@layer base {
-  * {
-    @apply border-border;
+@layer utilities {
+  .font-playfair { font-family: var(--font-playfair), serif; }
+  .tracking-luxe { letter-spacing: 0.2em; }
+  .smooth {
+    transition: opacity .2s ease-in-out, transform .2s ease-in-out,
+                color .2s ease-in-out, background-color .2s ease-in-out,
+                border-color .2s ease-in-out;
   }
-  body {
-    @apply bg-background text-foreground;
+}
+
+/* Shimmer & sweep */
+@layer components {
+  .shimmer-container,
+  .shimmer-box,
+  .sweep-parent { position: relative; overflow: hidden; }
+
+  .shimmer-container::before,
+  .shimmer-box::before,
+  .sweep-parent::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transform: skewX(-20deg);
+    pointer-events: none;
+    z-index: 5;
   }
-}
 
-/* Custom styles for Martin Oliva */
-.font-serif {
-  font-family: var(--font-playfair), serif;
-}
-
-/* Smooth transitions */
-* {
-  transition: all 0.2s ease-in-out;
-}
-
-/* Custom letter spacing for luxury feel */
-.tracking-widest {
-  letter-spacing: 0.2em;
-}
-/* shimmer.css */
-.shimmer-container {
-  position: relative;
-  overflow: hidden;
-}
-
-.shimmer-container::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -75%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(
-    120deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 223, 100, 0.4) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  transform: skewX(-20deg);
-}
-
-.shimmer-container:hover::before {
-  animation: shimmer 1s ease-in-out forwards;
-}
-
-@keyframes shimmer {
-  0% {
+  .shimmer-container::before {
     left: -75%;
+    width: 50%;
+    background: linear-gradient(120deg, rgba(255,255,255,0) 0%,
+      rgba(255,223,100,0.4) 50%, rgba(255,255,255,0) 100%);
   }
-  100% {
-    left: 125%;
-  }
-}
-.shimmer-box {
-  position: relative;
-  overflow: hidden;
-}
+  .shimmer-container:hover::before { animation: shimmer 1s ease-in-out forwards; }
 
-.shimmer-box::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  height: 100%;
-  width: 60%;
-  transform: skewX(-20deg);
-  background: linear-gradient(
-    120deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 223, 100, 0.3) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  pointer-events: none;
-  z-index: 5;
-}
-
-.shimmer-left-to-right::before {
-  animation: shimmer-left 0.8s forwards;
-}
-
-.shimmer-right-to-left::before {
-  animation: shimmer-right 0.8s forwards;
-}
-
-@keyframes shimmer-left {
-  from {
+  .shimmer-box::before {
     left: -75%;
+    width: 60%;
+    background: linear-gradient(120deg, rgba(255,255,255,0) 0%,
+      rgba(255,223,100,0.3) 50%, rgba(255,255,255,0) 100%);
   }
-  to {
-    left: 125%;
-  }
+  .shimmer-left-to-right::before { animation: shimmer-left .8s forwards; }
+  .shimmer-right-to-left::before { animation: shimmer-right .8s forwards; }
+
+  .sweep-left-to-right::before { animation: sweepIn .8s forwards; }
+  .sweep-right-to-left::before { animation: sweepOut .8s forwards; }
 }
 
-@keyframes shimmer-right {
-  from {
-    left: 125%;
-  }
-  to {
-    left: -75%;
-  }
-}
-.sweep-line {
-  content: "";
-  position: absolute;
-  top: 0;
-  height: 100%;
-  width: 50%;
-  transform: skewX(-20deg);
-  background: linear-gradient(
-    120deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 223, 100, 0.4) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  pointer-events: none;
-  z-index: 5;
-}
-
-.animate-sweep-in {
-  animation: sweepIn 0.8s forwards;
-}
-
-.animate-sweep-out {
-  animation: sweepOut 0.8s forwards;
-}
-
-@keyframes sweepIn {
-  0% {
-    left: -75%;
-  }
-  100% {
-    left: 125%;
-  }
-}
-
-@keyframes sweepOut {
-  0% {
-    left: 125%;
-  }
-  100% {
-    left: -75%;
-  }
-}
+@keyframes shimmer { from { left: -75%; } to { left: 125%; } }
+@keyframes shimmer-left { from { left: -75%; } to { left: 125%; } }
+@keyframes shimmer-right { from { left: 125%; } to { left: -75%; } }
+@keyframes sweepIn { from { left: -75%; } to { left: 125%; } }
+@keyframes sweepOut { from { left: 125%; } to { left: -75%; } }
