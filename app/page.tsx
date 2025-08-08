@@ -11,7 +11,11 @@ export default function HomePage() {
   const [cartItems, setCartItems] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 const [hovered, setHovered] = useState(null) // track which box is active
-const [animationClass, setAnimationClass] = useState('')
+const [animation, setAnimation] = useState({
+  engagement: '',
+  wedding: '',
+  jewellery: '',
+})
 
   return (
     <div className="min-h-screen bg-white">
