@@ -151,13 +151,13 @@ const [animation, setAnimation] = useState({
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
            <Button
   onClick={() => router.push('/diamonds')}
-  className="btn-gold btn-gold--solid rounded-none px-8 py-4 text-lg"
+  className="btn-gold"
 >
   SHOP NOW
 </Button>
             <Button
   onClick={() => router.push('/engagement-rings')}
-  className="btn-gold btn-gold--outline rounded-none px-8 py-4 text-lg"
+  className="btn-gold"
   variant={undefined} // not needed; style comes from classes above
 >
   VIEW COLLECTIONS
