@@ -148,19 +148,19 @@ const [animation, setAnimation] = useState({
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button 
-              onClick={() => router.push('/diamonds')}
-              className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-4 text-lg rounded-none uppercase tracking-wider"
-            >
-              SHOP NOW
-            </Button>
-            <Button 
-              onClick={() => router.push('/engagement-rings')}
-              variant="outline"
-              className="border-2 border-white text-white hover:bg-white hover:text-black font-semibold px-8 py-4 text-lg rounded-none uppercase tracking-wider"
-            >
-              VIEW COLLECTIONS
-            </Button>
+           <Button
+  onClick={() => router.push('/diamonds')}
+  className="btn-gold btn-gold--solid rounded-none px-8 py-4 text-lg"
+>
+  SHOP NOW
+</Button>
+            <Button
+  onClick={() => router.push('/engagement-rings')}
+  className="btn-gold btn-gold--outline rounded-none px-8 py-4 text-lg"
+  variant={undefined} // not needed; style comes from classes above
+>
+  VIEW COLLECTIONS
+</Button>
           </div>
 
           {/* Scroll Indicator */}
