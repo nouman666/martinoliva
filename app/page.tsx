@@ -125,7 +125,7 @@ const [animation, setAnimation] = useState({
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-  backgroundImage: `url(/bespoke-portfoliofront.png)`
+  backgroundImage: `url(bespoke-portfoliofront.png)`
           }}
         >
           <div className="absolute inset-0 bg-black bg-opacity-40"></div>
