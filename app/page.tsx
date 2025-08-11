@@ -155,7 +155,7 @@ const [animation, setAnimation] = useState({
 >
   SHOP NOW
 </Button>
-            <Button onClick={() => router.push('/engagement-rings')}  className="btn-gold">
+            <Button onClick={() => router.push('/engagement-rings')}  className="btn-white-outline">
   VIEW COLLECTIONS
 </Button>
           </div>
