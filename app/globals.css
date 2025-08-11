@@ -144,6 +144,79 @@
     box-shadow: 0 4px 15px rgba(255,193,7,0.5);
     transform: translateY(-2px);
   }
+  /* --- White Outline -> Fill on hover --- */
+.btn-white-outline {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-block;
+  padding: 12px 28px;
+  border-radius: 8px;
+  border: 1.5px solid rgba(255,255,255,0.9);
+  color: #fff;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  transition: transform .3s ease, box-shadow .3s ease, color .3s ease, border-color .3s ease;
+}
+
+/* fill layer */
+.btn-white-outline::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  transform: translateX(-100%);
+  z-index: -1;
+  transition: transform .45s ease;
+}
+
+/* shimmer line (reuses your btnShimmer vibe) */
+.btn-white-outline::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(255,255,255,0) 0%,
+    rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%);
+  transform: skewX(-20deg) translateX(-130%);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity .15s ease;
+}
+
+.btn-white-outline:hover {
+  color: #111;
+  border-color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(255,255,255,0.15);
+}
+.btn-white-outline:hover::after { transform: translateX(0%); }
+.btn-white-outline:hover::before { animation: btnShimmer 0.9s forwards; opacity: 1; }
+
+/* --- Glass (subtle blur) variant --- */
+.btn-glass-white {
+  position: relative;
+  display: inline-block;
+  padding: 12px 28px;
+  border-radius: 8px;
+  color: #fff;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: transform .3s ease, box-shadow .3s ease, background .3s ease, border-color .3s ease;
+}
+.btn-glass-white:hover {
+  background: rgba(255,255,255,0.16);
+  border-color: rgba(255,255,255,0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+}
+
 } /* <-- CLOSES @layer components */
 
 /* ---------- Keyframes ---------- */
