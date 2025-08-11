@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Mail, Phone, Facebook, Instagram, Search, User, ShoppingBag, Filter, Grid, List } from 'lucide-react'
+import { Mail, Phone, Facebook, Instagram, Search, User, ShoppingBag, Grid, List } from 'lucide-react'
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -11,91 +11,41 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 export default function DiamondsPage() {
   const router = useRouter()
   const [cartItems, setCartItems] = useState(0)
-  const [viewMode, setViewMode] = useState('grid')
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const diamonds = [
-    {
-      id: 1,
-      name: "Round Brilliant Diamond",
-      carat: "1.50",
-      cut: "Excellent",
-      color: "D",
-      clarity: "VVS1",
-      price: "£8,500",
-      image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      id: 2,
-      name: "Princess Cut Diamond",
-      carat: "1.25",
-      cut: "Very Good",
-      color: "E",
-      clarity: "VS1",
-      price: "£6,800",
-      image: "https://images.unsplash.com/photo-1544376664-80b17f09d399?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      id: 3,
-      name: "Emerald Cut Diamond",
-      carat: "2.00",
-      cut: "Excellent",
-      color: "F",
-      clarity: "VVS2",
-      price: "£12,200",
-      image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      id: 4,
-      name: "Oval Diamond",
-      carat: "1.75",
-      cut: "Excellent",
-      color: "D",
-      clarity: "VS2",
-      price: "£9,900",
-      image: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      id: 5,
-      name: "Cushion Cut Diamond",
-      carat: "1.80",
-      cut: "Very Good",
-      color: "G",
-      clarity: "VS1",
-      price: "£8,200",
-      image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      id: 6,
-      name: "Pear Shape Diamond",
-      carat: "1.60",
-      cut: "Excellent",
-      color: "E",
-      clarity: "VVS1",
-      price: "£10,500",
-      image: "https://images.unsplash.com/photo-1544376664-80b17f09d399?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-    }
+    { id: 1, name: "Round Brilliant Diamond", carat: "1.50", cut: "Excellent", color: "D", clarity: "VVS1", price: "£8,500", image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=600&q=80" },
+    { id: 2, name: "Princess Cut Diamond",  carat: "1.25", cut: "Very Good", color: "E", clarity: "VS1",  price: "£6,800", image: "https://images.unsplash.com/photo-1544376664-80b17f09d399?auto=format&fit=crop&w=600&q=80" },
+    { id: 3, name: "Emerald Cut Diamond",   carat: "2.00", cut: "Excellent", color: "F", clarity: "VVS2", price: "£12,200", image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=600&q=80" },
+    { id: 4, name: "Oval Diamond",           carat: "1.75", cut: "Excellent", color: "D", clarity: "VS2",  price: "£9,900", image: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?auto=format&fit=crop&w=600&q=80" },
+    { id: 5, name: "Cushion Cut Diamond",    carat: "1.80", cut: "Very Good", color: "G", clarity: "VS1",  price: "£8,200", image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=600&q=80" },
+    { id: 6, name: "Pear Shape Diamond",     carat: "1.60", cut: "Excellent", color: "E", clarity: "VVS1", price: "£10,500", image: "https://images.unsplash.com/photo-1544376664-80b17f09d399?auto=format&fit=crop&w=600&q=80" }
   ]
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Top Header Bar */}
-      <div className="bg-black text-white py-3 px-4">
+      {/* Top Header Bar — matches homepage */}
+      <div className="bg-gradient-to-r from-black to-yellow-600 text-white py-2 px-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center text-sm">
           <div className="flex items-center gap-6">
-            <div className="flex items-center gap-2">
+            <a href="mailto:studio@martinoliva.co.uk" className="flex items-center gap-2">
               <Mail className="w-4 h-4" />
               <span>studio@martinoliva.co.uk</span>
-            </div>
-            <div className="flex items-center gap-2">
+            </a>
+            <a href="tel:+447565455568" className="flex items-center gap-2">
               <Phone className="w-4 h-4" />
               <span>+44 7565 455568</span>
-            </div>
+            </a>
           </div>
           <div className="flex items-center gap-4">
             <span className="text-sm">Follow us:</span>
-            <Facebook className="w-4 h-4 hover:text-gray-300 cursor-pointer transition-colors" />
-            <Instagram className="w-4 h-4 hover:text-gray-300 cursor-pointer transition-colors" />
+            <a href="https://facebook.com/martinoliva" target="_blank" rel="noopener noreferrer">
+              <Facebook className="w-4 h-4 hover:text-gray-300 cursor-pointer transition-colors" />
+            </a>
+            <a href="https://instagram.com/martinoliva" target="_blank" rel="noopener noreferrer">
+              <Instagram className="w-4 h-4 hover:text-gray-300 cursor-pointer transition-colors" />
+            </a>
           </div>
         </div>
       </div>
@@ -114,6 +64,7 @@ export default function DiamondsPage() {
               <div className="w-6 h-0.5 bg-yellow-600 transition-all"></div>
             </button>
 
+            {/* Logo */}
             <Link href="/" className="flex items-center">
               <div className="text-xl md:text-2xl font-bold tracking-wider">
                 <span className="text-black">MARTIN OLIVA</span>
@@ -121,6 +72,7 @@ export default function DiamondsPage() {
               </div>
             </Link>
 
+            {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center space-x-8">
               <Link href="/" className="text-black hover:text-yellow-600 transition-colors font-medium">Home</Link>
               <Link href="/diamonds" className="text-yellow-600 font-medium border-b-2 border-yellow-600 pb-1">Diamonds</Link>
@@ -133,6 +85,7 @@ export default function DiamondsPage() {
               <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium">Sale</Link>
             </nav>
 
+            {/* Right Icons */}
             <div className="flex items-center gap-3 md:gap-4">
               <Search className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
               <User className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
@@ -166,15 +119,35 @@ export default function DiamondsPage() {
         </div>
       </header>
 
-      {/* Page Header */}
-      <div className="bg-gray-50 py-16">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-black mb-4">Premium Diamonds</h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Discover our exceptional collection of certified diamonds, each carefully selected for their brilliance, fire, and scintillation.
-          </p>
+      {/* Hero Section — styled like homepage */}
+      <section className="relative h-[70vh] md:h-[80vh] flex items-center justify-center overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url("/bespoke-portfoliofront.jpg")` }}
+        >
+          <div className="absolute inset-0 bg-black/50"></div>
         </div>
-      </div>
+
+        <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
+          <p className="text-sm tracking-[0.3em] uppercase mb-4 text-yellow-400">THE 4Cs • CERTIFIED • ETHICAL</p>
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+            Premium <span className="text-yellow-400">Diamonds</span>
+          </h1>
+          <div className="w-16 h-0.5 bg-yellow-400 mx-auto mb-8"></div>
+          <p className="text-lg md:text-xl leading-relaxed mb-12 max-w-2xl mx-auto">
+            Hand‑selected for brilliance, fire and scintillation. Explore shapes, sizes and grades to find your perfect stone.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Button onClick={() => window.scrollTo({ top: typeof window !== 'undefined' ? window.innerHeight : 800, behavior: 'smooth' })} className="btn-gold">
+              Shop Diamonds
+            </Button>
+            <Button onClick={() => router.push('/services')} className="btn-white-outline">
+              Book Consultation
+            </Button>
+          </div>
+        </div>
+      </section>
 
       {/* Filters and Controls */}
       <div className="max-w-7xl mx-auto px-4 py-8">
@@ -192,7 +165,7 @@ export default function DiamondsPage() {
                 <SelectItem value="oval">Oval</SelectItem>
               </SelectContent>
             </Select>
-            
+
             <Select defaultValue="all">
               <SelectTrigger className="w-40">
                 <SelectValue placeholder="Carat" />
@@ -238,13 +211,13 @@ export default function DiamondsPage() {
         </div>
 
         {/* Diamond Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className={viewMode === 'grid' ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" : "space-y-6"}>
           {diamonds.map((diamond) => (
             <Card key={diamond.id} className="group cursor-pointer hover:shadow-xl transition-all duration-300 border-0 shadow-md">
-              <CardContent className="p-0">
-                <div className="aspect-square bg-gray-100 overflow-hidden">
-                  <img 
-                    src={diamond.image || "/placeholder.svg"} 
+              <CardContent className={viewMode === 'grid' ? "p-0" : "p-4 md:p-6"}>
+                <div className={viewMode === 'grid' ? "aspect-square bg-gray-100 overflow-hidden" : "h-56 bg-gray-100 overflow-hidden rounded"}>
+                  <img
+                    src={diamond.image || "/placeholder.svg"}
                     alt={diamond.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
@@ -259,7 +232,7 @@ export default function DiamondsPage() {
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-2xl font-bold text-black">{diamond.price}</span>
-                    <Button 
+                    <Button
                       size="sm"
                       className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
                       onClick={() => setCartItems(cartItems + 1)}
@@ -273,6 +246,58 @@ export default function DiamondsPage() {
           ))}
         </div>
       </div>
+
+      {/* Footer — same as homepage */}
+      <footer className="bg-black text-white py-16">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <h3 className="text-xl font-bold mb-4">MARTIN OLIVA</h3>
+              <p className="text-gray-400 mb-4">Fine Jewellery</p>
+              <p className="text-gray-400 text-sm leading-relaxed">
+                Creating exceptional jewelry pieces that celebrate life's most precious moments.
+              </p>
+            </div>
+            
+            <div>
+              <h4 className="font-semibold mb-4">Collections</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li><Link href="/engagement-rings" className="hover:text-white transition-colors">Engagement Rings</Link></li>
+                <li><Link href="/wedding-bands" className="hover:text-white transition-colors">Wedding Bands</Link></li>
+                <li><Link href="/diamonds" className="hover:text-white transition-colors">Diamonds</Link></li>
+                <li><Link href="/jewellery" className="hover:text-white transition-colors">Fine Jewellery</Link></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="font-semibold mb-4">Services</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li><Link href="/bespoke" className="hover:text-white transition-colors">Bespoke Design</Link></li>
+                <li><Link href="/services" className="hover:text-white transition-colors">Repairs & Maintenance</Link></li>
+                <li><Link href="/services" className="hover:text-white transition-colors">Valuations</Link></li>
+                <li><Link href="/services" className="hover:text-white transition-colors">Consultations</Link></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="font-semibold mb-4">Contact</h4>
+              <div className="space-y-2 text-gray-400">
+                <p>studio@martinoliva.co.uk</p>
+                <p>+44 7565 455568</p>
+                <p>London, UK</p>
+                <div className="flex gap-4 mt-4">
+                  <Facebook className="w-5 h-5 hover:text-white cursor-pointer transition-colors" />
+                  <Instagram className="w-5 h-5 hover:text-white cursor-pointer transition-colors" />
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+            <p>&copy; 2024 Martin Oliva. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
