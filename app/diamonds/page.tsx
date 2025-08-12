@@ -138,14 +138,7 @@ export default function DiamondsPage() {
             Hand‑selected for brilliance, fire and scintillation. Explore shapes, sizes and grades to find your perfect stone.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button onClick={() => window.scrollTo({ top: typeof window !== 'undefined' ? window.innerHeight : 800, behavior: 'smooth' })} className="btn-gold">
-              Shop Diamonds
-            </Button>
-            <Button onClick={() => router.push('/services')} className="btn-white-outline">
-              Book Consultation
-            </Button>
-          </div>
+          
         </div>
       </section>
 
