@@ -229,13 +229,7 @@ const { addItem,count, open } = useCart();
       name: diamond.name,                 // human name
       price: Number(String(diamond.price).replace(/[^\d.]/g, "")), // numeric price
       image: diamond.image,               // if you have it
-      attributes: {
-        carat: diamond.carat,
-        cut: diamond.cut,
-        color: diamond.color,
-        clarity: diamond.clarity,
-      },
-      qty: 1,
+     qty: 1,
     });
     open(); // <-- actually open the left drawer
   }}
