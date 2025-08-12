@@ -228,12 +228,7 @@ export default function DiamondsPage() {
                     <Button
                       size="sm"
                       className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
-  onClick={() => addItem({
-      id: diamond.id,
-      name: diamond.name,
-      price: diamond.price,
-      image: diamond.image
-    })}                    >
+>
                       Add to Cart
                     </Button>
                   </div>
