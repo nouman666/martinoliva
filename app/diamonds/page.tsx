@@ -226,8 +226,8 @@ export default function DiamondsPage() {
                       size="sm"
                       className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
   onClick={() => addItem({
-  id: band.id.toString(),
-  name: band.name,
+  id: diamond.carat,
+  name: diamond.cut,
 
   qty: 1
 })}                 >
