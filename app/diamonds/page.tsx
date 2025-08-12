@@ -13,6 +13,7 @@ export default function DiamondsPage() {
   const router = useRouter()
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const { addItem, count, open } = useCart()
 
   const diamonds = [
     { id: 1, name: "Round Brilliant Diamond", carat: "1.50", cut: "Excellent", color: "D", clarity: "VVS1", price: "£8,500", image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=600&q=80" },
@@ -225,11 +226,11 @@ export default function DiamondsPage() {
                       size="sm"
                       className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
   onClick={() => addItem({
-      id: diamond.id,
-      name: diamond.name,
-      price: diamond.price,
-      image: diamond.image
-    })}                    >
+  id: band.id.toString(),
+  name: band.name,
+
+  qty: 1
+})}                 >
                       Add to Cart
                     </Button>
                   </div>
