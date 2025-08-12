@@ -222,22 +222,21 @@ const { addItem,count, open } = useCart();
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-2xl font-bold text-black">{diamond.price}</span>
-                   <Button type="button"             // important if inside a <form>
+                   <Button
+  type="button"
   onClick={() => {
     addItem({
-      id: String(diamond.id),             // unique id
-      name: diamond.name,                 // human name
-      price: Number(String(diamond.price).replace(/[^\d.]/g, "")), // numeric price
-      image: diamond.image,               // if you have it
-     qty: 1,
+      id: String(diamond.id),
+      name: diamond.name,
+      price: Number(String(diamond.price).replace(/[^\d.]/g, "")),
+      image: diamond.image,
+      qty: 1,
     });
-    open(); // <-- actually open the left drawer
+    open(); // opens the drawer
   }}
 >
   Add to Cart
 </Button>
-                      Add to Cart
-                    </Button>
                   </div>
                 </div>
               </CardContent>
