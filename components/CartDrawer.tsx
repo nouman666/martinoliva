@@ -1,7 +1,7 @@
 'use client'
 
 import { X, Trash2, Plus, Minus } from 'lucide-react'
-import { useCart } from '@/app/cart-context'
+import { useCart } from '@/app/cart/page'
 import { Button } from '@/components/ui/button'
 
 export default function CartDrawer() {
