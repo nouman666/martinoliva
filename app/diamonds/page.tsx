@@ -123,7 +123,7 @@ export default function DiamondsPage() {
       <section className="relative h-[70vh] md:h-[80vh] flex items-center justify-center overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url("/bespoke-portfoliofront.jpg")` }}
+          style={{ backgroundImage: `url("/daimond_banner.jpg")` }}
         >
           <div className="absolute inset-0 bg-black/50"></div>
         </div>
