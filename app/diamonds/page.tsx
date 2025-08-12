@@ -7,7 +7,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { useCart } from '@/app/cart-context'
+import { useCart } from '@/app/cart/page'
 
 export default function DiamondsPage() {
   const router = useRouter()
