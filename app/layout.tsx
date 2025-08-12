@@ -3,7 +3,7 @@ import { Inter, Playfair_Display } from 'next/font/google'
 import './globals.css'
 
 // ⬇️ Add these two imports
-import { CartProvider } from './cart-context'
+import { CartProvider } from './cart/page'
 import CartDrawer from '@/components/CartDrawer'
 
 const inter = Inter({ subsets: ['latin'] })
