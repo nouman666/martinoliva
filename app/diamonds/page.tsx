@@ -7,10 +7,10 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { useCart } from '@/app/cart-context'
 
 export default function DiamondsPage() {
   const router = useRouter()
-  const [cartItems, setCartItems] = useState(0)
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
@@ -228,8 +228,12 @@ export default function DiamondsPage() {
                     <Button
                       size="sm"
                       className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
-                      onClick={() => setCartItems(cartItems + 1)}
-                    >
+  onClick={() => addItem({
+      id: diamond.id,
+      name: diamond.name,
+      price: diamond.price,
+      image: diamond.image
+    })}                    >
                       Add to Cart
                     </Button>
                   </div>
