@@ -3,9 +3,12 @@
 import { X, Trash2, Plus, Minus } from 'lucide-react'
 import { useCart } from '@/app/cart/page'
 import { Button } from '@/components/ui/button'
+import { useRouter } from 'next/navigation'
+
 
 export default function CartDrawer() {
   const { isOpen, close, items, setQty, removeItem, subtotal, clear } = useCart()
+  const router = useRouter() 
   return (
     <div className={`fixed inset-0 z-[100] ${isOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}>
       {/* Backdrop */}
@@ -64,8 +67,18 @@ export default function CartDrawer() {
             <div className="text-lg font-semibold">£{subtotal.toLocaleString()}</div>
           </div>
           <div className="flex gap-2">
-            <Button className="flex-1 bg-yellow-500 hover:bg-yellow-600 text-black font-semibold">Checkout</Button>
-            <Button variant="outline" onClick={clear} className="flex-1">Clear</Button>
+            <Button
+          className="flex-1 bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
+          onClick={() => {
+            close()
+            router.push('/checkout') // go to checkout page
+          }}
+        >
+          Checkout
+        </Button>
+        <Button variant="outline" onClick={clear} className="flex-1">
+          Clear
+        </Button>
           </div>
         </div>
       </aside>
