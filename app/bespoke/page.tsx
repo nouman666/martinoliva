@@ -16,52 +16,27 @@ export default function BespokePage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const bespokeProcess = [
-    {
-      step: 1,
-      title: "Initial Consultation",
-      description: "Share your vision and ideas with our expert designers",
-      icon: Users
-    },
-    {
-      step: 2,
-      title: "Design Development",
-      description: "We create detailed sketches and 3D renderings",
-      icon: Palette
-    },
-    {
-      step: 3,
-      title: "Material Selection",
-      description: "Choose from our finest diamonds and precious metals",
-      icon: Sparkles
-    },
-    {
-      step: 4,
-      title: "Craftsmanship",
-      description: "Our master craftsmen bring your design to life",
-      icon: Clock
-    },
-    {
-      step: 5,
-      title: "Final Approval",
-      description: "Review and approve your unique piece",
-      icon: CheckCircle
-    }
+    { step: 1, title: "Initial Consultation", description: "Share your vision and ideas with our expert designers", icon: Users },
+    { step: 2, title: "Design Development", description: "We create detailed sketches and 3D renderings", icon: Palette },
+    { step: 3, title: "Material Selection", description: "Choose from our finest diamonds and precious metals", icon: Sparkles },
+    { step: 4, title: "Craftsmanship", description: "Our master craftsmen bring your design to life", icon: Clock },
+    { step: 5, title: "Final Approval", description: "Review and approve your unique piece", icon: CheckCircle }
   ]
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Top Header Bar */}
-      <div className="bg-black text-white py-3 px-4">
+      {/* Top Header Bar — same style as Diamonds */}
+      <div className="bg-gradient-to-r from-black to-yellow-600 text-white py-2 px-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center text-sm">
           <div className="flex items-center gap-6">
-            <div className="flex items-center gap-2">
+            <a href="mailto:studio@martinoliva.co.uk" className="flex items-center gap-2">
               <Mail className="w-4 h-4" />
               <span>studio@martinoliva.co.uk</span>
-            </div>
-            <div className="flex items-center gap-2">
+            </a>
+            <a href="tel:+447565455568" className="flex items-center gap-2">
               <Phone className="w-4 h-4" />
               <span>+44 7565 455568</span>
-            </div>
+            </a>
           </div>
           <div className="flex items-center gap-4">
             <span className="text-sm">Follow us:</span>
@@ -75,6 +50,7 @@ export default function BespokePage() {
         </div>
       </div>
 
+      {/* Main Navigation — same layout as Diamonds */}
       <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
@@ -87,14 +63,16 @@ export default function BespokePage() {
               <div className="w-6 h-0.5 bg-yellow-600 transition-all"></div>
               <div className="w-6 h-0.5 bg-yellow-600 transition-all"></div>
             </button>
-            
-            <div className="flex items-center">
-              <Link href="/" className="text-xl md:text-2xl font-bold tracking-wider">
+
+            {/* Logo */}
+            <Link href="/" className="flex items-center">
+              <div className="text-xl md:text-2xl font-bold tracking-wider">
                 <span className="text-black">MARTIN OLIVA</span>
                 <div className="text-xs text-gray-600 tracking-[0.3em] font-light">FINE JEWELLERY</div>
-              </Link>
-            </div>
+              </div>
+            </Link>
 
+            {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center space-x-8">
               <Link href="/" className="text-black hover:text-yellow-600 transition-colors font-medium">Home</Link>
               <Link href="/diamonds" className="text-black hover:text-yellow-600 transition-colors font-medium">Diamonds</Link>
@@ -107,14 +85,17 @@ export default function BespokePage() {
               <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium">Sale</Link>
             </nav>
 
+            {/* Right Icons */}
             <div className="flex items-center gap-3 md:gap-4">
               <Search className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
               <User className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
               <div className="relative">
                 <ShoppingBag className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
-                <span className="absolute -top-2 -right-2 bg-yellow-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                  {cartItems}
-                </span>
+                {cartItems > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-yellow-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                    {cartItems}
+                  </span>
+                )}
               </div>
             </div>
           </div>
@@ -156,7 +137,7 @@ export default function BespokePage() {
           Our Bespoke Process
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 md:gap-8">
-          {bespokeProcess.map((process, index) => {
+          {bespokeProcess.map((process) => {
             const IconComponent = process.icon
             return (
               <div key={process.step} className="text-center">
@@ -285,6 +266,54 @@ export default function BespokePage() {
           </div>
         </div>
       </div>
+
+      {/* Footer — same as Diamonds */}
+      <footer className="bg-black text-white py-16">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <h3 className="text-xl font-bold mb-4">MARTIN OLIVA</h3>
+              <p className="text-gray-400 mb-4">Fine Jewellery</p>
+              <p className="text-gray-400 text-sm leading-relaxed">
+                Creating exceptional jewelry pieces that celebrate life's most precious moments.
+              </p>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Collections</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li><Link href="/engagement-rings" className="hover:text-white transition-colors">Engagement Rings</Link></li>
+                <li><Link href="/wedding-bands" className="hover:text-white transition-colors">Wedding Bands</Link></li>
+                <li><Link href="/diamonds" className="hover:text-white transition-colors">Diamonds</Link></li>
+                <li><Link href="/jewellery" className="hover:text-white transition-colors">Fine Jewellery</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Services</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li><Link href="/bespoke" className="hover:text-white transition-colors">Bespoke Design</Link></li>
+                <li><Link href="/services" className="hover:text-white transition-colors">Repairs & Maintenance</Link></li>
+                <li><Link href="/services" className="hover:text-white transition-colors">Valuations</Link></li>
+                <li><Link href="/services" className="hover:text-white transition-colors">Consultations</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Contact</h4>
+              <div className="space-y-2 text-gray-400">
+                <p>studio@martinoliva.co.uk</p>
+                <p>+44 7565 455568</p>
+                <p>London, UK</p>
+                <div className="flex gap-4 mt-4">
+                  <Facebook className="w-5 h-5 hover:text-white cursor-pointer transition-colors" />
+                  <Instagram className="w-5 h-5 hover:text-white cursor-pointer transition-colors" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+            <p>&copy; 2024 Martin Oliva. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
