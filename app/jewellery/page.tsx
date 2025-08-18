@@ -2,94 +2,36 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Mail, Phone, Facebook, Instagram, Search, User, ShoppingBag, Gem } from 'lucide-react'
+import { Mail, Phone, Facebook, Instagram, Search, User, ShoppingBag } from 'lucide-react'
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 export default function JewelleryPage() {
   const router = useRouter()
   const [cartItems, setCartItems] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-  const jewellery = {
-    necklaces: [
-      {
-        id: 1,
-        name: "Diamond Tennis Necklace",
-        metal: "18k White Gold",
-        stones: "5.0ct Diamonds",
-        length: "16 inches",
-        price: "£15,500",
-        image: "/diamond-tennis-necklace.png"
-      },
-      {
-        id: 2,
-        name: "Pearl & Diamond Pendant",
-        metal: "18k Yellow Gold",
-        stones: "Tahitian Pearl, 0.25ct Diamond",
-        length: "18 inches",
-        price: "£3,200",
-        image: "/pearl-diamond-pendant.png"
-      }
-    ],
-    earrings: [
-      {
-        id: 3,
-        name: "Diamond Stud Earrings",
-        metal: "Platinum",
-        stones: "2.0ct Total Diamond Weight",
-        style: "Classic Studs",
-        price: "£8,500",
-        image: "/diamond-stud-earrings.png"
-      },
-      {
-        id: 4,
-        name: "Sapphire Drop Earrings",
-        metal: "18k White Gold",
-        stones: "Ceylon Sapphires, 0.50ct Diamonds",
-        style: "Drop Style",
-        price: "£6,800",
-        image: "/sapphire-drop-earrings.png"
-      }
-    ],
-    bracelets: [
-      {
-        id: 5,
-        name: "Diamond Line Bracelet",
-        metal: "Platinum",
-        stones: "7.0ct Total Diamond Weight",
-        length: "7 inches",
-        price: "£22,000",
-        image: "/diamond-line-bracelet.png"
-      },
-      {
-        id: 6,
-        name: "Gold Chain Bracelet",
-        metal: "18k Rose Gold",
-        stones: "None",
-        length: "7.5 inches",
-        price: "£1,850",
-        image: "/gold-chain-bracelet.png"
-      }
-    ]
-  }
+  const jewellery = [
+    { id: 1, name: "Gold Necklace", price: "£3,200", image: "/gold-necklace.png" },
+    { id: 2, name: "Diamond Earrings", price: "£4,500", image: "/diamond-earrings.png" },
+    { id: 3, name: "Platinum Bracelet", price: "£6,800", image: "/platinum-bracelet.png" },
+  ]
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Top Header Bar */}
-      <div className="bg-black text-white py-3 px-4">
+      {/* Top Header Bar — same as Diamond Page */}
+      <div className="bg-gradient-to-r from-black to-yellow-600 text-white py-2 px-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center text-sm">
           <div className="flex items-center gap-6">
-            <div className="flex items-center gap-2">
+            <a href="mailto:studio@martinoliva.co.uk" className="flex items-center gap-2">
               <Mail className="w-4 h-4" />
               <span>studio@martinoliva.co.uk</span>
-            </div>
-            <div className="flex items-center gap-2">
+            </a>
+            <a href="tel:+447565455568" className="flex items-center gap-2">
               <Phone className="w-4 h-4" />
               <span>+44 7565 455568</span>
-            </div>
+            </a>
           </div>
           <div className="flex items-center gap-4">
             <span className="text-sm">Follow us:</span>
@@ -103,10 +45,10 @@ export default function JewelleryPage() {
         </div>
       </div>
 
+      {/* Main Navigation — same as Diamond Page */}
       <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            {/* Mobile Menu Button */}
             <button 
               className="lg:hidden flex flex-col gap-1 p-2"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -115,13 +57,13 @@ export default function JewelleryPage() {
               <div className="w-6 h-0.5 bg-yellow-600 transition-all"></div>
               <div className="w-6 h-0.5 bg-yellow-600 transition-all"></div>
             </button>
-            
-            <div className="flex items-center">
-              <Link href="/" className="text-xl md:text-2xl font-bold tracking-wider">
+
+            <Link href="/" className="flex items-center">
+              <div className="text-xl md:text-2xl font-bold tracking-wider">
                 <span className="text-black">MARTIN OLIVA</span>
                 <div className="text-xs text-gray-600 tracking-[0.3em] font-light">FINE JEWELLERY</div>
-              </Link>
-            </div>
+              </div>
+            </Link>
 
             <nav className="hidden lg:flex items-center space-x-8">
               <Link href="/" className="text-black hover:text-yellow-600 transition-colors font-medium">Home</Link>
@@ -140,14 +82,15 @@ export default function JewelleryPage() {
               <User className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
               <div className="relative">
                 <ShoppingBag className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
-                <span className="absolute -top-2 -right-2 bg-yellow-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                  {cartItems}
-                </span>
+                {cartItems > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-yellow-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                    {cartItems}
+                  </span>
+                )}
               </div>
             </div>
           </div>
 
-          {/* Mobile Menu */}
           {mobileMenuOpen && (
             <div className="lg:hidden mt-4 pb-4 border-t border-yellow-200">
               <nav className="flex flex-col space-y-4 pt-4">
@@ -167,135 +110,100 @@ export default function JewelleryPage() {
       </header>
 
       {/* Hero Section */}
-      <div className="bg-gray-50 py-20">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <Gem className="w-12 h-12 text-yellow-600 mx-auto mb-6" />
-          <h1 className="text-4xl font-bold text-black mb-4">Fine Jewellery</h1>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Explore our exquisite collection of fine jewellery, featuring necklaces, earrings, and bracelets 
-            crafted with the finest diamonds, precious stones, and metals.
+      <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url("/jewellery_banner.png")` }}
+        >
+          <div className="absolute inset-0 bg-black/40"></div>
+        </div>
+        <div className="relative z-10 text-center text-white px-4">
+          <h1 className="text-5xl md:text-6xl font-bold mb-6">
+            Fine <span className="text-yellow-400">Jewellery</span>
+          </h1>
+          <p className="text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+            Discover timeless jewellery pieces designed with passion and crafted with precision.
           </p>
         </div>
+      </section>
+
+      {/* Jewellery Grid */}
+      <div className="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {jewellery.map((item) => (
+          <Card key={item.id} className="group hover:shadow-xl transition-all duration-300">
+            <CardContent className="p-0">
+              <div className="aspect-square bg-gray-100 overflow-hidden">
+                <img
+                  src={item.image || "/placeholder.svg"}
+                  alt={item.name}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-semibold text-black mb-2">{item.name}</h3>
+                <div className="flex justify-between items-center">
+                  <span className="text-lg font-bold text-black">{item.price}</span>
+                  <Button
+                    size="sm"
+                    className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
+                    onClick={() => setCartItems(cartItems + 1)}
+                  >
+                    Add to Cart
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
       </div>
 
-      {/* Jewellery Collections */}
-      <div className="max-w-7xl mx-auto px-4 py-16">
-        <Tabs defaultValue="necklaces" className="w-full">
-          <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3 mb-8 md:mb-12 gap-2 sm:gap-0">
-            <TabsTrigger value="necklaces" className="text-base md:text-lg py-3 md:py-4">Necklaces</TabsTrigger>
-            <TabsTrigger value="earrings" className="text-base md:text-lg py-3 md:py-4">Earrings</TabsTrigger>
-            <TabsTrigger value="bracelets" className="text-base md:text-lg py-3 md:py-4">Bracelets</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="necklaces">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
-              {jewellery.necklaces.map((item) => (
-                <Card key={item.id} className="group cursor-pointer hover:shadow-xl transition-all duration-300">
-                  <CardContent className="p-0">
-                    <div className="aspect-square bg-gray-100 rounded-t-lg overflow-hidden">
-                      <img 
-                        src={item.image || "/placeholder.svg"} 
-                        alt={item.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
-                    <div className="p-6">
-                      <h3 className="text-xl font-semibold text-black mb-2">{item.name}</h3>
-                      <div className="space-y-1 text-sm text-gray-600 mb-4">
-                        <div>Metal: {item.metal}</div>
-                        <div>Stones: {item.stones}</div>
-                        <div>Length: {item.length}</div>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span className="text-xl font-bold text-black">{item.price}</span>
-                        <Button 
-                          size="sm"
-                          className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
-                          onClick={() => setCartItems(cartItems + 1)}
-                        >
-                          Add to Cart
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+      {/* Footer — same as Diamond Page */}
+      <footer className="bg-black text-white py-16">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <h3 className="text-xl font-bold mb-4">MARTIN OLIVA</h3>
+              <p className="text-gray-400 mb-4">Fine Jewellery</p>
+              <p className="text-gray-400 text-sm leading-relaxed">
+                Creating exceptional jewelry pieces that celebrate life's most precious moments.
+              </p>
             </div>
-          </TabsContent>
-
-          <TabsContent value="earrings">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
-              {jewellery.earrings.map((item) => (
-                <Card key={item.id} className="group cursor-pointer hover:shadow-xl transition-all duration-300">
-                  <CardContent className="p-0">
-                    <div className="aspect-square bg-gray-100 rounded-t-lg overflow-hidden">
-                      <img 
-                        src={item.image || "/placeholder.svg"} 
-                        alt={item.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
-                    <div className="p-6">
-                      <h3 className="text-xl font-semibold text-black mb-2">{item.name}</h3>
-                      <div className="space-y-1 text-sm text-gray-600 mb-4">
-                        <div>Metal: {item.metal}</div>
-                        <div>Stones: {item.stones}</div>
-                        <div>Style: {item.style}</div>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span className="text-xl font-bold text-black">{item.price}</span>
-                        <Button 
-                          size="sm"
-                          className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
-                          onClick={() => setCartItems(cartItems + 1)}
-                        >
-                          Add to Cart
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+            <div>
+              <h4 className="font-semibold mb-4">Collections</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li><Link href="/engagement-rings" className="hover:text-white">Engagement Rings</Link></li>
+                <li><Link href="/wedding-bands" className="hover:text-white">Wedding Bands</Link></li>
+                <li><Link href="/diamonds" className="hover:text-white">Diamonds</Link></li>
+                <li><Link href="/jewellery" className="hover:text-white">Fine Jewellery</Link></li>
+              </ul>
             </div>
-          </TabsContent>
-
-          <TabsContent value="bracelets">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
-              {jewellery.bracelets.map((item) => (
-                <Card key={item.id} className="group cursor-pointer hover:shadow-xl transition-all duration-300">
-                  <CardContent className="p-0">
-                    <div className="aspect-square bg-gray-100 rounded-t-lg overflow-hidden">
-                      <img 
-                        src={item.image || "/placeholder.svg"} 
-                        alt={item.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
-                    <div className="p-6">
-                      <h3 className="text-xl font-semibold text-black mb-2">{item.name}</h3>
-                      <div className="space-y-1 text-sm text-gray-600 mb-4">
-                        <div>Metal: {item.metal}</div>
-                        <div>Stones: {item.stones}</div>
-                        <div>Length: {item.length}</div>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span className="text-xl font-bold text-black">{item.price}</span>
-                        <Button 
-                          size="sm"
-                          className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
-                          onClick={() => setCartItems(cartItems + 1)}
-                        >
-                          Add to Cart
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+            <div>
+              <h4 className="font-semibold mb-4">Services</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li><Link href="/bespoke" className="hover:text-white">Bespoke Design</Link></li>
+                <li><Link href="/services" className="hover:text-white">Repairs & Maintenance</Link></li>
+                <li><Link href="/services" className="hover:text-white">Valuations</Link></li>
+                <li><Link href="/services" className="hover:text-white">Consultations</Link></li>
+              </ul>
             </div>
-          </TabsContent>
-        </Tabs>
-      </div>
+            <div>
+              <h4 className="font-semibold mb-4">Contact</h4>
+              <div className="space-y-2 text-gray-400">
+                <p>studio@martinoliva.co.uk</p>
+                <p>+44 7565 455568</p>
+                <p>London, UK</p>
+                <div className="flex gap-4 mt-4">
+                  <Facebook className="w-5 h-5 hover:text-white cursor-pointer" />
+                  <Instagram className="w-5 h-5 hover:text-white cursor-pointer" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+            <p>&copy; 2024 Martin Oliva. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
