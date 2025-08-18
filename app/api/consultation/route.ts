@@ -6,11 +6,9 @@ export const dynamic = 'force-dynamic'
 import nodemailer from 'nodemailer'
 import { google } from 'googleapis'
 
-function requireEnv(name: string) {
+function must(name: string) {
   const v = process.env[name]
-  if (!v || v.trim() === '') {
-    throw new Error(`Missing env var: ${name}`)
-  }
+  if (!v || v.trim() === '') throw new Error(`Missing env var: ${name}`)
   return v
 }
 
@@ -25,12 +23,15 @@ export async function POST(req: Request) {
     const budget      = String(body.budget    || '')
     const description = String(body.description || '')
 
-    // --- Required envs (fail early with clear errors)
-    const SERVICE_EMAIL = requireEnv('GOOGLE_SERVICE_ACCOUNT_EMAIL')
-    const PRIVATE_KEY   = requireEnv('GOOGLE_PRIVATE_KEY').replace(/\\n/g, '\n')
-    const SHEET_ID      = requireEnv('GOOGLE_SHEETS_ID')
+    // ---- Google Sheets envs
+    const SERVICE_EMAIL = must('GOOGLE_SERVICE_ACCOUNT_EMAIL')
+    const PRIVATE_KEY   = must('GOOGLE_PRIVATE_KEY').replace(/\\n/g, '\n')
 
-    // 1) Google Sheets append
+    // Accept either GOOGLE_SHEETS_ID or SHEET_ID (fallback)
+    const SHEET_ID = (process.env.GOOGLE_SHEETS_ID || process.env.SHEET_ID || '').trim()
+    if (!SHEET_ID) throw new Error('Missing env var: GOOGLE_SHEETS_ID (or SHEET_ID)')
+
+    // 1) Append to Google Sheet
     const jwt = new google.auth.JWT(
       SERVICE_EMAIL,
       undefined,
@@ -52,15 +53,17 @@ export async function POST(req: Request) {
       }
     })
 
-    // 2) Email you the submission (optional)
-    const EMAIL_HOST = requireEnv('EMAIL_HOST')
+    // 2) Email notification (optional; uses sensible defaults)
+    const EMAIL_HOST = process.env.EMAIL_HOST || 'smtp.gmail.com'
     const EMAIL_PORT = Number(process.env.EMAIL_PORT || 465)
-    const EMAIL_USER = requireEnv('EMAIL_USER')
-    const EMAIL_PASS = requireEnv('EMAIL_PASS')
-    const NOTIFY_TO  = requireEnv('NOTIFY_TO_EMAIL')
+    const EMAIL_USER = must('EMAIL_USER')
+    const EMAIL_PASS = must('EMAIL_PASS')
+    const NOTIFY_TO  = must('NOTIFY_TO_EMAIL')
 
     const transporter = nodemailer.createTransport({
-      host: EMAIL_HOST, port: EMAIL_PORT, secure: true,
+      host: EMAIL_HOST,
+      port: EMAIL_PORT,
+      secure: true,
       auth: { user: EMAIL_USER, pass: EMAIL_PASS }
     })
 
