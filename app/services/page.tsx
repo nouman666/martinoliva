@@ -197,35 +197,27 @@ export default function ServicesPage() {
           {services.map((service) => {
             const IconComponent = service.icon
             return (
-             <Card key={service.id} className="group cursor-pointer hover:shadow-xl transition-all duration-300">
-  <CardContent className="p-8 flex flex-col h-full">
-    <div>
-      <div className="flex items-center mb-6">
-        <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center mr-4">
-          <IconComponent className="w-6 h-6 text-white" />
-        </div>
-        <div>
-          <h3 className="text-xl font-semibold text-black">{service.title}</h3>
-          <p className="text-gray-600 text-sm">{service.price}</p>
-        </div>
-      </div>
-
-      <p className="text-gray-600 mb-6 leading-relaxed">{service.description}</p>
-
-      <ul className="space-y-2 mb-6">
-        {service.features.map((feature, index) => (
-          <li key={index} className="flex items-center text-sm text-gray-600">
-            <div className="w-2 h-2 bg-yellow-600 rounded-full mr-3"></div>
-            {feature}
-          </li>
-        ))}
-      </ul>
+            <Card className="flex flex-col h-full">
+  <CardContent className="flex flex-col flex-1 p-6">
+    {/* Image */}
+    <div className="aspect-square bg-gray-100 overflow-hidden rounded mb-4">
+      <img
+        src={service.image}
+        alt={service.title}
+        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+      />
     </div>
 
-    {/* Spacer pushes button to bottom */}
-    <div className="mt-auto">
-      <Button asChild className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-semibold">
-        <a href={buildBookHref(service.title)}>Book Service</a>
+    {/* Text Content */}
+    <div className="flex-1">
+      <h3 className="text-xl font-semibold text-black mb-2">{service.title}</h3>
+      <p className="text-gray-600 text-sm leading-relaxed">{service.description}</p>
+    </div>
+
+    {/* Button at Bottom */}
+    <div className="mt-auto pt-4">
+      <Button className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-semibold">
+        Book Service
       </Button>
     </div>
   </CardContent>
