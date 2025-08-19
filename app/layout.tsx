@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, Playfair_Display } from 'next/font/google'
+import WhatsAppButton from '@/components/WhatsAppButton'
+
 import './globals.css'
 
 // ⬇️ Add these two imports
@@ -25,6 +27,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {/* Single, site-wide mini-cart drawer */}
           <CartDrawer />
         </CartProvider>
+        <WhatsAppButton
+  phone="447565455568"
+  message="Hello! I'd like to chat with Martin Oliva."
+/>
       </body>
     </html>
   )
