@@ -1,9 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Mail, Phone, Facebook, Instagram, Search, User, ShoppingBag, MapPin } from 'lucide-react'
+import { Mail, Phone, Facebook, Instagram, Search, User, ShoppingBag, MapPin, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 
@@ -15,15 +15,14 @@ type Location = {
   email?: string
   hours?: string
   note?: string
-  mapQuery: string // used to build Google Maps embed
+  mapQuery: string
 }
 
 export default function ContactPage() {
   const router = useRouter()
-  const [cartItems, setCartItems] = useState(0)
+  const [cartItems] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-  // 4 pulled from itechmobile contact page + your extra George Lane address
   const locations: Location[] = [
     {
       id: 1,
@@ -75,11 +74,33 @@ export default function ContactPage() {
 
   const [selected, setSelected] = useState<Location>(locations[0])
 
+  // map loading state for a short "few seconds" visual
+  const [mapLoading, setMapLoading] = useState(false)
+  const [mapVersion, setMapVersion] = useState(0) // bump to force iframe refresh if needed
+
   const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(selected.mapQuery)}&output=embed`
+
+  function handleSelect(loc: Location) {
+    setSelected(loc)
+    setMapLoading(true)
+    // bump the version to ensure the iframe re-renders even if URL stays same
+    setMapVersion(v => v + 1)
+
+    // safety timeout: keep the shimmer visible briefly
+    const t = setTimeout(() => setMapLoading(false), 1000)
+    return () => clearTimeout(t)
+  }
+
+  useEffect(() => {
+    // initial quick shimmer on first paint looks nicer
+    setMapLoading(true)
+    const t = setTimeout(() => setMapLoading(false), 700)
+    return () => clearTimeout(t)
+  }, [])
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Top Header Bar — same spirit as Diamonds page */}
+      {/* Top Header Bar */}
       <div className="bg-gradient-to-r from-black to-yellow-600 text-white py-2 px-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center text-sm">
           <div className="flex items-center gap-6">
@@ -104,7 +125,7 @@ export default function ContactPage() {
         </div>
       </div>
 
-      {/* Main Navigation — matches site */}
+      {/* Main Navigation */}
       <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
@@ -158,15 +179,21 @@ export default function ContactPage() {
           {mobileMenuOpen && (
             <div className="lg:hidden mt-4 pb-4 border-t border-yellow-200">
               <nav className="flex flex-col space-y-4 pt-4">
-                <Link href="/" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Home</Link>
-                <Link href="/diamonds" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Diamonds</Link>
-                <Link href="/engagement-rings" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Engagement Rings</Link>
-                <Link href="/wedding-bands" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Wedding Bands</Link>
-                <Link href="/watches" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Watches</Link>
-                <Link href="/jewellery" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Jewellery</Link>
-                <Link href="/bespoke" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Bespoke</Link>
-                <Link href="/services" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Services</Link>
-                <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium border-l-4 border-transparent hover:border-red-600 pl-4">Sale</Link>
+                {[
+                  ['/', 'Home'],
+                  ['/diamonds', 'Diamonds'],
+                  ['/engagement-rings', 'Engagement Rings'],
+                  ['/wedding-bands', 'Wedding Bands'],
+                  ['/watches', 'Watches'],
+                  ['/jewellery', 'Jewellery'],
+                  ['/bespoke', 'Bespoke'],
+                  ['/services', 'Services'],
+                  ['/sale', 'Sale'],
+                ].map(([href, label]) => (
+                  <Link key={href} href={href} className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">
+                    {label}
+                  </Link>
+                ))}
               </nav>
             </div>
           )}
@@ -192,58 +219,69 @@ export default function ContactPage() {
       <div className="max-w-7xl mx-auto px-4 py-10 md:py-16 grid grid-cols-1 lg:grid-cols-5 gap-8">
         {/* Locations list */}
         <div className="lg:col-span-2 space-y-4">
-          {locations.map(loc => (
-            <Card
-              key={loc.id}
-              className={`cursor-pointer transition-all hover:shadow-lg ${selected.id === loc.id ? 'ring-2 ring-yellow-500' : ''}`}
-              onClick={() => setSelected(loc)}
-            >
-              <CardContent className="p-5">
-                <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-full bg-black flex items-center justify-center shrink-0">
-                    <MapPin className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-black">{loc.title}</h3>
-                    {loc.note && <p className="text-xs text-stone-600 mt-0.5">{loc.note}</p>}
-                    <p className="text-stone-700 mt-2">{loc.address}</p>
-                    <div className="mt-2 text-sm text-stone-600">
-                      <div>Phone: <a className="underline hover:text-black" href={`tel:${loc.phone.replace(/\s+/g,'')}`}>{loc.phone}</a></div>
-                      {loc.email && <div>Email: <a className="underline hover:text-black" href={`mailto:${loc.email}`}>{loc.email}</a></div>}
-                      {loc.hours && <div>Hours: {loc.hours}</div>}
+          {locations.map((loc, idx) => {
+            const isHorizontal = idx >= locations.length - 2 // last two cards horizontal on md+
+            return (
+              <Card
+                key={loc.id}
+                className={`cursor-pointer transition-all hover:shadow-lg ${selected.id === loc.id ? 'ring-2 ring-yellow-500' : ''}`}
+                onClick={() => handleSelect(loc)}
+              >
+                <CardContent className={`p-5 ${isHorizontal ? 'md:flex md:items-start md:gap-4' : ''}`}>
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-full bg-black flex items-center justify-center shrink-0">
+                      <MapPin className="w-5 h-5 text-white" />
                     </div>
-                    <div className="mt-3 flex gap-2">
-                      <Button
-                        variant="outline"
-                        className="border-black text-black hover:bg-black hover:text-white"
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(loc.mapQuery)}`, '_blank')
-                        }}
-                      >
-                        Open in Google Maps
-                      </Button>
-                      <Button
-                        className="bg-yellow-500 hover:bg-yellow-600 text-black"
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          router.push('/services')
-                        }}
-                      >
-                        Book a Repair
-                      </Button>
+                    <div className={`${isHorizontal ? 'md:flex-1' : ''}`}>
+                      <h3 className="text-lg font-semibold text-black">{loc.title}</h3>
+                      {loc.note && <p className="text-xs text-stone-600 mt-0.5">{loc.note}</p>}
+                      <p className="text-stone-700 mt-2">{loc.address}</p>
+                      <div className="mt-2 text-sm text-stone-600">
+                        <div>Phone: <a className="underline hover:text-black" href={`tel:${loc.phone.replace(/\s+/g,'')}`}>{loc.phone}</a></div>
+                        {loc.email && <div>Email: <a className="underline hover:text-black" href={`mailto:${loc.email}`}>{loc.email}</a></div>}
+                        {loc.hours && <div>Hours: {loc.hours}</div>}
+                      </div>
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        <Button
+                          variant="outline"
+                          className="border-black text-black hover:bg-black hover:text-white"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(loc.mapQuery)}`, '_blank')
+                          }}
+                        >
+                          Open in Google Maps
+                        </Button>
+                        <Button
+                          className="bg-yellow-500 hover:bg-yellow-600 text-black"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            router.push('/services')
+                          }}
+                        >
+                          Book a Repair
+                        </Button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                </CardContent>
+              </Card>
+            )
+          })}
         </div>
 
         {/* Map */}
         <div className="lg:col-span-3">
-          <div className="w-full aspect-video rounded-lg overflow-hidden shadow-md border border-stone-200">
+          <div className="relative w-full aspect-video rounded-lg overflow-hidden shadow-md border border-stone-200">
+            {/* shimmer overlay while map updates */}
+            {mapLoading && (
+              <div className="absolute inset-0 z-10 bg-stone-100/80 backdrop-blur-sm flex flex-col items-center justify-center animate-pulse">
+                <Loader2 className="w-8 h-8 mb-3 text-stone-600 animate-spin" />
+                <span className="text-sm text-stone-700">Updating map…</span>
+              </div>
+            )}
             <iframe
+              key={`${selected.id}-${mapVersion}`}
               src={mapSrc}
               width="100%"
               height="100%"
@@ -252,13 +290,16 @@ export default function ContactPage() {
               allowFullScreen
               referrerPolicy="no-referrer-when-downgrade"
               title={`Map for ${selected.title}`}
+              onLoad={() => setMapLoading(false)}
             ></iframe>
           </div>
-          <p className="text-sm text-stone-600 mt-3">Showing: <span className="font-medium text-stone-800">{selected.title}</span></p>
+          <p className="text-sm text-stone-600 mt-3">
+            Showing: <span className="font-medium text-stone-800">{selected.title}</span>
+          </p>
         </div>
       </div>
 
-      {/* Footer — same as Diamonds page */}
+      {/* Footer */}
       <footer className="bg-black text-white py-16">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -269,7 +310,6 @@ export default function ContactPage() {
                 Creating exceptional jewelry pieces that celebrate life's most precious moments.
               </p>
             </div>
-
             <div>
               <h4 className="font-semibold mb-4">Collections</h4>
               <ul className="space-y-2 text-gray-400">
@@ -279,7 +319,6 @@ export default function ContactPage() {
                 <li><Link href="/jewellery" className="hover:text-white transition-colors">Fine Jewellery</Link></li>
               </ul>
             </div>
-
             <div>
               <h4 className="font-semibold mb-4">Services</h4>
               <ul className="space-y-2 text-gray-400">
@@ -289,7 +328,6 @@ export default function ContactPage() {
                 <li><Link href="/services" className="hover:text-white transition-colors">Consultations</Link></li>
               </ul>
             </div>
-
             <div>
               <h4 className="font-semibold mb-4">Contact</h4>
               <div className="space-y-2 text-gray-400">
