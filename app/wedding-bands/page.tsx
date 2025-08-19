@@ -168,9 +168,23 @@ const { addItem,count, open } = useCart();
                       </div>
                       <div className="flex justify-between items-center">
                         <span className="text-xl font-bold text-black">{band.price}</span>
-                        <Button size="sm" className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold" onClick={() => setCartItems(cartItems + 1)}>
-                          Add to Cart
-                        </Button>
+                       <Button
+  size="sm"
+  className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
+  onClick={() => {
+    addItem({
+      id: `band-${band.id}`,
+      name: band.name,
+      price: Number(String(band.price).replace(/[£,]/g, "")),
+      image: band.image,
+      qty: 1,
+    })
+    open()
+  }}
+>
+  Add to Cart
+</Button>
+   
                       </div>
                     </div>
                   </CardContent>
