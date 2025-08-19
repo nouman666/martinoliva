@@ -13,6 +13,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
+import { useCart } from '@/app/cart/page'
 
 export default function BespokePage() {
   const router = useRouter()
@@ -20,7 +21,9 @@ export default function BespokePage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [message, setMessage] = useState<null | {type:'ok'|'err'; text:string}>(null)
+  const { addItem, open, count } = useCart()
 
+  
   const bespokeProcess = [
     { step: 1, title: "Initial Consultation", description: "Share your vision and ideas with our expert designers", icon: Users },
     { step: 2, title: "Design Development",   description: "We create detailed sketches and 3D renderings",       icon: Palette },
@@ -115,8 +118,10 @@ export default function BespokePage() {
             <Link href="/" className="flex items-center">
               <div className="text-xl md:text-2xl font-bold tracking-wider">
                 <span className="text-black">MARTIN OLIVA</span>
-                <div className="text-xs text-gray-600 tracking-[0.3em] font-light">FINE JEWELLERY</div>
-              </div>
+<div className="text-xs text-gray-600 tracking-[0.3em] font-light">
+                  The Total Watch and<br />
+                  Jewellery Care Centre
+                </div>              </div>
             </Link>
 
             {/* Desktop Navigation */}
@@ -129,18 +134,20 @@ export default function BespokePage() {
               <Link href="/jewellery" className="text-black hover:text-yellow-600 transition-colors font-medium">Jewellery</Link>
               <Link href="/bespoke" className="text-yellow-600 font-medium border-b-2 border-yellow-600 pb-1">Bespoke</Link>
               <Link href="/services" className="text-black hover:text-yellow-600 transition-colors font-medium">Services</Link>
-              <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium">Sale</Link>
+              <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium">Contact</Link>
             </nav>
 
             {/* Right Icons */}
-            <div className="flex items-center gap-3 md:gap-4">
+               <div className="flex items-center gap-3 md:gap-4">
               <Search className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
-              <User className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
               <div className="relative">
-                <ShoppingBag className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
-                {cartItems > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-yellow-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                    {cartItems}
+                <ShoppingBag
+                  className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors"
+                  onClick={open}
+                />
+                {count > 0 && (
+                  <span className="absolute -top-2 -right-2 text-[10px] leading-none bg-yellow-500 text-black rounded-full px-1.5 py-0.5 font-semibold">
+                    {count}
                   </span>
                 )}
               </div>
@@ -159,7 +166,7 @@ export default function BespokePage() {
                 <Link href="/jewellery" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Jewellery</Link>
                 <Link href="/bespoke" className="text-yellow-600 font-medium border-l-4 border-yellow-600 pl-4">Bespoke</Link>
                 <Link href="/services" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Services</Link>
-                <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium border-l-4 border-transparent hover:border-red-600 pl-4">Sale</Link>
+                <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium border-l-4 border-transparent hover:border-red-600 pl-4">Contact</Link>
               </nav>
             </div>
           )}
@@ -329,7 +336,7 @@ export default function BespokePage() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
               <h3 className="text-xl font-bold mb-4">MARTIN OLIVA</h3>
-              <p className="text-gray-400 mb-4">Fine Jewellery</p>
+              <p className="text-gray-400 mb-4">The Total Watch and<br/> Jewellery Care Centre</p>
               <p className="text-gray-400 text-sm leading-relaxed">
                 Creating exceptional jewelry pieces that celebrate life's most precious moments.
               </p>
