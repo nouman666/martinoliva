@@ -2,12 +2,7 @@
 
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 
-type Ctx = {
-  open: boolean
-  openSearch: () => void
-  closeSearch: () => void
-}
-
+type Ctx = { open: boolean; openSearch: () => void; closeSearch: () => void }
 const SearchCtx = createContext<Ctx | null>(null)
 
 export function SearchProvider({ children }: { children: React.ReactNode }) {
@@ -17,10 +12,7 @@ export function SearchProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
-        e.preventDefault()
-        setOpen(v => !v)
-      }
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); setOpen(v => !v) }
       if (e.key === 'Escape') setOpen(false)
     }
     window.addEventListener('keydown', onKey)
@@ -37,5 +29,4 @@ export function useSearch() {
   return ctx
 }
 
-/** Also export default to avoid import mismatches */
 export default SearchProvider
