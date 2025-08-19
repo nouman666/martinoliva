@@ -307,7 +307,7 @@ const { addItem,count, open } = useCart();
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
               <h3 className="text-xl font-bold mb-4">MARTIN OLIVA</h3>
-              <p className="text-gray-400 mb-4">Fine Jewellery</p>
+              <p className="text-gray-400 mb-4">  The Total Watch and Jewellery Care Centre </p>
               <p className="text-gray-400 text-sm leading-relaxed">
                 Creating exceptional jewelry pieces that celebrate life's most precious moments.
               </p>
