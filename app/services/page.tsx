@@ -2,12 +2,29 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
 import {
-  Mail, Phone, Facebook, Instagram, Search, User, ShoppingBag,
-  Settings, Shield, Clock, Sparkles, Wrench, Award
+  Mail,
+  Phone,
+  Facebook,
+  Instagram,
+  Search,
+  User,
+  ShoppingBag,
+  Settings,
+  Shield,
+  Clock,
+  Sparkles,
+  Wrench,
+  Award,
+  Droplets,
+  Gauge,
+  Square,
+  Crown,
+  Scissors,
+  Link as LinkIcon, // alias to avoid clashing with next/link
 } from 'lucide-react'
 
 export default function ServicesPage() {
@@ -15,144 +32,155 @@ export default function ServicesPage() {
   const [cartItems, setCartItems] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
+  // Simple booking handler: routes to /bespoke with a preselected service
+  const book = (what: string) => {
+    router.push(`/bespoke?service=${encodeURIComponent(what)}`)
+  }
+
   const services = [
     {
       id: 1,
-      title: "Jewellery Repair & Restoration",
-      description: "Expert repair services for all types of fine jewellery, from simple fixes to complete restorations.",
-      features: ["Ring resizing", "Stone replacement", "Chain repair", "Antique restoration"],
+      title: 'Jewellery Repair & Restoration',
+      description:
+        'Expert repair services for all types of fine jewellery, from simple fixes to complete restorations.',
+      features: ['Ring resizing', 'Stone replacement', 'Chain repair', 'Antique restoration'],
       icon: Wrench,
-      price: "From £50",
+      price: 'From £50',
     },
     {
       id: 2,
-      title: "Watch Services",
-      description: "Comprehensive watch servicing by certified watchmakers for all luxury timepiece brands.",
-      features: ["Full service", "Battery replacement", "Water resistance testing", "Bracelet adjustment"],
+      title: 'Watch Services',
+      description:
+        'Comprehensive watch servicing by certified watchmakers for all luxury timepiece brands.',
+      features: ['Full service', 'Battery replacement', 'Water resistance testing', 'Bracelet adjustment'],
       icon: Clock,
-      price: "From £150",
+      price: 'From £150',
     },
     {
       id: 3,
-      title: "Valuation & Insurance",
-      description: "Professional jewellery valuations for insurance, probate, or personal knowledge.",
-      features: ["Insurance valuations", "Probate valuations", "Verbal valuations", "Written certificates"],
+      title: 'Valuation & Insurance',
+      description:
+        'Professional jewellery valuations for insurance, probate, or personal knowledge.',
+      features: ['Insurance valuations', 'Probate valuations', 'Verbal valuations', 'Written certificates'],
       icon: Shield,
-      price: "From £75",
+      price: 'From £75',
     },
     {
       id: 4,
-      title: "Cleaning & Maintenance",
-      description: "Professional cleaning and maintenance to keep your jewellery looking its best.",
-      features: ["Ultrasonic cleaning", "Steam cleaning", "Polishing", "Rhodium plating"],
+      title: 'Cleaning & Maintenance',
+      description:
+        'Professional cleaning and maintenance to keep your jewellery looking its best.',
+      features: ['Ultrasonic cleaning', 'Steam cleaning', 'Polishing', 'Rhodium plating'],
       icon: Sparkles,
-      price: "From £25",
+      price: 'From £25',
     },
     {
       id: 5,
-      title: "Bespoke Design",
-      description: "Create unique, one-of-a-kind pieces tailored to your personal style and preferences.",
-      features: ["Design consultation", "3D rendering", "Custom manufacturing", "Personal service"],
+      title: 'Bespoke Design',
+      description:
+        'Create unique, one-of-a-kind pieces tailored to your personal style and preferences.',
+      features: ['Design consultation', '3D rendering', 'Custom manufacturing', 'Personal service'],
       icon: Settings,
-      price: "From £2,000",
+      price: 'From £2,000',
     },
     {
       id: 6,
-      title: "Certification Services",
-      description: "Diamond and gemstone certification from recognized international laboratories.",
-      features: ["GIA certification", "Diamond grading", "Gemstone identification", "Authenticity verification"],
+      title: 'Certification Services',
+      description:
+        'Diamond and gemstone certification from recognized international laboratories.',
+      features: ['GIA certification', 'Diamond grading', 'Gemstone identification', 'Authenticity verification'],
       icon: Award,
-      price: "From £200",
-    },
-     ]
-const watchCare = [
-    {
-      id: 'ultrasonic',
-      title: "Ultrasonic Cleaning",
-      description: "Deep clean to remove dirt and oils from case & bracelet.",
-      icon: Sparkles,
-      price: "From £25",
-    },
-    {
-      id: 'resealing',
-      title: "Resealing",
-      description: "Renew case gaskets to help maintain water resistance.",
-      icon: Shield,
-      price: "From £30",
-    },
-    {
-      id: 'polishing',
-      title: "Polishing (Before & After)",
-      description: "Professional refinish to restore shine and remove light scratches.",
-      icon: Sparkles,
-      price: "From £60",
-    },
-    {
-      id: 'water-test',
-      title: "Water Testing",
-      description: "Pressure test in a certified machine to factory spec.",
-      icon: Droplets,
-      price: "From £35",
-    },
-    {
-      id: 'regulating',
-      title: "Regulating",
-      description: "Adjust timing on a timing machine for optimal accuracy.",
-      icon: Gauge,
-      price: "From £45",
-    },
-    {
-      id: 'glass',
-      title: "Glass (Crystal) Replacement",
-      description: "Replace cracked or scratched crystal (mineral/sapphire).",
-      icon: Square,
-      price: "From £90",
-    },
-    {
-      id: 'crown-stem',
-      title: "Crown & Stem",
-      description: "Repair or replace worn/damaged crown and stem.",
-      icon: Crown,
-      price: "From £85",
-    },
-    {
-      id: 'straps-bracelet',
-      title: "Straps & Bracelet",
-      description: "Fit new straps/bracelets or repair existing ones.",
-      icon: Scissors,
-      price: "From £25",
-    },
-    {
-      id: 'links',
-      title: "Links Alteration",
-      description: "Add/remove links and micro‑adjust bracelet sizing.",
-      icon: LinkIcon,
-      price: "From £15",
+      price: 'From £200',
     },
   ]
 
-  // battery plans section content
+  const watchCare = [
+    {
+      id: 'ultrasonic',
+      title: 'Ultrasonic Cleaning',
+      description: 'Deep clean to remove dirt and oils from case & bracelet.',
+      icon: Sparkles,
+      price: 'From £25',
+    },
+    {
+      id: 'resealing',
+      title: 'Resealing',
+      description: 'Renew case gaskets to help maintain water resistance.',
+      icon: Shield,
+      price: 'From £30',
+    },
+    {
+      id: 'polishing',
+      title: 'Polishing (Before & After)',
+      description: 'Professional refinish to restore shine and remove light scratches.',
+      icon: Sparkles,
+      price: 'From £60',
+    },
+    {
+      id: 'water-test',
+      title: 'Water Testing',
+      description: 'Pressure test in a certified machine to factory spec.',
+      icon: Droplets,
+      price: 'From £35',
+    },
+    {
+      id: 'regulating',
+      title: 'Regulating',
+      description: 'Adjust timing on a timing machine for optimal accuracy.',
+      icon: Gauge,
+      price: 'From £45',
+    },
+    {
+      id: 'glass',
+      title: 'Glass (Crystal) Replacement',
+      description: 'Replace cracked or scratched crystal (mineral/sapphire).',
+      icon: Square,
+      price: 'From £90',
+    },
+    {
+      id: 'crown-stem',
+      title: 'Crown & Stem',
+      description: 'Repair or replace worn/damaged crown and stem.',
+      icon: Crown,
+      price: 'From £85',
+    },
+    {
+      id: 'straps-bracelet',
+      title: 'Straps & Bracelet',
+      description: 'Fit new straps/bracelets or repair existing ones.',
+      icon: Scissors,
+      price: 'From £25',
+    },
+    {
+      id: 'links',
+      title: 'Links Alteration',
+      description: 'Add/remove links and micro‑adjust bracelet sizing.',
+      icon: LinkIcon,
+      price: 'From £15',
+    },
+  ]
+
   const batteryPlans = [
     {
-      name: "Standard",
-      details: ["Battery fitted to spec", "Case reseal"],
-      guarantee: "12 months guarantee",
-      price: "From £15",
-      eta: "≈ 30 mins",
+      name: 'Standard',
+      details: ['Battery fitted to spec', 'Case reseal'],
+      guarantee: '12 months guarantee',
+      price: 'From £15',
+      eta: '≈ 30 mins',
     },
     {
-      name: "Premium",
-      details: ["Battery & reseal", "Pressure testing", "Ultrasonic clean"],
-      guarantee: "24 months guarantee",
-      price: "From £25",
-      eta: "≈ 60 mins",
+      name: 'Premium',
+      details: ['Battery & reseal', 'Pressure testing', 'Ultrasonic clean'],
+      guarantee: '24 months guarantee',
+      price: 'From £25',
+      eta: '≈ 60 mins',
     },
     {
-      name: "Complete",
-      details: ["Battery, reseal & pressure test", "Ultrasonic clean", "Light polish"],
-      guarantee: "36 months guarantee",
-      price: "From £35",
-      eta: "≈ 2 hours",
+      name: 'Complete',
+      details: ['Battery, reseal & pressure test', 'Ultrasonic clean', 'Light polish'],
+      guarantee: '36 months guarantee',
+      price: 'From £35',
+      eta: '≈ 2 hours',
     },
   ]
 
@@ -287,45 +315,49 @@ const watchCare = [
           {services.map((service) => {
             const IconComponent = service.icon
             return (
-            <Card key={service.id} className="group flex flex-col h-full hover:shadow-xl transition-all duration-300">
-  <CardContent className="flex flex-col flex-1 p-6">
-    {/* Icon + Title + Price */}
-    <div className="flex items-center mb-6">
-      <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center mr-4">
-        <service.icon className="w-6 h-6 text-white" />
-      </div>
-      <div>
-        <h3 className="text-xl font-semibold text-black">{service.title}</h3>
-        <p className="text-gray-600 text-sm">{service.price}</p>
-      </div>
-    </div>
+              <Card key={service.id} className="group flex flex-col h-full hover:shadow-xl transition-all duration-300">
+                <CardContent className="flex flex-col flex-1 p-6">
+                  {/* Icon + Title + Price */}
+                  <div className="flex items-center mb-6">
+                    <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center mr-4">
+                      <IconComponent className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-semibold text-black">{service.title}</h3>
+                      <p className="text-gray-600 text-sm">{service.price}</p>
+                    </div>
+                  </div>
 
-    {/* Description */}
-    <p className="text-gray-600 mb-6 leading-relaxed">{service.description}</p>
+                  {/* Description */}
+                  <p className="text-gray-600 mb-6 leading-relaxed">{service.description}</p>
 
-    {/* Features */}
-    <ul className="space-y-2 mb-6">
-      {service.features.map((feature, index) => (
-        <li key={index} className="flex items-center text-sm text-gray-600">
-          <div className="w-2 h-2 bg-yellow-600 rounded-full mr-3"></div>
-          {feature}
-        </li>
-      ))}
-    </ul>
+                  {/* Features */}
+                  <ul className="space-y-2 mb-6">
+                    {service.features.map((feature, index) => (
+                      <li key={index} className="flex items-center text-sm text-gray-600">
+                        <div className="w-2 h-2 bg-yellow-600 rounded-full mr-3"></div>
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
 
-    {/* Book Button pinned at bottom */}
-    <div className="mt-auto">
-      <Button className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-semibold">
-        Book Service
-      </Button>
-    </div>
-  </CardContent>
-</Card>
+                  {/* Book Button pinned at bottom */}
+                  <div className="mt-auto">
+                    <Button
+                      className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
+                      onClick={() => book(service.title)}
+                    >
+                      Book Service
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
             )
           })}
         </div>
       </section>
- {/* Total Watch Care & Battery Plans */}
+
+      {/* Total Watch Care & Battery Plans */}
       <section className="max-w-7xl mx-auto px-4 pb-4 md:pb-10">
         <Card className="border-gray-200">
           <CardContent className="p-8">
@@ -420,9 +452,10 @@ const watchCare = [
             Our experienced team is here to help with all your jewellery and watch service needs. Contact us today to discuss your requirements.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
-<Button asChild className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-3">
+            <Button asChild className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-3">
               <a href="tel:+447565455568">CALL US NOW</a>
-            </Button>            <Button onClick={() => router.push('/bespoke')}  className="btn-white-outline">
+            </Button>
+            <Button onClick={() => router.push('/bespoke')} className="btn-white-outline">
               EMAIL ENQUIRY
             </Button>
           </div>
