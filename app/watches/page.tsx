@@ -202,14 +202,14 @@ export default function WatchesPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
             <Button
-              className="bg-white text-black hover:bg-gray-100 px-6 md:px-8 py-3"
+              className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-3"
               onClick={() => router.push('/services')}
             >
               WATCH SERVICES
             </Button>
             <Button
               variant="outline"
-              className="border-white text-white hover:bg-white hover:text-black px-6 md:px-8 py-3"
+              className="btn-white-outline"
             >
               BOOK CONSULTATION
             </Button>
