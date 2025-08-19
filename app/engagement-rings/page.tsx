@@ -279,11 +279,8 @@ const { addItem,count, open } = useCart();
             >
               BOOK CONSULTATION
             </Button>
-            <Button
-              variant="outline"
-              className="border-white text-white hover:bg-white hover:text-black px-8 py-3"
-              onClick={() => router.push('/bespoke')}
-            >
+
+            <Button onClick={() => router.push('/bespoke')} className="btn-white-outline">
               CUSTOM DESIGN
             </Button>
           </div>
