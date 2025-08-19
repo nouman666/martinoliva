@@ -87,10 +87,10 @@ const [animation, setAnimation] = useState({
               <Search className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
               
               <div className="relative">
-                <ShoppingBag 
-                  className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" 
-                  onClick={() => router.push('/cart')}
-                />
+                <ShoppingBag
+  className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors"
+  onClick={open}
+/>
                 {cartItems > 0 && (
                   <span className="absolute -top-2 -right-2 bg-yellow-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                     {cartItems}
