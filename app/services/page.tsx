@@ -1,35 +1,23 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import Link from "next/link"
 import {
   Mail, Phone, Facebook, Instagram, Search, User, ShoppingBag,
   Settings, Shield, Clock, Sparkles, Wrench, Award,
-  Droplets, Gauge, Square, Crown, Scissors, Link as LinkIcon
+  Droplets, Gauge, Square, Crown, Scissors, Link as LinkIcon, X
 } from 'lucide-react'
-
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
-import {
-  Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter
-} from "@/components/ui/dialog"
-
-type BookableItem = {
-  category: 'Service' | 'Watch Care' | 'Battery Plan'
-  name: string
-  price?: string
-}
 
 export default function ServicesPage() {
-  const router = useRouter()
-  const [cartItems] = useState(0)
+  const [cartItems, setCartItems] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-  // ----- DATA (Services + Battery Plans + Watch Care) -----
+  // ---------- DATA ----------
   const services = [
     {
       id: 1,
@@ -99,70 +87,50 @@ export default function ServicesPage() {
     { name: "Complete", details: ["Battery, reseal & pressure test", "Ultrasonic clean", "Light polish"], guarantee: "36 months guarantee", price: "From £35", eta: "≈ 2 hours" },
   ]
 
-  // ----- POPUP STATE -----
-  const [dialogOpen, setDialogOpen] = useState(false)
-  const [selected, setSelected] = useState<BookableItem | null>(null)
-
-  // form fields
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [email, setEmail] = useState('')
-  const [phone, setPhone] = useState('')
-  const [preferredDate, setPreferredDate] = useState('')
-  const [notes, setNotes] = useState('')
+  // ---------- POPUP + FORM ----------
+  const [popupOpen, setPopupOpen] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [submitMsg, setSubmitMsg] = useState<string | null>(null)
-  const [errorMsg, setErrorMsg] = useState<string | null>(null)
 
-  // open the popup with the correct item
-  function book(item: BookableItem) {
-    setSelected(item)
-    setDialogOpen(true)
+  const [form, setForm] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    projectType: '',  // <- prefilled from the clicked card
+    budget: '',
+    description: '', // <- we’ll prefill with page context; user can add notes
+  })
+
+  function book(projectType: string, extra?: string) {
+    setForm((f) => ({
+      ...f,
+      projectType,
+      description: extra
+        ? `Selected: ${projectType}\n${extra}\n\nPlease add any extra details…`
+        : `Selected: ${projectType}\n\nPlease add any extra details…`,
+    }))
     setSubmitMsg(null)
-    setErrorMsg(null)
+    setPopupOpen(true)
   }
 
-  async function submitBooking() {
-    if (!selected) return
+  async function submitForm(e: React.FormEvent) {
+    e.preventDefault()
     setSubmitting(true)
     setSubmitMsg(null)
-    setErrorMsg(null)
-
     try {
-      // payload gathers everything from THIS PAGE (no redirect)
-      const payload = {
-        category: selected.category,
-        itemName: selected.name,
-        itemPrice: selected.price ?? '',
-        firstName,
-        lastName,
-        email,
-        phone,
-        preferredDate,
-        notes,
-        // You can add page context if useful
-        page: 'Services',
-        submittedAt: new Date().toISOString(),
-      }
-
-      const res = await fetch('/api/book-service', {
+      const res = await fetch('/api/consultation', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(form),
       })
-
-      if (!res.ok) {
-        const t = await res.text()
-        throw new Error(t || 'Request failed')
-      }
-
-      // success UI
-      setSubmitMsg('Thanks! Your request has been received. We’ll confirm by email shortly.')
-      // optional: reset some fields, but keep name/email for convenience
-      setPreferredDate('')
-      setNotes('')
+      const data = await res.json()
+      if (!res.ok || !data?.ok) throw new Error(data?.error || 'Request failed')
+      setSubmitMsg('Thanks! Your request has been sent.')
+      // optional: clear personal fields but keep projectType visible
+      setForm((f) => ({ ...f, firstName: '', lastName: '', email: '', phone: '', budget: '', description: f.description }))
     } catch (err: any) {
-      setErrorMsg(err?.message || 'Something went wrong while sending your request.')
+      setSubmitMsg(err?.message || 'Something went wrong. Please try again.')
     } finally {
       setSubmitting(false)
     }
@@ -233,15 +201,9 @@ export default function ServicesPage() {
             {/* Right Icons */}
             <div className="flex items-center gap-3 md:gap-4">
               <Search className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
-              <User
-                className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors"
-                onClick={() => router.push('/account')}
-              />
+              <User className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
               <div className="relative">
-                <ShoppingBag
-                  className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors"
-                  onClick={() => router.push('/cart')}
-                />
+                <ShoppingBag className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
                 {cartItems > 0 && (
                   <span className="absolute -top-2 -right-2 bg-yellow-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                     {cartItems}
@@ -270,7 +232,7 @@ export default function ServicesPage() {
         </div>
       </header>
 
-      {/* Hero */}
+      {/* Hero Section — black & gold feel */}
       <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -287,6 +249,9 @@ export default function ServicesPage() {
           <p className="text-lg md:text-xl leading-relaxed mb-8 max-w-2xl mx-auto">
             Repairs, valuations, cleaning, bespoke design, and more—handled by specialists you can trust.
           </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Button onClick={() => book('General Consultation')} className="btn-gold">BOOK A CONSULTATION</Button>
+          </div>
         </div>
       </section>
 
@@ -298,7 +263,6 @@ export default function ServicesPage() {
             return (
               <Card key={service.id} className="group flex flex-col h-full hover:shadow-xl transition-all duration-300">
                 <CardContent className="flex flex-col flex-1 p-6">
-                  {/* Icon + Title + Price */}
                   <div className="flex items-center mb-6">
                     <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center mr-4">
                       <IconComponent className="w-6 h-6 text-white" />
@@ -308,27 +272,19 @@ export default function ServicesPage() {
                       <p className="text-gray-600 text-sm">{service.price}</p>
                     </div>
                   </div>
-
-                  {/* Description */}
                   <p className="text-gray-600 mb-6 leading-relaxed">{service.description}</p>
-
-                  {/* Features */}
                   <ul className="space-y-2 mb-6">
-                    {service.features.map((feature, index) => (
-                      <li key={index} className="flex items-center text-sm text-gray-600">
+                    {service.features.map((feature, i) => (
+                      <li key={i} className="flex items-center text-sm text-gray-600">
                         <div className="w-2 h-2 bg-yellow-600 rounded-full mr-3"></div>
                         {feature}
                       </li>
                     ))}
                   </ul>
-
-                  {/* Book Button */}
                   <div className="mt-auto">
                     <Button
                       className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
-                      onClick={() =>
-                        book({ category: 'Service', name: service.title, price: service.price })
-                      }
+                      onClick={() => book(service.title, `Price: ${service.price}\nFeatures: ${service.features.join(', ')}`)}
                     >
                       Book Service
                     </Button>
@@ -340,7 +296,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Battery Plans */}
+      {/* Total Watch Care & Battery Plans */}
       <section className="max-w-7xl mx-auto px-4 pb-4 md:pb-10">
         <Card className="border-gray-200">
           <CardContent className="p-8">
@@ -375,7 +331,7 @@ export default function ServicesPage() {
                         size="sm"
                         className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
                         onClick={() =>
-                          book({ category: 'Battery Plan', name: `${p.name} Battery Plan`, price: p.price })
+                          book(`${p.name} Battery Plan`, `Guarantee: ${p.guarantee}\nPrice: ${p.price}\nETA: ${p.eta}\nIncludes: ${p.details.join(', ')}`)
                         }
                       >
                         Book
@@ -417,7 +373,7 @@ export default function ServicesPage() {
                   <div className="mt-auto">
                     <Button
                       className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
-                      onClick={() => book({ category: 'Watch Care', name: item.title, price: item.price })}
+                      onClick={() => book(item.title, `Price: ${item.price}\nDetail: ${item.description}`)}
                     >
                       Book Service
                     </Button>
@@ -440,7 +396,7 @@ export default function ServicesPage() {
             <Button asChild className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-3">
               <a href="tel:+447565455568">CALL US NOW</a>
             </Button>
-            <Button onClick={() => setDialogOpen(true)} className="btn-white-outline">
+            <Button onClick={() => book('Email Enquiry')} className="btn-white-outline">
               EMAIL ENQUIRY
             </Button>
           </div>
@@ -467,84 +423,6 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* ----- BOOKING POPUP (Dialog) ----- */}
-      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="sm:max-w-lg">
-          <DialogHeader>
-            <DialogTitle>Book {selected ? selected.name : 'a Service'}</DialogTitle>
-            <DialogDescription>
-              Fill in your details below and we’ll confirm your booking by email.
-            </DialogDescription>
-          </DialogHeader>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="md:col-span-2">
-              <Label className="text-sm">Selected</Label>
-              <div className="mt-1 text-sm">
-                <span className="font-semibold">{selected?.category || '—'}</span>{' '}
-                • {selected?.name || '—'}
-                {selected?.price ? <span className="text-gray-500"> &nbsp;({selected.price})</span> : null}
-              </div>
-            </div>
-
-            <div>
-              <Label htmlFor="firstName">First name</Label>
-              <Input id="firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-            </div>
-            <div>
-              <Label htmlFor="lastName">Last name</Label>
-              <Input id="lastName" value={lastName} onChange={(e) => setLastName(e.target.value)} />
-            </div>
-
-            <div>
-              <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-            </div>
-            <div>
-              <Label htmlFor="phone">Phone</Label>
-              <Input id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
-            </div>
-
-            <div className="md:col-span-2">
-              <Label htmlFor="preferredDate">Preferred date/time</Label>
-              <Input
-                id="preferredDate"
-                placeholder="e.g. 21 Aug, after 3pm"
-                value={preferredDate}
-                onChange={(e) => setPreferredDate(e.target.value)}
-              />
-            </div>
-
-            <div className="md:col-span-2">
-              <Label htmlFor="notes">Notes (optional)</Label>
-              <Textarea
-                id="notes"
-                placeholder="Tell us about the issue, timepiece model, ring size, deadlines, etc."
-                className="min-h-[100px]"
-                value={notes}
-                onChange={(e) => setNotes(e.target.value)}
-              />
-            </div>
-          </div>
-
-          {submitMsg && (
-            <p className="text-green-600 text-sm mt-2">{submitMsg}</p>
-          )}
-          {errorMsg && (
-            <p className="text-red-600 text-sm mt-2">{errorMsg}</p>
-          )}
-
-          <DialogFooter className="mt-2">
-            <Button variant="outline" onClick={() => setDialogOpen(false)} disabled={submitting}>
-              Cancel
-            </Button>
-            <Button className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold" onClick={submitBooking} disabled={submitting}>
-              {submitting ? 'Sending…' : 'Send Request'}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
       {/* Footer — matches Home */}
       <footer className="bg-black text-white py-16">
         <div className="max-w-7xl mx-auto px-4">
@@ -570,10 +448,10 @@ export default function ServicesPage() {
             <div>
               <h4 className="font-semibold mb-4">Services</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><button className="hover:text-white transition-colors" onClick={() => book({ category: 'Service', name: 'Bespoke Design' })}>Bespoke Design</button></li>
-                <li><button className="hover:text-white transition-colors" onClick={() => book({ category: 'Service', name: 'Repairs & Maintenance' })}>Repairs & Maintenance</button></li>
-                <li><button className="hover:text-white transition-colors" onClick={() => book({ category: 'Service', name: 'Valuations' })}>Valuations</button></li>
-                <li><button className="hover:text-white transition-colors" onClick={() => book({ category: 'Service', name: 'Consultations' })}>Consultations</button></li>
+                <li><Link href="/bespoke" className="hover:text-white transition-colors">Bespoke Design</Link></li>
+                <li><Link href="/services" className="hover:text-white transition-colors">Repairs & Maintenance</Link></li>
+                <li><Link href="/services" className="hover:text-white transition-colors">Valuations</Link></li>
+                <li><Link href="/services" className="hover:text-white transition-colors">Consultations</Link></li>
               </ul>
             </div>
 
@@ -596,6 +474,129 @@ export default function ServicesPage() {
           </div>
         </div>
       </footer>
+
+      {/* ---------- POPUP MODAL ---------- */}
+      {popupOpen && (
+        <div className="fixed inset-0 z-[999] flex items-center justify-center bg-black/60 p-4">
+          <div className="w-full max-w-2xl bg-white rounded-xl shadow-2xl border border-gray-200">
+            <div className="flex items-center justify-between p-4 border-b">
+              <h3 className="text-lg font-semibold">Book Service / Consultation</h3>
+              <button className="p-2 hover:bg-gray-100 rounded-md" onClick={() => setPopupOpen(false)}>
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <form onSubmit={submitForm} className="p-6 space-y-5">
+              {/* Project Type (prefilled) */}
+              <div>
+                <Label htmlFor="projectType">Service</Label>
+                <Input
+                  id="projectType"
+                  value={form.projectType}
+                  onChange={(e) => setForm({ ...form, projectType: e.target.value })}
+                  required
+                />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="firstName">First Name</Label>
+                  <Input
+                    id="firstName"
+                    value={form.firstName}
+                    onChange={(e) => setForm({ ...form, firstName: e.target.value })}
+                    required
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="lastName">Last Name</Label>
+                  <Input
+                    id="lastName"
+                    value={form.lastName}
+                    onChange={(e) => setForm({ ...form, lastName: e.target.value })}
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={form.email}
+                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    required
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="phone">Phone</Label>
+                  <Input
+                    id="phone"
+                    value={form.phone}
+                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <Label htmlFor="budget">Budget</Label>
+                <select
+                  id="budget"
+                  className="w-full mt-2 p-3 border border-gray-300 rounded-md"
+                  value={form.budget}
+                  onChange={(e) => setForm({ ...form, budget: e.target.value })}
+                >
+                  <option value="">Select a range (optional)</option>
+                  <option>£0 - £100</option>
+                  <option>£100 - £250</option>
+                  <option>£250 - £500</option>
+                  <option>£500 - £1,000</option>
+                  <option>£1,000 - £2,000</option>
+                  <option>£2,000 - £5,000</option>
+                  <option>£5,000+</option>
+                </select>
+              </div>
+
+              <div>
+                <Label htmlFor="description">Details</Label>
+                <Textarea
+                  id="description"
+                  className="mt-2 min-h-[120px]"
+                  value={form.description}
+                  onChange={(e) => setForm({ ...form, description: e.target.value })}
+                  placeholder="Add any extra information (watch model, ring size, deadlines, etc.)"
+                />
+              </div>
+
+              {submitMsg && (
+                <div className={`text-sm ${submitMsg.includes('Thanks') ? 'text-green-600' : 'text-red-600'}`}>
+                  {submitMsg}
+                </div>
+              )}
+
+              <div className="flex items-center justify-end gap-3 pt-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="border-gray-300"
+                  onClick={() => setPopupOpen(false)}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  type="submit"
+                  className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
+                  disabled={submitting}
+                >
+                  {submitting ? 'Sending…' : 'Submit Request'}
+                </Button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
