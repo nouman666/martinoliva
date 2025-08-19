@@ -15,17 +15,16 @@ export function SearchProvider({ children }: { children: React.ReactNode }) {
   const openSearch = () => setOpen(true)
   const closeSearch = () => setOpen(false)
 
-  // Global shortcut: Cmd/Ctrl + K
   useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
+    const onKey = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault()
-        setOpen((v) => !v)
+        setOpen(v => !v)
       }
       if (e.key === 'Escape') setOpen(false)
     }
-    window.addEventListener('keydown', handler)
-    return () => window.removeEventListener('keydown', handler)
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
   }, [])
 
   const value = useMemo(() => ({ open, openSearch, closeSearch }), [open])
@@ -37,3 +36,6 @@ export function useSearch() {
   if (!ctx) throw new Error('useSearch must be used within <SearchProvider>')
   return ctx
 }
+
+/** Also export default to avoid import mismatches */
+export default SearchProvider
