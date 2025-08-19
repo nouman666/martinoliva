@@ -178,10 +178,11 @@ export default function ServicesPage() {
             </button>
 
             {/* Logo */}
-            <Link href="/" className="flex items-center">
+           <Link href="/" className="flex items-center">
               <div className="text-xl md:text-2xl font-bold tracking-wider">
                 <span className="text-black">MARTIN OLIVA</span>
-                <div className="text-xs text-gray-600 tracking-[0.3em] font-light">FINE JEWELLERY</div>
+                  <div className="text-xs text-gray-600 tracking-[0.3em] font-light">The Total Watch and<br />Jewellery Care Centre
+                </div>              
               </div>
             </Link>
 
@@ -195,13 +196,12 @@ export default function ServicesPage() {
               <Link href="/jewellery" className="text-black hover:text-yellow-600 transition-colors font-medium">Jewellery</Link>
               <Link href="/bespoke" className="text-black hover:text-yellow-600 transition-colors font-medium">Bespoke</Link>
               <Link href="/services" className="text-yellow-600 font-medium border-b-2 border-yellow-600 pb-1">Services</Link>
-              <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium">Sale</Link>
+              <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium">Contact</Link>
             </nav>
 
             {/* Right Icons */}
             <div className="flex items-center gap-3 md:gap-4">
               <Search className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
-              <User className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
               <div className="relative">
                 <ShoppingBag className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
                 {cartItems > 0 && (
@@ -225,7 +225,7 @@ export default function ServicesPage() {
                 <Link href="/jewellery" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Jewellery</Link>
                 <Link href="/bespoke" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Bespoke</Link>
                 <Link href="/services" className="text-yellow-600 font-medium border-l-4 border-yellow-600 pl-4">Services</Link>
-                <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium border-l-4 border-transparent hover:border-red-600 pl-4">Sale</Link>
+                <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium border-l-4 border-transparent hover:border-red-600 pl-4">Contact</Link>
               </nav>
             </div>
           )}
@@ -429,7 +429,7 @@ export default function ServicesPage() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
               <h3 className="text-xl font-bold mb-4">MARTIN OLIVA</h3>
-              <p className="text-gray-400 mb-4">Fine Jewellery</p>
+              <p className="text-gray-400 mb-4">The Total Watch and<br />Jewellery Care Centre</p>
               <p className="text-gray-400 text-sm leading-relaxed">
                 Creating exceptional jewelry pieces that celebrate life's most precious moments.
               </p>
