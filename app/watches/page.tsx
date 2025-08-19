@@ -72,8 +72,10 @@ export default function WatchesPage() {
             <Link href="/" className="flex items-center">
               <div className="text-xl md:text-2xl font-bold tracking-wider">
                 <span className="text-black">MARTIN OLIVA</span>
-                <div className="text-xs text-gray-600 tracking-[0.3em] font-light">FINE JEWELLERY</div>
-              </div>
+<div className="text-xs text-gray-600 tracking-[0.3em] font-light">
+                  The Total Watch and<br />
+                  Jewellery Care Centre
+                </div>              </div>
             </Link>
 
             {/* Desktop Navigation */}
@@ -221,7 +223,8 @@ export default function WatchesPage() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
               <h3 className="text-xl font-bold mb-4">MARTIN OLIVA</h3>
-              <p className="text-gray-400 mb-4">Fine Jewellery</p>
+              <p className="text-gray-400 mb-4"> The Total Watch and<br />
+                  Jewellery Care Centre</p>
               <p className="text-gray-400 text-sm leading-relaxed">
                 Creating exceptional jewelry pieces that celebrate life&apos;s most precious moments.
               </p>
