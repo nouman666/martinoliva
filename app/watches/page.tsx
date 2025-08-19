@@ -207,11 +207,8 @@ export default function WatchesPage() {
             >
               WATCH SERVICES
             </Button>
-            <Button
-              variant="outline"
-              className="btn-white-outline"
-            >
-              BOOK CONSULTATION
+               <Button onClick={() => router.push('/bespoke')} className="btn-white-outline">
+              CUSTOM DESIGN
             </Button>
           </div>
         </div>
