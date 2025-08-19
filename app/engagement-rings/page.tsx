@@ -145,15 +145,14 @@ const { addItem,count, open } = useCart();
               <Link href="/jewellery" className="text-black hover:text-yellow-600 transition-colors font-medium">Jewellery</Link>
               <Link href="/bespoke" className="text-black hover:text-yellow-600 transition-colors font-medium">Bespoke</Link>
               <Link href="/services" className="text-black hover:text-yellow-600 transition-colors font-medium">Services</Link>
-              <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium">Sale</Link>
+              <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium">Contact</Link>
             </nav>
 
             {/* Right Icons */}
-            <div className="flex items-center gap-3 md:gap-4">
+             <div className="flex items-center gap-3 md:gap-4">
               <Search className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
-              <User className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
               <div className="relative">
-                  <ShoppingBag
+               <ShoppingBag
   className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors"
   onClick={open}
 />
@@ -173,7 +172,7 @@ const { addItem,count, open } = useCart();
                 <Link href="/jewellery" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Jewellery</Link>
                 <Link href="/bespoke" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Bespoke</Link>
                 <Link href="/services" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Services</Link>
-                <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium border-l-4 border-transparent hover:border-red-600 pl-4">Sale</Link>
+                <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium border-l-4 border-transparent hover:border-red-600 pl-4">Contact</Link>
               </nav>
             </div>
           )}
