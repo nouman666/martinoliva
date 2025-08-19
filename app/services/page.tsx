@@ -78,6 +78,97 @@ export default function ServicesPage() {
       icon: Clock,
       price: "Batteries from £15 (brand dependent)",
     },
+    
+  ]
+const watchCare = [
+    {
+      id: 'ultrasonic',
+      title: "Ultrasonic Cleaning",
+      description: "Deep clean to remove dirt and oils from case & bracelet.",
+      icon: Sparkles,
+      price: "From £25",
+    },
+    {
+      id: 'resealing',
+      title: "Resealing",
+      description: "Renew case gaskets to help maintain water resistance.",
+      icon: Shield,
+      price: "From £30",
+    },
+    {
+      id: 'polishing',
+      title: "Polishing (Before & After)",
+      description: "Professional refinish to restore shine and remove light scratches.",
+      icon: Sparkles,
+      price: "From £60",
+    },
+    {
+      id: 'water-test',
+      title: "Water Testing",
+      description: "Pressure test in a certified machine to factory spec.",
+      icon: Droplets,
+      price: "From £35",
+    },
+    {
+      id: 'regulating',
+      title: "Regulating",
+      description: "Adjust timing on a timing machine for optimal accuracy.",
+      icon: Gauge,
+      price: "From £45",
+    },
+    {
+      id: 'glass',
+      title: "Glass (Crystal) Replacement",
+      description: "Replace cracked or scratched crystal (mineral/sapphire).",
+      icon: Square,
+      price: "From £90",
+    },
+    {
+      id: 'crown-stem',
+      title: "Crown & Stem",
+      description: "Repair or replace worn/damaged crown and stem.",
+      icon: Crown,
+      price: "From £85",
+    },
+    {
+      id: 'straps-bracelet',
+      title: "Straps & Bracelet",
+      description: "Fit new straps/bracelets or repair existing ones.",
+      icon: Scissors,
+      price: "From £25",
+    },
+    {
+      id: 'links',
+      title: "Links Alteration",
+      description: "Add/remove links and micro‑adjust bracelet sizing.",
+      icon: LinkIcon,
+      price: "From £15",
+    },
+  ]
+
+  // battery plans section content
+  const batteryPlans = [
+    {
+      name: "Standard",
+      details: ["Battery fitted to spec", "Case reseal"],
+      guarantee: "12 months guarantee",
+      price: "From £15",
+      eta: "≈ 30 mins",
+    },
+    {
+      name: "Premium",
+      details: ["Battery & reseal", "Pressure testing", "Ultrasonic clean"],
+      guarantee: "24 months guarantee",
+      price: "From £25",
+      eta: "≈ 60 mins",
+    },
+    {
+      name: "Complete",
+      details: ["Battery, reseal & pressure test", "Ultrasonic clean", "Light polish"],
+      guarantee: "36 months guarantee",
+      price: "From £35",
+      eta: "≈ 2 hours",
+    },
   ]
 
   return (
@@ -245,6 +336,92 @@ export default function ServicesPage() {
     </div>
   </CardContent>
 </Card>
+            )
+          })}
+        </div>
+      </section>
+ {/* Total Watch Care & Battery Plans */}
+      <section className="max-w-7xl mx-auto px-4 pb-4 md:pb-10">
+        <Card className="border-gray-200">
+          <CardContent className="p-8">
+            <h2 className="text-2xl md:text-3xl font-bold text-black mb-4">
+              The Total Watch Care & Jewellery Repair Services
+            </h2>
+            <p className="text-gray-700 mb-4">
+              We fit batteries to manufacturer specifications. Batteries fitted <strong>from £15</strong>, depending on brand and requirements.
+              Choose one of our care plan options for battery replacement across all manufacturer brands:
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+              {batteryPlans.map((p) => (
+                <Card key={p.name} className="border-gray-200">
+                  <CardContent className="p-6 flex flex-col h-full">
+                    <h3 className="text-xl font-semibold text-black mb-2">{p.name} Plan</h3>
+                    <ul className="text-sm text-gray-700 space-y-2 mb-4">
+                      {p.details.map((d, i) => (
+                        <li key={i} className="flex items-start">
+                          <span className="w-2 h-2 bg-yellow-600 rounded-full mr-3 mt-2"></span>
+                          <span>{d}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="text-sm text-gray-600 mb-3">{p.guarantee}</div>
+                    <div className="flex items-center justify-between mt-auto">
+                      <div>
+                        <div className="text-lg font-bold text-black">{p.price}</div>
+                        <div className="text-xs text-gray-500">{p.eta}</div>
+                      </div>
+                      <Button
+                        size="sm"
+                        className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
+                        onClick={() => book(`${p.name} Battery Plan`)}
+                      >
+                        Book
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            <div className="mt-6 text-sm text-gray-700">
+              <strong>Duration:</strong> Most standard batteries can be fitted within ~30 minutes. The Premium plan can take up to ~1 hour and the Complete plan up to ~2 hours due to polishing requirements. Please speak to our sales care team for more information.
+            </div>
+          </CardContent>
+        </Card>
+      </section>
+
+      {/* Watch Care Menu — one card per item */}
+      <section className="max-w-7xl mx-auto px-4 py-12 md:py-16">
+        <h2 className="text-2xl md:text-3xl font-bold text-black mb-6 md:mb-10 text-center">
+          Watch Care Menu
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+          {watchCare.map((item) => {
+            const Icon = item.icon
+            return (
+              <Card key={item.id} className="group hover:shadow-xl transition-all duration-300">
+                <CardContent className="p-8 flex flex-col h-full">
+                  <div className="flex items-center mb-6">
+                    <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center mr-4">
+                      <Icon className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-semibold text-black">{item.title}</h3>
+                      <p className="text-gray-600 text-sm">{item.price}</p>
+                    </div>
+                  </div>
+                  <p className="text-gray-600 mb-6 leading-relaxed">{item.description}</p>
+                  <div className="mt-auto">
+                    <Button
+                      className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
+                      onClick={() => book(item.title)}
+                    >
+                      Book Service
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
             )
           })}
         </div>
