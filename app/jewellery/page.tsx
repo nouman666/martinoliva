@@ -84,7 +84,6 @@ export default function JewelleryPage() {
 
             <div className="flex items-center gap-3 md:gap-4">
               <Search className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
-              <User className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
               <div className="relative">
                 <ShoppingBag
                   className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors"
