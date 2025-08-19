@@ -89,7 +89,7 @@ export default function JewelleryPage() {
                   className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors"
                   onClick={open}
                 />
-                {count > 0 && (
+                 {count > 0 && (
                   <span className="absolute -top-2 -right-2 bg-yellow-500 text-black text-xs rounded-full min-w-5 h-5 px-1.5 flex items-center justify-center font-semibold">
                     {count}
                   </span>
