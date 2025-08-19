@@ -24,7 +24,7 @@ export default function ServicesPage() {
     {
       id: 1,
       title: "Jewellery Repair & Restoration",
-      description: "Expert repair services for all types of fine jewellery, from simple fixes to complete restorations.",
+      description: "Expert  repair services for all types of fine jewellery, from simple fixes to complete restorations.",
       features: ["Ring resizing", "Stone replacement", "Chain repair", "Antique restoration"],
       icon: Wrench,
       price: "From £50",
