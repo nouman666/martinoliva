@@ -11,7 +11,7 @@ export default function HomePage() {
   const router = useRouter()
   const [cartItems, setCartItems] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const { open } = useCart()
+  const { open,count } = useCart()
 const [hovered, setHovered] = useState(null) // track which box is active
 const [animation, setAnimation] = useState({
   engagement: '',
