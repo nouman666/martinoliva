@@ -64,6 +64,20 @@ export default function ServicesPage() {
       icon: Award,
       price: "From £200",
     },
+     {
+      id: 7,
+      title: "Total Watch Care & Battery Plans",
+      description:
+        "Batteries fitted to manufacturer specifications. Choose from our care plans for all brands.",
+      features: [
+        "Standard: Battery & reseal — 12 months guarantee",
+        "Premium: Battery, pressure test, ultrasonic clean — 24 months guarantee",
+        "Ultimate: Battery, reseal, pressure test, ultrasonic clean & polish — 36 months guarantee",
+        "Typical durations: Std ≈ 30 mins • Premium ≈ 1 hr • Ultimate ≈ 2 hrs",
+      ],
+      icon: Clock,
+      price: "Batteries from £15 (brand dependent)",
+    },
   ]
 
   return (
