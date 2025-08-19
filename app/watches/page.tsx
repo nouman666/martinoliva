@@ -18,12 +18,12 @@ export default function WatchesPage() {
   const gbp = (s: string) => Number(s.replace(/[£,]/g, ''))
 
   const watches = [
-    { id: 1, name: 'Classic Dress Watch', brand: 'Martin Oliva', movement: 'Swiss Automatic', case: '18k Gold, 40mm', price: '£8,500',  isLimited: false, image: '/classic-dress-watch.png' },
-    { id: 2, name: 'Diamond Bezel Ladies', brand: 'Martin Oliva', movement: 'Swiss Quartz',    case: 'Steel & Diamonds, 32mm', price: '£12,200', isLimited: false, image: '/diamond-bezel-ladies-watch.png' },
-    { id: 3, name: 'Limited Edition Chronograph', brand: 'Martin Oliva', movement: 'Swiss Chronograph', case: 'Platinum, 42mm', price: '£25,000', isLimited: true,  image: '/limited-chronograph.png' },
-    { id: 4, name: 'Vintage Inspired', brand: 'Martin Oliva', movement: 'Manual Wind',        case: 'Rose Gold, 38mm', price: '£6,800',  isLimited: false, image: '/vintage-inspired-watch.png' },
-    { id: 5, name: 'Sports Luxury', brand: 'Martin Oliva', movement: 'Swiss Automatic',       case: 'Steel & Ceramic, 44mm', price: '£4,200',  isLimited: false, image: '/sports-luxury-watch.png' },
-    { id: 6, name: 'Elegant Mother of Pearl', brand: 'Martin Oliva', movement: 'Swiss Quartz', case: 'White Gold & Diamonds, 30mm', price: '£15,500', isLimited: false, image: '/mother-of-pearl-watch.png' },
+    { id: 21, name: 'Classic Dress Watch', brand: 'Martin Oliva', movement: 'Swiss Automatic', case: '18k Gold, 40mm', price: '£8,500',  isLimited: false, image: '/classic-dress-watch.png' },
+    { id: 22, name: 'Diamond Bezel Ladies', brand: 'Martin Oliva', movement: 'Swiss Quartz',    case: 'Steel & Diamonds, 32mm', price: '£12,200', isLimited: false, image: '/diamond-bezel-ladies-watch.png' },
+    { id: 23, name: 'Limited Edition Chronograph', brand: 'Martin Oliva', movement: 'Swiss Chronograph', case: 'Platinum, 42mm', price: '£25,000', isLimited: true,  image: '/limited-chronograph.png' },
+    { id: 24, name: 'Vintage Inspired', brand: 'Martin Oliva', movement: 'Manual Wind',        case: 'Rose Gold, 38mm', price: '£6,800',  isLimited: false, image: '/vintage-inspired-watch.png' },
+    { id: 25, name: 'Sports Luxury', brand: 'Martin Oliva', movement: 'Swiss Automatic',       case: 'Steel & Ceramic, 44mm', price: '£4,200',  isLimited: false, image: '/sports-luxury-watch.png' },
+    { id: 26, name: 'Elegant Mother of Pearl', brand: 'Martin Oliva', movement: 'Swiss Quartz', case: 'White Gold & Diamonds, 30mm', price: '£15,500', isLimited: false, image: '/mother-of-pearl-watch.png' },
   ]
 
   return (
