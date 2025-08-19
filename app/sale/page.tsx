@@ -1,85 +1,96 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import {
-  Mail, Phone, Facebook, Instagram, Search, User, ShoppingBag,
-  Settings, Shield, Clock, Sparkles, Wrench, Award
-} from 'lucide-react'
+import { Mail, Phone, Facebook, Instagram, Search, User, ShoppingBag, MapPin } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
 
-export default function ServicesPage() {
+type Location = {
+  id: number
+  title: string
+  address: string
+  phone: string
+  email?: string
+  hours?: string
+  note?: string
+  mapQuery: string // used to build Google Maps embed
+}
+
+export default function ContactPage() {
   const router = useRouter()
   const [cartItems, setCartItems] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-  const services = [
+  // 4 pulled from itechmobile contact page + your extra George Lane address
+  const locations: Location[] = [
     {
       id: 1,
-      title: "Jewellery Repair & Restoration",
-      description: "Expert repair services for all types of fine jewellery, from simple fixes to complete restorations.",
-      features: ["Ring resizing", "Stone replacement", "Chain repair", "Antique restoration"],
-      icon: Wrench,
-      price: "From £50",
+      title: 'CAMBRIDGE SHOP UK',
+      address: '34 Fitzroy Street, Outside Grafton Centre, Cambridge CB1 1EW',
+      phone: '01223 678708',
+      email: 'info@itechmobile.co.uk',
+      hours: 'Mon–Sat 9:00–20:00 • Sun 10:00–20:00',
+      mapQuery: '34 Fitzroy Street, Cambridge CB1 1EW'
     },
     {
       id: 2,
-      title: "Watch Services",
-      description: "Comprehensive watch servicing by certified watchmakers for all luxury timepiece brands.",
-      features: ["Full service", "Battery replacement", "Water resistance testing", "Bracelet adjustment"],
-      icon: Clock,
-      price: "From £150",
+      title: 'LONDON SHOP UK (Balham)',
+      address: '143 High Road, Balham, London SW12 9AU',
+      phone: '020 8793 6137',
+      email: 'info@itechmobile.co.uk',
+      hours: 'Mon–Sat 9:00–20:00 • Sun 10:00–20:00',
+      mapQuery: '143 High Rd, London SW12 9AU'
     },
     {
       id: 3,
-      title: "Valuation & Insurance",
-      description: "Professional jewellery valuations for insurance, probate, or personal knowledge.",
-      features: ["Insurance valuations", "Probate valuations", "Verbal valuations", "Written certificates"],
-      icon: Shield,
-      price: "From £75",
+      title: 'BRIGHTON SHOP UK',
+      address: '130 North Street, Brighton BN1 1RG',
+      phone: '01273 080203',
+      email: 'info@itechmobile.co.uk',
+      hours: 'Mon–Sat 9:00–20:00 • Sun 10:00–20:00',
+      mapQuery: '130 North St, Brighton BN1 1RG'
     },
     {
       id: 4,
-      title: "Cleaning & Maintenance",
-      description: "Professional cleaning and maintenance to keep your jewellery looking its best.",
-      features: ["Ultrasonic cleaning", "Steam cleaning", "Polishing", "Rhodium plating"],
-      icon: Sparkles,
-      price: "From £25",
+      title: 'SAFFRON WALDEN SHOP UK',
+      address: '38 High Street, Saffron Walden, Essex CB10 1EP',
+      phone: '01223 375690',
+      email: 'info@itechmobile.co.uk',
+      hours: 'Mon–Sat 9:00–20:00 • Sun 10:00–20:00',
+      mapQuery: '38 High St, Saffron Walden CB10 1EP'
     },
     {
       id: 5,
-      title: "Bespoke Design",
-      description: "Create unique, one-of-a-kind pieces tailored to your personal style and preferences.",
-      features: ["Design consultation", "3D rendering", "Custom manufacturing", "Personal service"],
-      icon: Settings,
-      price: "From £2,000",
-    },
-    {
-      id: 6,
-      title: "Certification Services",
-      description: "Diamond and gemstone certification from recognized international laboratories.",
-      features: ["GIA certification", "Diamond grading", "Gemstone identification", "Authenticity verification"],
-      icon: Award,
-      price: "From £200",
+      title: 'LONDON – GEORGE LANE (Service Options: Offers repair services)',
+      address: '120 George Ln, London E18 1AD',
+      phone: '07565 455568',
+      email: 'info@itechmobile.co.uk',
+      hours: 'Closed • Opens 10:00',
+      note: 'Walk-in repairs available',
+      mapQuery: '120 George Ln, London E18 1AD'
     },
   ]
 
+  const [selected, setSelected] = useState<Location>(locations[0])
+
+  const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(selected.mapQuery)}&output=embed`
+
   return (
     <div className="min-h-screen bg-white">
-      {/* Top Header Bar — matches Home */}
+      {/* Top Header Bar — same spirit as Diamonds page */}
       <div className="bg-gradient-to-r from-black to-yellow-600 text-white py-2 px-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center text-sm">
           <div className="flex items-center gap-6">
-            <div className="flex items-center gap-2">
+            <a href="mailto:studio@martinoliva.co.uk" className="flex items-center gap-2">
               <Mail className="w-4 h-4" />
               <span>studio@martinoliva.co.uk</span>
-            </div>
-            <div className="flex items-center gap-2">
+            </a>
+            <a href="tel:+447565455568" className="flex items-center gap-2">
               <Phone className="w-4 h-4" />
               <span>+44 7565 455568</span>
-            </div>
+            </a>
           </div>
           <div className="flex items-center gap-4">
             <span className="text-sm">Follow us:</span>
@@ -93,7 +104,7 @@ export default function ServicesPage() {
         </div>
       </div>
 
-      {/* Main Navigation — matches Home */}
+      {/* Main Navigation — matches site */}
       <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
@@ -131,15 +142,9 @@ export default function ServicesPage() {
             {/* Right Icons */}
             <div className="flex items-center gap-3 md:gap-4">
               <Search className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
-              <User
-                className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors"
-                onClick={() => router.push('/account')}
-              />
+              <User className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
               <div className="relative">
-                <ShoppingBag
-                  className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors"
-                  onClick={() => router.push('/cart')}
-                />
+                <ShoppingBag className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
                 {cartItems > 0 && (
                   <span className="absolute -top-2 -right-2 bg-yellow-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                     {cartItems}
@@ -168,112 +173,92 @@ export default function ServicesPage() {
         </div>
       </header>
 
-      {/* Hero Section — black & gold feel */}
-      <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
+      {/* Hero */}
+      <section className="relative h-[45vh] md:h-[50vh] flex items-center justify-center overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url("/bespoke-portfoliofront.jpg")` }}
+          style={{ backgroundImage: `url("/daimond_banner.png")` }}
         >
-          <div className="absolute inset-0 bg-black/60"></div>
+          <div className="absolute inset-0 bg-black/55"></div>
         </div>
-
         <div className="relative z-10 text-center text-white px-4 max-w-3xl mx-auto">
-          <p className="text-sm tracking-[0.3em] uppercase mb-4 text-yellow-400">Expert Care • Honest Advice</p>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-            Professional <span className="text-yellow-400">Services</span>
-          </h1>
-          <p className="text-lg md:text-xl leading-relaxed mb-8 max-w-2xl mx-auto">
-            Repairs, valuations, cleaning, bespoke design, and more—handled by specialists you can trust.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button onClick={() => router.push('/bespoke')} className="btn-gold">BOOK A CONSULTATION</Button>
-          </div>
+          <p className="text-sm tracking-[0.3em] uppercase mb-3 text-yellow-400">VISIT • CALL • MESSAGE</p>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">Contact Us</h1>
+          <div className="w-16 h-0.5 bg-yellow-400 mx-auto"></div>
         </div>
       </section>
 
-      {/* Services Grid */}
-      <section className="max-w-7xl mx-auto px-4 py-12 md:py-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
-          {services.map((service) => {
-            const IconComponent = service.icon
-            return (
-            <Card key={service.id} className="group flex flex-col h-full hover:shadow-xl transition-all duration-300">
-  <CardContent className="flex flex-col flex-1 p-6">
-    {/* Icon + Title + Price */}
-    <div className="flex items-center mb-6">
-      <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center mr-4">
-        <service.icon className="w-6 h-6 text-white" />
+      {/* Locations + Map */}
+      <div className="max-w-7xl mx-auto px-4 py-10 md:py-16 grid grid-cols-1 lg:grid-cols-5 gap-8">
+        {/* Locations list */}
+        <div className="lg:col-span-2 space-y-4">
+          {locations.map(loc => (
+            <Card
+              key={loc.id}
+              className={`cursor-pointer transition-all hover:shadow-lg ${selected.id === loc.id ? 'ring-2 ring-yellow-500' : ''}`}
+              onClick={() => setSelected(loc)}
+            >
+              <CardContent className="p-5">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 rounded-full bg-black flex items-center justify-center shrink-0">
+                    <MapPin className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-black">{loc.title}</h3>
+                    {loc.note && <p className="text-xs text-stone-600 mt-0.5">{loc.note}</p>}
+                    <p className="text-stone-700 mt-2">{loc.address}</p>
+                    <div className="mt-2 text-sm text-stone-600">
+                      <div>Phone: <a className="underline hover:text-black" href={`tel:${loc.phone.replace(/\s+/g,'')}`}>{loc.phone}</a></div>
+                      {loc.email && <div>Email: <a className="underline hover:text-black" href={`mailto:${loc.email}`}>{loc.email}</a></div>}
+                      {loc.hours && <div>Hours: {loc.hours}</div>}
+                    </div>
+                    <div className="mt-3 flex gap-2">
+                      <Button
+                        variant="outline"
+                        className="border-black text-black hover:bg-black hover:text-white"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(loc.mapQuery)}`, '_blank')
+                        }}
+                      >
+                        Open in Google Maps
+                      </Button>
+                      <Button
+                        className="bg-yellow-500 hover:bg-yellow-600 text-black"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          router.push('/services')
+                        }}
+                      >
+                        Book a Repair
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {/* Map */}
+        <div className="lg:col-span-3">
+          <div className="w-full aspect-video rounded-lg overflow-hidden shadow-md border border-stone-200">
+            <iframe
+              src={mapSrc}
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              loading="lazy"
+              allowFullScreen
+              referrerPolicy="no-referrer-when-downgrade"
+              title={`Map for ${selected.title}`}
+            ></iframe>
+          </div>
+          <p className="text-sm text-stone-600 mt-3">Showing: <span className="font-medium text-stone-800">{selected.title}</span></p>
+        </div>
       </div>
-      <div>
-        <h3 className="text-xl font-semibold text-black">{service.title}</h3>
-        <p className="text-gray-600 text-sm">{service.price}</p>
-      </div>
-    </div>
 
-    {/* Description */}
-    <p className="text-gray-600 mb-6 leading-relaxed">{service.description}</p>
-
-    {/* Features */}
-    <ul className="space-y-2 mb-6">
-      {service.features.map((feature, index) => (
-        <li key={index} className="flex items-center text-sm text-gray-600">
-          <div className="w-2 h-2 bg-yellow-600 rounded-full mr-3"></div>
-          {feature}
-        </li>
-      ))}
-    </ul>
-
-    {/* Book Button pinned at bottom */}
-    <div className="mt-auto">
-      <Button className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-semibold">
-        Book Service
-      </Button>
-    </div>
-  </CardContent>
-</Card>
-            )
-          })}
-        </div>
-      </section>
-
-      {/* Contact/Info Strip — dark section like Home’s tone */}
-      <section className="bg-black text-white py-12 md:py-20">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Need Expert Advice?</h2>
-          <p className="text-base md:text-lg mb-6 md:mb-8 text-gray-300 leading-relaxed">
-            Our experienced team is here to help with all your jewellery and watch service needs. Contact us today to discuss your requirements.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
-<Button asChild className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-3">
-              <a href="tel:+447565455568">CALL US NOW</a>
-            </Button>            <Button onClick={() => router.push('/bespoke')}  className="btn-white-outline">
-              EMAIL ENQUIRY
-            </Button>
-          </div>
-
-          <div className="mt-8 md:mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 text-center">
-            <div>
-              <h3 className="font-semibold mb-2">Opening Hours</h3>
-              <p className="text-gray-300 text-sm">Mon–Fri: 10:00–18:00</p>
-              <p className="text-gray-300 text-sm">Sat: 10:00–17:00</p>
-              <p className="text-gray-300 text-sm">Sun: Closed</p>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-2">Location</h3>
-              <p className="text-gray-300 text-sm">Martin Oliva London</p>
-              <p className="text-gray-300 text-sm">Luxury Jewellery Quarter</p>
-              <p className="text-gray-300 text-sm">London, UK</p>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-2">Contact</h3>
-              <p className="text-gray-300 text-sm">+44 20 8530 0382</p>
-              <p className="text-gray-300 text-sm">studio@martinoliva.co.uk</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer — matches Home */}
+      {/* Footer — same as Diamonds page */}
       <footer className="bg-black text-white py-16">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -320,7 +305,7 @@ export default function ServicesPage() {
           </div>
 
           <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 Martin Oliva. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} Martin Oliva. All rights reserved.</p>
           </div>
         </div>
       </footer>
