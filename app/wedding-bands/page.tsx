@@ -145,27 +145,43 @@ export default function WeddingBandsPage() {
 
       {/* Tabs with BLACK active style */}
       <div className="max-w-7xl mx-auto px-4 py-16">
-        <Tabs defaultValue="women" className="w-full">
-          <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3 mb-8 md:mb-12 gap-2 sm:gap-0 bg-transparent p-0">
-            <TabsTrigger
-              value="women"
-              className="text-black bg-transparent hover:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-black data-[state=active]:text-black"
-            >
-              Women&apos;s Bands
-            </TabsTrigger>
-            <TabsTrigger
-              value="men"
-              className="text-black bg-transparent hover:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-black data-[state=active]:text-black"
-            >
-              Men&apos;s Bands
-            </TabsTrigger>
-            <TabsTrigger
-              value="sets"
-              className="text-black bg-transparent hover:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-black data-[state=active]:text-black"
-            >
-              Matching Sets
-            </TabsTrigger>
-          </TabsList>
+       <Tabs defaultValue="women" className="w-full">
+  <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3 mb-8 md:mb-12 gap-2 sm:gap-0 bg-transparent p-0">
+    <TabsTrigger
+      value="women"
+      className="w-full rounded-none py-3 md:py-4 text-white bg-black hover:bg-black/90
+                 data-[state=active]:bg-gradient-to-r data-[state=active]:from-black data-[state=active]:to-yellow-600
+                 data-[state=active]:text-white data-[state=active]:font-semibold
+                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500
+                 transition-colors"
+    >
+      Women&apos;s Bands
+    </TabsTrigger>
+
+    <TabsTrigger
+      value="men"
+      className="w-full rounded-none py-3 md:py-4 text-white bg-black hover:bg-black/90
+                 data-[state=active]:bg-gradient-to-r data-[state=active]:from-black data-[state=active]:to-yellow-600
+                 data-[state=active]:text-white data-[state=active]:font-semibold
+                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500
+                 transition-colors"
+    >
+      Men&apos;s Bands
+    </TabsTrigger>
+
+    <TabsTrigger
+      value="sets"
+      className="w-full rounded-none py-3 md:py-4 text-white bg-black hover:bg-black/90
+                 data-[state=active]:bg-gradient-to-r data-[state=active]:from-black data-[state=active]:to-yellow-600
+                 data-[state=active]:text-white data-[state=active]:font-semibold
+                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500
+                 transition-colors"
+    >
+      Matching Sets
+    </TabsTrigger>
+  </TabsList>
+</Tabs>
+
 
           {/* Women */}
           <TabsContent value="women">
