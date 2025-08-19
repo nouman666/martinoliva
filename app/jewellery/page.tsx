@@ -15,7 +15,7 @@ export default function JewelleryPage() {
   const gbp = (s: string) => Number(s.replace(/[£,]/g, ''))
 
   const jewellery = [
-    { id: 27, name: "Gold Necklace",        price: "£3,200", image: "/gold-necklace.png" },
+    { id: 27, name: "Gold Necklace",        price: "£3,20 0", image: "/gold-necklace.png" },
     { id: 28, name: "Diamond Earrings",     price: "£4,500", image: "/diamond-earrings.png" },
     { id: 29, name: "Platinum Bracelet",    price: "£6,800", image: "/platinum-bracelet.png" },
   ]
