@@ -18,18 +18,18 @@ const { addItem,count, open } = useCart();
   // data kept simple & valid JSON
   const weddingBands = {
     women: [
-      { id: 1, name: 'Classic Diamond Eternity', metal: 'Platinum', diamonds: '0.50ct Total', width: '2.5mm', price: '£2,800', image: '/diamond-eternity-band.png' },
-      { id: 2, name: 'Vintage Milgrain Band', metal: '18k Yellow Gold', diamonds: '0.25ct Total', width: '3mm', price: '£1,650', image: '/vintage-milgrain-band.png' },
-      { id: 3, name: 'Modern Curved Band', metal: '18k White Gold', diamonds: '0.35ct Total', width: '2mm', price: '£2,200', image: '/modern-curved-band.png' }
+      { id: 13, name: 'Classic Diamond Eternity', metal: 'Platinum', diamonds: '0.50ct Total', width: '2.5mm', price: '£2,800', image: '/diamond-eternity-band.png' },
+      { id: 14, name: 'Vintage Milgrain Band', metal: '18k Yellow Gold', diamonds: '0.25ct Total', width: '3mm', price: '£1,650', image: '/vintage-milgrain-band.png' },
+      { id: 15, name: 'Modern Curved Band', metal: '18k White Gold', diamonds: '0.35ct Total', width: '2mm', price: '£2,200', image: '/modern-curved-band.png' }
     ],
     men: [
-      { id: 4, name: 'Classic Comfort Fit', metal: 'Platinum', diamonds: 'None', width: '6mm', price: '£1,200', image: '/mens-comfort-fit-band.png' },
-      { id: 5, name: 'Brushed Titanium', metal: 'Titanium', diamonds: 'None', width: '7mm', price: '£450', image: '/brushed-titanium-band.png' },
-      { id: 6, name: 'Diamond Channel Set', metal: '18k White Gold', diamonds: '0.75ct Total', width: '8mm', price: '£3,500', image: '/mens-diamond-channel-band.png' }
+      { id: 16, name: 'Classic Comfort Fit', metal: 'Platinum', diamonds: 'None', width: '6mm', price: '£1,200', image: '/mens-comfort-fit-band.png' },
+      { id: 17, name: 'Brushed Titanium', metal: 'Titanium', diamonds: 'None', width: '7mm', price: '£450', image: '/brushed-titanium-band.png' },
+      { id: 18, name: 'Diamond Channel Set', metal: '18k White Gold', diamonds: '0.75ct Total', width: '8mm', price: '£3,500', image: '/mens-diamond-channel-band.png' }
     ],
     sets: [
-      { id: 7, name: 'His & Hers Classic Set', metal: 'Platinum', diamonds: '0.25ct (Hers)', description: 'Matching comfort fit bands', price: '£2,400', image: '/his-hers-classic-set.png' },
-      { id: 8, name: 'Modern Matching Set', metal: '18k Rose Gold', diamonds: '0.40ct (Hers)', description: 'Contemporary design', price: '£2,850', image: '/modern-matching-set.png' }
+      { id: 19, name: 'His & Hers Classic Set', metal: 'Platinum', diamonds: '0.25ct (Hers)', description: 'Matching comfort fit bands', price: '£2,400', image: '/his-hers-classic-set.png' },
+      { id: 20, name: 'Modern Matching Set', metal: '18k Rose Gold', diamonds: '0.40ct (Hers)', description: 'Contemporary design', price: '£2,850', image: '/modern-matching-set.png' }
     ]
   }
 
