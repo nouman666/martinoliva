@@ -7,11 +7,13 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { useCart } from '@/app/cart/page'
 
 export default function EngagementRingsPage() {
   const router = useRouter()
   const [cartItems, setCartItems] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+const { addItem,count, open } = useCart();
 
   const rings = [
     {
@@ -151,12 +153,10 @@ export default function EngagementRingsPage() {
               <Search className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
               <User className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
               <div className="relative">
-                <ShoppingBag className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
-                {cartItems > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-yellow-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                    {cartItems}
-                  </span>
-                )}
+                  <ShoppingBag
+  className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors"
+  onClick={open}
+/>
               </div>
             </div>
           </div>
