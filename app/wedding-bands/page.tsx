@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Mail, Phone, Facebook, Instagram, Search, User, ShoppingBag, Users } from 'lucide-react'
+import { Mail, Phone, Facebook, Instagram, Search, ShoppingBag, Users } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -11,25 +11,26 @@ import { useCart } from '@/app/cart/page'
 
 export default function WeddingBandsPage() {
   const router = useRouter()
-  const [cartItems, setCartItems] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-const { addItem,count, open } = useCart();
+  const { addItem, open } = useCart()
 
-  // data kept simple & valid JSON
+  // helper for £ string -> number
+  const gbp = (s: string) => Number(s.replace(/[£,]/g, ''))
+
   const weddingBands = {
     women: [
       { id: 13, name: 'Classic Diamond Eternity', metal: 'Platinum', diamonds: '0.50ct Total', width: '2.5mm', price: '£2,800', image: '/diamond-eternity-band.png' },
-      { id: 14, name: 'Vintage Milgrain Band', metal: '18k Yellow Gold', diamonds: '0.25ct Total', width: '3mm', price: '£1,650', image: '/vintage-milgrain-band.png' },
-      { id: 15, name: 'Modern Curved Band', metal: '18k White Gold', diamonds: '0.35ct Total', width: '2mm', price: '£2,200', image: '/modern-curved-band.png' }
+      { id: 14, name: 'Vintage Milgrain Band', metal: '18k Yellow Gold', diamonds: '0.25ct Total', width: '3mm',   price: '£1,650', image: '/vintage-milgrain-band.png' },
+      { id: 15, name: 'Modern Curved Band',    metal: '18k White Gold', diamonds: '0.35ct Total', width: '2mm',   price: '£2,200', image: '/modern-curved-band.png' }
     ],
     men: [
-      { id: 16, name: 'Classic Comfort Fit', metal: 'Platinum', diamonds: 'None', width: '6mm', price: '£1,200', image: '/mens-comfort-fit-band.png' },
-      { id: 17, name: 'Brushed Titanium', metal: 'Titanium', diamonds: 'None', width: '7mm', price: '£450', image: '/brushed-titanium-band.png' },
-      { id: 18, name: 'Diamond Channel Set', metal: '18k White Gold', diamonds: '0.75ct Total', width: '8mm', price: '£3,500', image: '/mens-diamond-channel-band.png' }
+      { id: 16, name: 'Classic Comfort Fit',  metal: 'Platinum',        diamonds: 'None',         width: '6mm',   price: '£1,200', image: '/mens-comfort-fit-band.png' },
+      { id: 17, name: 'Brushed Titanium',     metal: 'Titanium',        diamonds: 'None',         width: '7mm',   price: '£450',  image: '/brushed-titanium-band.png' },
+      { id: 18, name: 'Diamond Channel Set',  metal: '18k White Gold',  diamonds: '0.75ct Total', width: '8mm',   price: '£3,500', image: '/mens-diamond-channel-band.png' }
     ],
     sets: [
-      { id: 19, name: 'His & Hers Classic Set', metal: 'Platinum', diamonds: '0.25ct (Hers)', description: 'Matching comfort fit bands', price: '£2,400', image: '/his-hers-classic-set.png' },
-      { id: 20, name: 'Modern Matching Set', metal: '18k Rose Gold', diamonds: '0.40ct (Hers)', description: 'Contemporary design', price: '£2,850', image: '/modern-matching-set.png' }
+      { id: 19, name: 'His & Hers Classic Set', metal: 'Platinum',      diamonds: '0.25ct (Hers)', description: 'Matching comfort fit bands', price: '£2,400', image: '/his-hers-classic-set.png' },
+      { id: 20, name: 'Modern Matching Set',    metal: '18k Rose Gold', diamonds: '0.40ct (Hers)', description: 'Contemporary design',        price: '£2,850', image: '/modern-matching-set.png' }
     ]
   }
 
@@ -76,13 +77,13 @@ const { addItem,count, open } = useCart();
             </button>
 
             {/* Logo */}
-             <Link href="/" className="flex items-center">
+            <Link href="/" className="flex items-center">
               <div className="text-xl md:text-2xl font-bold tracking-wider">
                 <span className="text-black">MARTIN OLIVA</span>
-              <div className="text-xs text-gray-600 tracking-[0.3em] font-light">
-  The Total Watch and<br />
-  Jewellery Care Centre 
-</div>
+                <div className="text-xs text-gray-600 tracking-[0.3em] font-light">
+                  The Total Watch and<br />
+                  Jewellery Care Centre
+                </div>
               </div>
             </Link>
 
@@ -100,13 +101,13 @@ const { addItem,count, open } = useCart();
             </nav>
 
             {/* Right Icons */}
-             <div className="flex items-center gap-3 md:gap-4">
+            <div className="flex items-center gap-3 md:gap-4">
               <Search className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
               <div className="relative">
-               <ShoppingBag
-  className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors"
-  onClick={open}
-/>
+                <ShoppingBag
+                  className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors"
+                  onClick={open}
+                />
               </div>
             </div>
           </div>
@@ -142,18 +143,31 @@ const { addItem,count, open } = useCart();
         </div>
       </div>
 
-      {/* Tabs & Cards (unchanged) */}
+      {/* Tabs with BLACK active style */}
       <div className="max-w-7xl mx-auto px-4 py-16">
         <Tabs defaultValue="women" className="w-full">
-  <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3 mb-8 md:mb-12 gap-2 sm:gap-0 bg-transparent p-0">
-    <TabsTrigger  value="women"  className="text-black bg-transparent hover:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-black data-[state=active]:text-black" >Women&apos;s Bands </TabsTrigger>
-    <TabsTrigger value="men" className="text-black bg-transparent hover:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-black data-[state=active]:text-black" >
-      Men&apos;s Bands</TabsTrigger>
-    <TabsTrigger value="sets" className="text-black bg-transparent hover:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-black data-[state=active]:text-black" >
-      Matching Sets </TabsTrigger>
-  </TabsList>
-</Tabs>
+          <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3 mb-8 md:mb-12 gap-2 sm:gap-0 bg-transparent p-0">
+            <TabsTrigger
+              value="women"
+              className="text-black bg-transparent hover:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-black data-[state=active]:text-black"
+            >
+              Women&apos;s Bands
+            </TabsTrigger>
+            <TabsTrigger
+              value="men"
+              className="text-black bg-transparent hover:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-black data-[state=active]:text-black"
+            >
+              Men&apos;s Bands
+            </TabsTrigger>
+            <TabsTrigger
+              value="sets"
+              className="text-black bg-transparent hover:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-black data-[state=active]:text-black"
+            >
+              Matching Sets
+            </TabsTrigger>
+          </TabsList>
 
+          {/* Women */}
           <TabsContent value="women">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
               {weddingBands.women.map((band) => (
@@ -171,23 +185,22 @@ const { addItem,count, open } = useCart();
                       </div>
                       <div className="flex justify-between items-center">
                         <span className="text-xl font-bold text-black">{band.price}</span>
-                       <Button
-  size="sm"
-  className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
-  onClick={() => {
-    addItem({
-      id: `band-${band.id}`,
-      name: band.name,
-      price: Number(String(band.price).replace(/[£,]/g, "")),
-      image: band.image,
-      qty: 1,
-    })
-    open()
-  }}
->
-  Add to Cart
-</Button>
-   
+                        <Button
+                          size="sm"
+                          className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
+                          onClick={() => {
+                            addItem({
+                              id: `band-${band.id}`,
+                              name: band.name,
+                              price: gbp(band.price),
+                              image: band.image,
+                              qty: 1,
+                            })
+                            open()
+                          }}
+                        >
+                          Add to Cart
+                        </Button>
                       </div>
                     </div>
                   </CardContent>
@@ -196,6 +209,7 @@ const { addItem,count, open } = useCart();
             </div>
           </TabsContent>
 
+          {/* Men */}
           <TabsContent value="men">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
               {weddingBands.men.map((band) => (
@@ -213,23 +227,22 @@ const { addItem,count, open } = useCart();
                       </div>
                       <div className="flex justify-between items-center">
                         <span className="text-xl font-bold text-black">{band.price}</span>
-                       <Button
-  size="sm"
-  className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
-  onClick={() => {
-    addItem({
-      id: `band-${band.id}`,
-      name: band.name,
-      price: Number(String(band.price).replace(/[£,]/g, "")),
-      image: band.image,
-      qty: 1,
-    })
-    open()
-  }}
->
-  Add to Cart
-</Button>
-
+                        <Button
+                          size="sm"
+                          className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
+                          onClick={() => {
+                            addItem({
+                              id: `band-${band.id}`,
+                              name: band.name,
+                              price: gbp(band.price),
+                              image: band.image,
+                              qty: 1,
+                            })
+                            open()
+                          }}
+                        >
+                          Add to Cart
+                        </Button>
                       </div>
                     </div>
                   </CardContent>
@@ -238,6 +251,7 @@ const { addItem,count, open } = useCart();
             </div>
           </TabsContent>
 
+          {/* Sets */}
           <TabsContent value="sets">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-8">
               {weddingBands.sets.map((set) => (
@@ -256,22 +270,21 @@ const { addItem,count, open } = useCart();
                       <div className="flex justify-between items-center">
                         <span className="text-xl font-bold text-black">{set.price}</span>
                         <Button
-  size="sm"
-  className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
-  onClick={() => {
-    addItem({
-      id: `band-${set.id}`,
-      name: set.name,
-      price: Number(String(set.price).replace(/[£,]/g, "")),
-      image: set.image,
-      qty: 1,
-    })
-    open()
-  }}
->
-  Add to Cart
-</Button>
-
+                          size="sm"
+                          className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
+                          onClick={() => {
+                            addItem({
+                              id: `band-${set.id}`,
+                              name: set.name,
+                              price: gbp(set.price),
+                              image: set.image,
+                              qty: 1,
+                            })
+                            open()
+                          }}
+                        >
+                          Add to Cart
+                        </Button>
                       </div>
                     </div>
                   </CardContent>
@@ -288,7 +301,7 @@ const { addItem,count, open } = useCart();
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
               <h3 className="text-xl font-bold mb-4">MARTIN OLIVA</h3>
-              <p className="text-gray-400 mb-4">  The Total Watch and<br/>Jewellery Care Centre </p>
+              <p className="text-gray-400 mb-4">The Total Watch and<br />Jewellery Care Centre</p>
               <p className="text-gray-400 text-sm leading-relaxed">
                 Creating exceptional jewelry pieces that celebrate life&apos;s most precious moments.
               </p>
