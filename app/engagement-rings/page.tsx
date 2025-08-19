@@ -17,7 +17,7 @@ const { addItem,count, open } = useCart();
 
   const rings = [
     {
-      id: 1,
+      id: 7,
       name: "Classic Solitaire",
       style: "Solitaire",
       metal: "Platinum",
@@ -28,7 +28,7 @@ const { addItem,count, open } = useCart();
       image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
     },
     {
-      id: 2,
+      id: 8,
       name: "Vintage Halo",
       style: "Halo",
       metal: "18k White Gold",
@@ -39,7 +39,7 @@ const { addItem,count, open } = useCart();
       image: "https://images.unsplash.com/photo-1544376664-80b17f09d399?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
     },
     {
-      id: 3,
+      id: 9,
       name: "Three Stone Classic",
       style: "Three Stone",
       metal: "18k Yellow Gold",
@@ -50,7 +50,7 @@ const { addItem,count, open } = useCart();
       image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
     },
     {
-      id: 4,
+      id: 10,
       name: "Art Deco Inspired",
       style: "Vintage",
       metal: "Platinum",
@@ -61,7 +61,7 @@ const { addItem,count, open } = useCart();
       image: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
     },
     {
-      id: 5,
+      id: 11,
       name: "Modern Twist",
       style: "Contemporary",
       metal: "18k Rose Gold",
@@ -72,7 +72,7 @@ const { addItem,count, open } = useCart();
       image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
     },
     {
-      id: 6,
+      id: 12,
       name: "Pavé Band Solitaire",
       style: "Solitaire",
       metal: "Platinum",
