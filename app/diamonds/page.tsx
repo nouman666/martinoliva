@@ -66,15 +66,15 @@ const { addItem,count, open } = useCart();
             </button>
 
             {/* Logo */}
-            <Link href="/" className="flex items-center">
-              <div className="text-xl md:text-2xl font-bold tracking-wider">
-                <span className="text-black">MARTIN OLIVA</span>
-<div className="text-xs text-gray-600 tracking-[0.15em] font-light">
-  The Total Watch and<br />Jewellery Care 
-  Centre
-</div>    
-              </Link>
-
+           <Link href="/" className="flex items-center">
+  <div className="text-xl md:text-2xl font-bold tracking-wider">
+    <span className="text-black">MARTIN OLIVA</span>
+    <div className="text-xs text-gray-600 tracking-[0.15em] font-light leading-snug">
+      The Total Watch and <br />
+      <span className="whitespace-nowrap">Jewellery Care Centre</span>
+    </div>
+  </div>
+</Link>
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center space-x-8">
               <Link href="/" className="text-black hover:text-yellow-600 transition-colors font-medium">Home</Link>
