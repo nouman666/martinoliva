@@ -238,8 +238,9 @@ export default function ServicesPage() {
             Our experienced team is here to help with all your jewellery and watch service needs. Contact us today to discuss your requirements.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
-            <Button className="bg-white text-black hover:bg-gray-100 px-6 md:px-8 py-3">CALL US NOW</Button>
-            <Button onClick={() => router.push('/bespoke')}  className="btn-white-outline">
+<Button asChild className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-3">
+              <a href="tel:+447565455568">CALL US NOW</a>
+            </Button>            <Button onClick={() => router.push('/bespoke')}  className="btn-white-outline">
               EMAIL ENQUIRY
             </Button>
           </div>
