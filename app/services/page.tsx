@@ -187,7 +187,6 @@ export default function ServicesPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button onClick={() => router.push('/bespoke')} className="btn-gold">BOOK A CONSULTATION</Button>
-            <Button onClick={() => router.push('/contact')} className="btn-white-outline">CONTACT US</Button>
           </div>
         </div>
       </section>
