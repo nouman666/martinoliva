@@ -35,7 +35,7 @@ const [animation, setAnimation] = useState({
             </div>
             <div className="flex items-center gap-2">
               <Phone className="w-4 h-4" />
-              <span>+44 7565 455568 </span>
+              <span>+44 7565 455568</span>
             </div>
           </div>
           <div className="flex items-center gap-4">
