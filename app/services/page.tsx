@@ -239,7 +239,7 @@ export default function ServicesPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
             <Button className="bg-white text-black hover:bg-gray-100 px-6 md:px-8 py-3">CALL US NOW</Button>
-            <Button variant="outline" className="border-white text-white hover:bg-white hover:text-black px-6 md:px-8 py-3">
+            <Button onClick={() => router.push('/bespoke')}  className="btn-white-outline">
               EMAIL ENQUIRY
             </Button>
           </div>
