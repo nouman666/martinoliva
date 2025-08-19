@@ -181,7 +181,7 @@ export default function WeddingBandsPage() {
     </TabsTrigger>
   </TabsList>
 </Tabs>
-
+</div>
 
           {/* Women */}
           <TabsContent value="women">
