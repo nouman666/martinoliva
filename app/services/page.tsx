@@ -209,8 +209,8 @@ export default function ServicesPage() {
                   className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors"
                   onClick={open}
                 />
-                {count > 0 && (
-                  <span className="absolute -top-2 -right-2 text-[10px] leading-none bg-yellow-500 text-black rounded-full px-1.5 py-0.5 font-semibold">
+                 {count > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-yellow-500 text-black text-xs rounded-full min-w-5 h-5 px-1.5 flex items-center justify-center font-semibold">
                     {count}
                   </span>
                 )}
