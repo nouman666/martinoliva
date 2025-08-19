@@ -27,10 +27,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {/* Single, site-wide mini-cart drawer */}
           <CartDrawer />
         </CartProvider>
+      <SearchProvider>
+          {children}
+          {/* Mount globally so any page can open it */}
+          <SearchOverlay />
+        </SearchProvider>
         <WhatsAppButton
   phone="447565455568"
   message="Hello! I'd like to chat with Martin Oliva."
 />
+        
       </body>
     </html>
   )
