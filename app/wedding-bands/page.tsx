@@ -145,7 +145,7 @@ const { addItem,count, open } = useCart();
       {/* Tabs & Cards (unchanged) */}
       <div className="max-w-7xl mx-auto px-4 py-16">
         <Tabs defaultValue="women" className="w-full">
-          <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3 mb-8 md:mb-12 gap-2 sm:gap-0">
+          <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3 mb-8 md:mb-12 gap-2 sm:gap-0 btn-white-outline">
             <TabsTrigger value="women" className="text-base md:text-lg py-3 md:py-4">Women&apos;s Bands</TabsTrigger>
             <TabsTrigger value="men" className="text-base md:text-lg py-3 md:py-4">Men&apos;s Bands</TabsTrigger>
             <TabsTrigger value="sets" className="text-base md:text-lg py-3 md:py-4">Matching Sets</TabsTrigger>
