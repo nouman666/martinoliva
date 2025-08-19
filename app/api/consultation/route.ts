@@ -6,12 +6,6 @@ export const dynamic = 'force-dynamic'
 import nodemailer from 'nodemailer'
 import { google } from 'googleapis'
 
-function must(name: string) {
-  const v = process.env[name]
-  if (!v || v.trim() === '') throw new Error(`Missing env var: ${name}`)
-  return v
-}
-
 export async function POST(req: Request) {
   try {
     const body = await req.json()
@@ -23,27 +17,19 @@ export async function POST(req: Request) {
     const budget      = String(body.budget    || '')
     const description = String(body.description || '')
 
-    // ---- Google Sheets envs
-    const SERVICE_EMAIL = must('GOOGLE_SERVICE_ACCOUNT_EMAIL')
-    const PRIVATE_KEY   = must('GOOGLE_PRIVATE_KEY').replace(/\\n/g, '\n')
-
-    // Accept either GOOGLE_SHEETS_ID or SHEET_ID (fallback)
-    const SHEET_ID = (process.env.GOOGLE_SHEETS_ID || process.env.SHEET_ID || '').trim()
-    if (!SHEET_ID) throw new Error('Missing env var: GOOGLE_SHEETS_ID (or SHEET_ID)')
-
-    // 1) Append to Google Sheet
+    // === 1) Append to Google Sheet ===
     const jwt = new google.auth.JWT(
-      SERVICE_EMAIL,
+      process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
       undefined,
-      PRIVATE_KEY,
+      (process.env.GOOGLE_PRIVATE_KEY || '').replace(/\\n/g, '\n'),
       ['https://www.googleapis.com/auth/spreadsheets']
     )
     await jwt.authorize()
     const sheets = google.sheets({ version: 'v4', auth: jwt })
 
     await sheets.spreadsheets.values.append({
-      spreadsheetId: SHEET_ID,
-      range: 'Sheet1!A1', // change if your tab name is different
+      spreadsheetId: process.env.GOOGLE_SHEETS_ID!,     // <-- Make sure this env var exists
+      range: 'Sheet1!A1',                                // change if your sheet/tab name differs
       valueInputOption: 'USER_ENTERED',
       requestBody: {
         values: [[
@@ -53,23 +39,20 @@ export async function POST(req: Request) {
       }
     })
 
-    // 2) Email notification (optional; uses sensible defaults)
-    const EMAIL_HOST = process.env.EMAIL_HOST || 'smtp.gmail.com'
-    const EMAIL_PORT = Number(process.env.EMAIL_PORT || 465)
-    const EMAIL_USER = must('EMAIL_USER')
-    const EMAIL_PASS = must('EMAIL_PASS')
-    const NOTIFY_TO  = must('NOTIFY_TO_EMAIL')
-
+    // === 2) Email notification ===
     const transporter = nodemailer.createTransport({
-      host: EMAIL_HOST,
-      port: EMAIL_PORT,
+      host: process.env.EMAIL_HOST,                       // e.g. "smtp.gmail.com"
+      port: Number(process.env.EMAIL_PORT || 465),
       secure: true,
-      auth: { user: EMAIL_USER, pass: EMAIL_PASS }
+      auth: {
+        user: process.env.EMAIL_USER,                    // your sending address
+        pass: process.env.EMAIL_PASS                     // app password / smtp password
+      }
     })
 
     await transporter.sendMail({
-      from: `"Consultations" <${EMAIL_USER}>`,
-      to: NOTIFY_TO,
+      from: `"Consultations" <${process.env.EMAIL_USER}>`,
+      to: process.env.NOTIFY_TO_EMAIL,                   // your destination inbox
       subject: `New Consultation: ${firstName} ${lastName} (${projectType})`,
       html: `
         <h2>New Bespoke Consultation</h2>
@@ -78,7 +61,7 @@ export async function POST(req: Request) {
         <p><b>Phone:</b> ${phone}</p>
         <p><b>Project Type:</b> ${projectType}</p>
         <p><b>Budget:</b> ${budget}</p>
-        <p><b>Description:</b><br/>${String(description).replace(/\n/g,'<br/>')}</p>
+        <p><b>Description:</b><br/>${(description || '').replace(/\n/g,'<br/>')}</p>
         <hr/><p><i>${new Date().toLocaleString()}</i></p>
       `
     })
