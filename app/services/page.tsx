@@ -2,187 +2,171 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
+import Link from "next/link"
 import {
-  Mail,
-  Phone,
-  Facebook,
-  Instagram,
-  Search,
-  User,
-  ShoppingBag,
-  Settings,
-  Shield,
-  Clock,
-  Sparkles,
-  Wrench,
-  Award,
-  Droplets,
-  Gauge,
-  Square,
-  Crown,
-  Scissors,
-  Link as LinkIcon, // alias to avoid clashing with next/link
+  Mail, Phone, Facebook, Instagram, Search, User, ShoppingBag,
+  Settings, Shield, Clock, Sparkles, Wrench, Award,
+  Droplets, Gauge, Square, Crown, Scissors, Link as LinkIcon
 } from 'lucide-react'
+
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { Label } from "@/components/ui/label"
+import {
+  Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter
+} from "@/components/ui/dialog"
+
+type BookableItem = {
+  category: 'Service' | 'Watch Care' | 'Battery Plan'
+  name: string
+  price?: string
+}
 
 export default function ServicesPage() {
   const router = useRouter()
-  const [cartItems, setCartItems] = useState(0)
+  const [cartItems] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-  // Simple booking handler: routes to /bespoke with a preselected service
-  const book = (what: string) => {
-    router.push(`/bespoke?service=${encodeURIComponent(what)}`)
-  }
-
+  // ----- DATA (Services + Battery Plans + Watch Care) -----
   const services = [
     {
       id: 1,
-      title: 'Jewellery Repair & Restoration',
-      description:
-        'Expert repair services for all types of fine jewellery, from simple fixes to complete restorations.',
-      features: ['Ring resizing', 'Stone replacement', 'Chain repair', 'Antique restoration'],
+      title: "Jewellery Repair & Restoration",
+      description: "Expert repair services for all types of fine jewellery, from simple fixes to complete restorations.",
+      features: ["Ring resizing", "Stone replacement", "Chain repair", "Antique restoration"],
       icon: Wrench,
-      price: 'From £50',
+      price: "From £50",
     },
     {
       id: 2,
-      title: 'Watch Services',
-      description:
-        'Comprehensive watch servicing by certified watchmakers for all luxury timepiece brands.',
-      features: ['Full service', 'Battery replacement', 'Water resistance testing', 'Bracelet adjustment'],
+      title: "Watch Services",
+      description: "Comprehensive watch servicing by certified watchmakers for all luxury timepiece brands.",
+      features: ["Full service", "Battery replacement", "Water resistance testing", "Bracelet adjustment"],
       icon: Clock,
-      price: 'From £150',
+      price: "From £150",
     },
     {
       id: 3,
-      title: 'Valuation & Insurance',
-      description:
-        'Professional jewellery valuations for insurance, probate, or personal knowledge.',
-      features: ['Insurance valuations', 'Probate valuations', 'Verbal valuations', 'Written certificates'],
+      title: "Valuation & Insurance",
+      description: "Professional jewellery valuations for insurance, probate, or personal knowledge.",
+      features: ["Insurance valuations", "Probate valuations", "Verbal valuations", "Written certificates"],
       icon: Shield,
-      price: 'From £75',
+      price: "From £75",
     },
     {
       id: 4,
-      title: 'Cleaning & Maintenance',
-      description:
-        'Professional cleaning and maintenance to keep your jewellery looking its best.',
-      features: ['Ultrasonic cleaning', 'Steam cleaning', 'Polishing', 'Rhodium plating'],
+      title: "Cleaning & Maintenance",
+      description: "Professional cleaning and maintenance to keep your jewellery looking its best.",
+      features: ["Ultrasonic cleaning", "Steam cleaning", "Polishing", "Rhodium plating"],
       icon: Sparkles,
-      price: 'From £25',
+      price: "From £25",
     },
     {
       id: 5,
-      title: 'Bespoke Design',
-      description:
-        'Create unique, one-of-a-kind pieces tailored to your personal style and preferences.',
-      features: ['Design consultation', '3D rendering', 'Custom manufacturing', 'Personal service'],
+      title: "Bespoke Design",
+      description: "Create unique, one-of-a-kind pieces tailored to your personal style and preferences.",
+      features: ["Design consultation", "3D rendering", "Custom manufacturing", "Personal service"],
       icon: Settings,
-      price: 'From £2,000',
+      price: "From £2,000",
     },
     {
       id: 6,
-      title: 'Certification Services',
-      description:
-        'Diamond and gemstone certification from recognized international laboratories.',
-      features: ['GIA certification', 'Diamond grading', 'Gemstone identification', 'Authenticity verification'],
+      title: "Certification Services",
+      description: "Diamond and gemstone certification from recognized international laboratories.",
+      features: ["GIA certification", "Diamond grading", "Gemstone identification", "Authenticity verification"],
       icon: Award,
-      price: 'From £200',
+      price: "From £200",
     },
   ]
 
   const watchCare = [
-    {
-      id: 'ultrasonic',
-      title: 'Ultrasonic Cleaning',
-      description: 'Deep clean to remove dirt and oils from case & bracelet.',
-      icon: Sparkles,
-      price: 'From £25',
-    },
-    {
-      id: 'resealing',
-      title: 'Resealing',
-      description: 'Renew case gaskets to help maintain water resistance.',
-      icon: Shield,
-      price: 'From £30',
-    },
-    {
-      id: 'polishing',
-      title: 'Polishing (Before & After)',
-      description: 'Professional refinish to restore shine and remove light scratches.',
-      icon: Sparkles,
-      price: 'From £60',
-    },
-    {
-      id: 'water-test',
-      title: 'Water Testing',
-      description: 'Pressure test in a certified machine to factory spec.',
-      icon: Droplets,
-      price: 'From £35',
-    },
-    {
-      id: 'regulating',
-      title: 'Regulating',
-      description: 'Adjust timing on a timing machine for optimal accuracy.',
-      icon: Gauge,
-      price: 'From £45',
-    },
-    {
-      id: 'glass',
-      title: 'Glass (Crystal) Replacement',
-      description: 'Replace cracked or scratched crystal (mineral/sapphire).',
-      icon: Square,
-      price: 'From £90',
-    },
-    {
-      id: 'crown-stem',
-      title: 'Crown & Stem',
-      description: 'Repair or replace worn/damaged crown and stem.',
-      icon: Crown,
-      price: 'From £85',
-    },
-    {
-      id: 'straps-bracelet',
-      title: 'Straps & Bracelet',
-      description: 'Fit new straps/bracelets or repair existing ones.',
-      icon: Scissors,
-      price: 'From £25',
-    },
-    {
-      id: 'links',
-      title: 'Links Alteration',
-      description: 'Add/remove links and micro‑adjust bracelet sizing.',
-      icon: LinkIcon,
-      price: 'From £15',
-    },
+    { id: 'ultrasonic', title: "Ultrasonic Cleaning", description: "Deep clean to remove dirt and oils from case & bracelet.", icon: Sparkles, price: "From £25" },
+    { id: 'resealing', title: "Resealing", description: "Renew case gaskets to help maintain water resistance.", icon: Shield, price: "From £30" },
+    { id: 'polishing', title: "Polishing (Before & After)", description: "Professional refinish to restore shine and remove light scratches.", icon: Sparkles, price: "From £60" },
+    { id: 'water-test', title: "Water Testing", description: "Pressure test in a certified machine to factory spec.", icon: Droplets, price: "From £35" },
+    { id: 'regulating', title: "Regulating", description: "Adjust timing on a timing machine for optimal accuracy.", icon: Gauge, price: "From £45" },
+    { id: 'glass', title: "Glass (Crystal) Replacement", description: "Replace cracked or scratched crystal (mineral/sapphire).", icon: Square, price: "From £90" },
+    { id: 'crown-stem', title: "Crown & Stem", description: "Repair or replace worn/damaged crown and stem.", icon: Crown, price: "From £85" },
+    { id: 'straps-bracelet', title: "Straps & Bracelet", description: "Fit new straps/bracelets or repair existing ones.", icon: Scissors, price: "From £25" },
+    { id: 'links', title: "Links Alteration", description: "Add/remove links and micro‑adjust bracelet sizing.", icon: LinkIcon, price: "From £15" },
   ]
 
   const batteryPlans = [
-    {
-      name: 'Standard',
-      details: ['Battery fitted to spec', 'Case reseal'],
-      guarantee: '12 months guarantee',
-      price: 'From £15',
-      eta: '≈ 30 mins',
-    },
-    {
-      name: 'Premium',
-      details: ['Battery & reseal', 'Pressure testing', 'Ultrasonic clean'],
-      guarantee: '24 months guarantee',
-      price: 'From £25',
-      eta: '≈ 60 mins',
-    },
-    {
-      name: 'Complete',
-      details: ['Battery, reseal & pressure test', 'Ultrasonic clean', 'Light polish'],
-      guarantee: '36 months guarantee',
-      price: 'From £35',
-      eta: '≈ 2 hours',
-    },
+    { name: "Standard", details: ["Battery fitted to spec", "Case reseal"], guarantee: "12 months guarantee", price: "From £15", eta: "≈ 30 mins" },
+    { name: "Premium", details: ["Battery & reseal", "Pressure testing", "Ultrasonic clean"], guarantee: "24 months guarantee", price: "From £25", eta: "≈ 60 mins" },
+    { name: "Complete", details: ["Battery, reseal & pressure test", "Ultrasonic clean", "Light polish"], guarantee: "36 months guarantee", price: "From £35", eta: "≈ 2 hours" },
   ]
+
+  // ----- POPUP STATE -----
+  const [dialogOpen, setDialogOpen] = useState(false)
+  const [selected, setSelected] = useState<BookableItem | null>(null)
+
+  // form fields
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
+  const [preferredDate, setPreferredDate] = useState('')
+  const [notes, setNotes] = useState('')
+  const [submitting, setSubmitting] = useState(false)
+  const [submitMsg, setSubmitMsg] = useState<string | null>(null)
+  const [errorMsg, setErrorMsg] = useState<string | null>(null)
+
+  // open the popup with the correct item
+  function book(item: BookableItem) {
+    setSelected(item)
+    setDialogOpen(true)
+    setSubmitMsg(null)
+    setErrorMsg(null)
+  }
+
+  async function submitBooking() {
+    if (!selected) return
+    setSubmitting(true)
+    setSubmitMsg(null)
+    setErrorMsg(null)
+
+    try {
+      // payload gathers everything from THIS PAGE (no redirect)
+      const payload = {
+        category: selected.category,
+        itemName: selected.name,
+        itemPrice: selected.price ?? '',
+        firstName,
+        lastName,
+        email,
+        phone,
+        preferredDate,
+        notes,
+        // You can add page context if useful
+        page: 'Services',
+        submittedAt: new Date().toISOString(),
+      }
+
+      const res = await fetch('/api/book-service', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+
+      if (!res.ok) {
+        const t = await res.text()
+        throw new Error(t || 'Request failed')
+      }
+
+      // success UI
+      setSubmitMsg('Thanks! Your request has been received. We’ll confirm by email shortly.')
+      // optional: reset some fields, but keep name/email for convenience
+      setPreferredDate('')
+      setNotes('')
+    } catch (err: any) {
+      setErrorMsg(err?.message || 'Something went wrong while sending your request.')
+    } finally {
+      setSubmitting(false)
+    }
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -242,7 +226,7 @@ export default function ServicesPage() {
               <Link href="/watches" className="text-black hover:text-yellow-600 transition-colors font-medium">Watches</Link>
               <Link href="/jewellery" className="text-black hover:text-yellow-600 transition-colors font-medium">Jewellery</Link>
               <Link href="/bespoke" className="text-black hover:text-yellow-600 transition-colors font-medium">Bespoke</Link>
-              <Link href="/services" className="text-black hover:text-yellow-600 transition-colors font-medium">Services</Link>
+              <Link href="/services" className="text-yellow-600 font-medium border-b-2 border-yellow-600 pb-1">Services</Link>
               <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium">Sale</Link>
             </nav>
 
@@ -278,7 +262,7 @@ export default function ServicesPage() {
                 <Link href="/watches" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Watches</Link>
                 <Link href="/jewellery" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Jewellery</Link>
                 <Link href="/bespoke" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Bespoke</Link>
-                <Link href="/services" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Services</Link>
+                <Link href="/services" className="text-yellow-600 font-medium border-l-4 border-yellow-600 pl-4">Services</Link>
                 <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium border-l-4 border-transparent hover:border-red-600 pl-4">Sale</Link>
               </nav>
             </div>
@@ -286,7 +270,7 @@ export default function ServicesPage() {
         </div>
       </header>
 
-      {/* Hero Section — black & gold feel */}
+      {/* Hero */}
       <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -303,9 +287,6 @@ export default function ServicesPage() {
           <p className="text-lg md:text-xl leading-relaxed mb-8 max-w-2xl mx-auto">
             Repairs, valuations, cleaning, bespoke design, and more—handled by specialists you can trust.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button onClick={() => router.push('/bespoke')} className="btn-gold">BOOK A CONSULTATION</Button>
-          </div>
         </div>
       </section>
 
@@ -341,11 +322,13 @@ export default function ServicesPage() {
                     ))}
                   </ul>
 
-                  {/* Book Button pinned at bottom */}
+                  {/* Book Button */}
                   <div className="mt-auto">
                     <Button
                       className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
-                      onClick={() => book(service.title)}
+                      onClick={() =>
+                        book({ category: 'Service', name: service.title, price: service.price })
+                      }
                     >
                       Book Service
                     </Button>
@@ -357,7 +340,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Total Watch Care & Battery Plans */}
+      {/* Battery Plans */}
       <section className="max-w-7xl mx-auto px-4 pb-4 md:pb-10">
         <Card className="border-gray-200">
           <CardContent className="p-8">
@@ -391,7 +374,9 @@ export default function ServicesPage() {
                       <Button
                         size="sm"
                         className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
-                        onClick={() => book(`${p.name} Battery Plan`)}
+                        onClick={() =>
+                          book({ category: 'Battery Plan', name: `${p.name} Battery Plan`, price: p.price })
+                        }
                       >
                         Book
                       </Button>
@@ -408,7 +393,7 @@ export default function ServicesPage() {
         </Card>
       </section>
 
-      {/* Watch Care Menu — one card per item */}
+      {/* Watch Care Menu */}
       <section className="max-w-7xl mx-auto px-4 py-12 md:py-16">
         <h2 className="text-2xl md:text-3xl font-bold text-black mb-6 md:mb-10 text-center">
           Watch Care Menu
@@ -432,7 +417,7 @@ export default function ServicesPage() {
                   <div className="mt-auto">
                     <Button
                       className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
-                      onClick={() => book(item.title)}
+                      onClick={() => book({ category: 'Watch Care', name: item.title, price: item.price })}
                     >
                       Book Service
                     </Button>
@@ -444,7 +429,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Contact/Info Strip — dark section like Home’s tone */}
+      {/* Contact/Info Strip */}
       <section className="bg-black text-white py-12 md:py-20">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Need Expert Advice?</h2>
@@ -455,7 +440,7 @@ export default function ServicesPage() {
             <Button asChild className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-3">
               <a href="tel:+447565455568">CALL US NOW</a>
             </Button>
-            <Button onClick={() => router.push('/bespoke')} className="btn-white-outline">
+            <Button onClick={() => setDialogOpen(true)} className="btn-white-outline">
               EMAIL ENQUIRY
             </Button>
           </div>
@@ -482,6 +467,84 @@ export default function ServicesPage() {
         </div>
       </section>
 
+      {/* ----- BOOKING POPUP (Dialog) ----- */}
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <DialogContent className="sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle>Book {selected ? selected.name : 'a Service'}</DialogTitle>
+            <DialogDescription>
+              Fill in your details below and we’ll confirm your booking by email.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="md:col-span-2">
+              <Label className="text-sm">Selected</Label>
+              <div className="mt-1 text-sm">
+                <span className="font-semibold">{selected?.category || '—'}</span>{' '}
+                • {selected?.name || '—'}
+                {selected?.price ? <span className="text-gray-500"> &nbsp;({selected.price})</span> : null}
+              </div>
+            </div>
+
+            <div>
+              <Label htmlFor="firstName">First name</Label>
+              <Input id="firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+            </div>
+            <div>
+              <Label htmlFor="lastName">Last name</Label>
+              <Input id="lastName" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+            </div>
+
+            <div>
+              <Label htmlFor="email">Email</Label>
+              <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            </div>
+            <div>
+              <Label htmlFor="phone">Phone</Label>
+              <Input id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
+            </div>
+
+            <div className="md:col-span-2">
+              <Label htmlFor="preferredDate">Preferred date/time</Label>
+              <Input
+                id="preferredDate"
+                placeholder="e.g. 21 Aug, after 3pm"
+                value={preferredDate}
+                onChange={(e) => setPreferredDate(e.target.value)}
+              />
+            </div>
+
+            <div className="md:col-span-2">
+              <Label htmlFor="notes">Notes (optional)</Label>
+              <Textarea
+                id="notes"
+                placeholder="Tell us about the issue, timepiece model, ring size, deadlines, etc."
+                className="min-h-[100px]"
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+              />
+            </div>
+          </div>
+
+          {submitMsg && (
+            <p className="text-green-600 text-sm mt-2">{submitMsg}</p>
+          )}
+          {errorMsg && (
+            <p className="text-red-600 text-sm mt-2">{errorMsg}</p>
+          )}
+
+          <DialogFooter className="mt-2">
+            <Button variant="outline" onClick={() => setDialogOpen(false)} disabled={submitting}>
+              Cancel
+            </Button>
+            <Button className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold" onClick={submitBooking} disabled={submitting}>
+              {submitting ? 'Sending…' : 'Send Request'}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
       {/* Footer — matches Home */}
       <footer className="bg-black text-white py-16">
         <div className="max-w-7xl mx-auto px-4">
@@ -507,10 +570,10 @@ export default function ServicesPage() {
             <div>
               <h4 className="font-semibold mb-4">Services</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><Link href="/bespoke" className="hover:text-white transition-colors">Bespoke Design</Link></li>
-                <li><Link href="/services" className="hover:text-white transition-colors">Repairs & Maintenance</Link></li>
-                <li><Link href="/services" className="hover:text-white transition-colors">Valuations</Link></li>
-                <li><Link href="/services" className="hover:text-white transition-colors">Consultations</Link></li>
+                <li><button className="hover:text-white transition-colors" onClick={() => book({ category: 'Service', name: 'Bespoke Design' })}>Bespoke Design</button></li>
+                <li><button className="hover:text-white transition-colors" onClick={() => book({ category: 'Service', name: 'Repairs & Maintenance' })}>Repairs & Maintenance</button></li>
+                <li><button className="hover:text-white transition-colors" onClick={() => book({ category: 'Service', name: 'Valuations' })}>Valuations</button></li>
+                <li><button className="hover:text-white transition-colors" onClick={() => book({ category: 'Service', name: 'Consultations' })}>Consultations</button></li>
               </ul>
             </div>
 
