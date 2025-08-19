@@ -1,3 +1,4 @@
+// app/bespoke/page.tsx
 'use client'
 
 import { useState } from 'react'
@@ -17,21 +18,62 @@ export default function BespokePage() {
   const router = useRouter()
   const [cartItems, setCartItems] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [msg, setMsg] = useState<string | null>(null)
+  const [submitting, setSubmitting] = useState(false)
+  const [message, setMessage] = useState<null | {type:'ok'|'err'; text:string}>(null)
 
   const bespokeProcess = [
     { step: 1, title: "Initial Consultation", description: "Share your vision and ideas with our expert designers", icon: Users },
-    { step: 2, title: "Design Development", description: "We create detailed sketches and 3D renderings", icon: Palette },
-    { step: 3, title: "Material Selection", description: "Choose from our finest diamonds and precious metals", icon: Sparkles },
-    { step: 4, title: "Craftsmanship", description: "Our master craftsmen bring your design to life", icon: Clock },
-    { step: 5, title: "Final Approval", description: "Review and approve your unique piece", icon: CheckCircle }
+    { step: 2, title: "Design Development",   description: "We create detailed sketches and 3D renderings",       icon: Palette },
+    { step: 3, title: "Material Selection",    description: "Choose from our finest diamonds and precious metals", icon: Sparkles },
+    { step: 4, title: "Craftsmanship",         description: "Our master craftsmen bring your design to life",      icon: Clock },
+    { step: 5, title: "Final Approval",        description: "Review and approve your unique piece",                icon: CheckCircle },
   ]
+
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    setMessage(null)
+    setSubmitting(true)
+
+    // get a direct reference to the form BEFORE any await
+    const formEl = e.currentTarget
+    const fd = new FormData(formEl)
+
+    const payload = {
+      firstName: fd.get('firstName') || '',
+      lastName: fd.get('lastName') || '',
+      email: fd.get('email') || '',
+      phone: fd.get('phone') || '',
+      projectType: fd.get('projectType') || '',
+      budget: fd.get('budget') || '',
+      description: fd.get('description') || ''
+    }
+
+    try {
+      const res = await fetch('/api/consultation', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+
+      const data = await res.json()
+      if (!res.ok || !data?.ok) {
+        throw new Error(data?.error || 'Submission failed')
+      }
+
+      // SAFE reset using the element we already captured
+      formEl.reset()
+      setMessage({ type: 'ok', text: 'Thanks! We’ve received your request and will contact you shortly.' })
+    } catch (err: any) {
+      setMessage({ type: 'err', text: err?.message || 'Something went wrong. Please try again.' })
+    } finally {
+      setSubmitting(false)
+    }
+  }
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Top Header Bar — same as Diamonds */}
-      <div className="bg-gradient-to-r from-black to-yellow-600 text-white py-2 px-4">
+      {/* Top Header Bar (matches other pages) */}
+      <div className="bg-black text-white py-3 px-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center text-sm">
           <div className="flex items-center gap-6">
             <a href="mailto:studio@martinoliva.co.uk" className="flex items-center gap-2">
@@ -55,7 +97,7 @@ export default function BespokePage() {
         </div>
       </div>
 
-      {/* Main Navigation — same layout as Diamonds */}
+      {/* Main Navigation */}
       <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
@@ -138,22 +180,24 @@ export default function BespokePage() {
 
       {/* Process */}
       <div className="max-w-7xl mx-auto px-4 py-12 md:py-20">
-        <h2 className="text-2xl md:text-3xl font-bold text-center text-black mb-8 md:mb-16">Our Bespoke Process</h2>
+        <h2 className="text-2xl md:text-3xl font-bold text-center text-black mb-8 md:mb-16">
+          Our Bespoke Process
+        </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 md:gap-8">
-          {bespokeProcess.map((process) => {
-            const Icon = process.icon
+          {bespokeProcess.map((p) => {
+            const Icon = p.icon as any
             return (
-              <div key={process.step} className="text-center">
+              <div key={p.step} className="text-center">
                 <div className="relative mb-6">
                   <div className="w-16 h-16 bg-black rounded-full flex items-center justify-center mx-auto mb-4">
                     <Icon className="w-8 h-8 text-white" />
                   </div>
                   <div className="absolute -top-2 -right-2 w-8 h-8 bg-yellow-600 rounded-full flex items-center justify-center text-white text-sm font-bold">
-                    {process.step}
+                    {p.step}
                   </div>
                 </div>
-                <h3 className="text-lg font-semibold text-black mb-2">{process.title}</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">{process.description}</p>
+                <h3 className="text-lg font-semibold text-black mb-2">{p.title}</h3>
+                <p className="text-sm text-gray-600 leading-relaxed">{p.description}</p>
               </div>
             )
           })}
@@ -164,47 +208,23 @@ export default function BespokePage() {
       <div className="bg-white py-12 md:py-20">
         <div className="max-w-4xl mx-auto px-4">
           <div className="text-center mb-8 md:mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-black mb-3 md:mb-4">Start Your Bespoke Journey</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-black mb-3 md:mb-4">
+              Start Your Bespoke Journey
+            </h2>
             <p className="text-base md:text-lg text-gray-600">
               Tell us about your vision and we'll schedule a consultation to discuss your bespoke piece.
             </p>
           </div>
 
+          {message && (
+            <div className={`mb-4 rounded-md p-3 text-sm ${message.type === 'ok' ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
+              {message.text}
+            </div>
+          )}
+
           <Card className="border-gray-200">
             <CardContent className="p-8">
-              <form
-                className="space-y-6"
-                onSubmit={async (e) => {
-                  e.preventDefault()
-                  setMsg(null)
-                  setLoading(true)
-                  const fd = new FormData(e.currentTarget as HTMLFormElement)
-                  const payload = {
-                    firstName: String(fd.get('firstName') || ''),
-                    lastName: String(fd.get('lastName') || ''),
-                    email: String(fd.get('email') || ''),
-                    phone: String(fd.get('phone') || ''),
-                    projectType: String(fd.get('projectType') || ''),
-                    budget: String(fd.get('budget') || ''),
-                    description: String(fd.get('description') || '')
-                  }
-                  try {
-                    const r = await fetch('/api/consultation', {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify(payload)
-                    })
-                    const j = await r.json()
-                    if (!r.ok) throw new Error(j.error || 'Submission failed')
-                    setMsg('Thanks! We received your request and emailed a copy.')
-                    ;(e.currentTarget as HTMLFormElement).reset()
-                  } catch (err: any) {
-                    setMsg(`Submission failed: ${err.message}`)
-                  } finally {
-                    setLoading(false)
-                  }
-                }}
-              >
+              <form className="space-y-6" onSubmit={onSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <Label htmlFor="firstName" className="text-black">First Name</Label>
@@ -223,30 +243,30 @@ export default function BespokePage() {
                   </div>
                   <div>
                     <Label htmlFor="phone" className="text-black">Phone</Label>
-                    <Input id="phone" name="phone" className="mt-2" required />
+                    <Input id="phone" name="phone" className="mt-2" />
                   </div>
                 </div>
 
                 <div>
                   <Label htmlFor="projectType" className="text-black">Project Type</Label>
-                  <select id="projectType" name="projectType" className="w-full mt-2 p-3 border border-gray-300 rounded-md" required>
-                    <option value="Engagement Ring">Engagement Ring</option>
-                    <option value="Wedding Bands">Wedding Bands</option>
-                    <option value="Necklace">Necklace</option>
-                    <option value="Earrings">Earrings</option>
-                    <option value="Bracelet">Bracelet</option>
-                    <option value="Other">Other</option>
+                  <select id="projectType" name="projectType" className="w-full mt-2 p-3 border border-gray-300 rounded-md">
+                    <option>Engagement Ring</option>
+                    <option>Wedding Bands</option>
+                    <option>Necklace</option>
+                    <option>Earrings</option>
+                    <option>Bracelet</option>
+                    <option>Other</option>
                   </select>
                 </div>
 
                 <div>
                   <Label htmlFor="budget" className="text-black">Budget Range</Label>
-                  <select id="budget" name="budget" className="w-full mt-2 p-3 border border-gray-300 rounded-md" required>
-                    <option value="£2,000 - £5,000">£2,000 - £5,000</option>
-                    <option value="£5,000 - £10,000">£5,000 - £10,000</option>
-                    <option value="£10,000 - £20,000">£10,000 - £20,000</option>
-                    <option value="£20,000 - £50,000">£20,000 - £50,000</option>
-                    <option value="£50,000+">£50,000+</option>
+                  <select id="budget" name="budget" className="w-full mt-2 p-3 border border-gray-300 rounded-md">
+                    <option>£2,000 - £5,000</option>
+                    <option>£5,000 - £10,000</option>
+                    <option>£10,000 - £20,000</option>
+                    <option>£20,000 - £50,000</option>
+                    <option>£50,000+</option>
                   </select>
                 </div>
 
@@ -257,18 +277,17 @@ export default function BespokePage() {
                     name="description"
                     className="mt-2 min-h-[120px]"
                     placeholder="Tell us about your dream piece - style, inspiration, special meaning, etc."
-                    required
                   />
                 </div>
 
                 <div className="text-center">
                   <Button
-                    disabled={loading}
-                    className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-12 py-3 text-lg"
+                    type="submit"
+                    disabled={submitting}
+                    className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-12 py-3 text-lg disabled:opacity-60"
                   >
-                    {loading ? 'Submitting…' : 'REQUEST CONSULTATION'}
+                    {submitting ? 'SENDING…' : 'REQUEST CONSULTATION'}
                   </Button>
-                  {msg && <p className="mt-3 text-sm">{msg}</p>}
                 </div>
               </form>
             </CardContent>
@@ -276,79 +295,35 @@ export default function BespokePage() {
         </div>
       </div>
 
-      {/* Portfolio Gallery */}
+      {/* Portfolio */}
       <div className="bg-gray-50 py-12 md:py-20">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-8 md:mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-black mb-3 md:mb-4">Bespoke Portfolio</h2>
-            <p className="text-base md:text-lg text-gray-600">Discover some of our recent bespoke creations</p>
+            <h2 className="text-2xl md:text-3xl font-bold text-black mb-3 md:mb-4">
+              Bespoke Portfolio
+            </h2>
+            <p className="text-base md:text-lg text-gray-600">
+              Discover some of our recent bespoke creations
+            </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
-            {[1, 2, 3, 4, 5, 6].map((item) => (
-              <div key={item} className="group cursor-pointer">
+            {[1,2,3,4,5,6].map((i) => (
+              <div key={i} className="group cursor-pointer">
                 <div className="aspect-square bg-gray-200 rounded-lg overflow-hidden mb-4">
                   <img
-                    src={`/bespoke-portfolio-${item}.png`}
-                    alt={`Bespoke piece ${item}`}
+                    src={`/bespoke-portfolio-${i}.png`}
+                    alt={`Bespoke piece ${i}`}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
-                <h3 className="text-lg font-semibold text-black mb-1">Custom Creation {item}</h3>
+                <h3 className="text-lg font-semibold text-black mb-1">Custom Creation {i}</h3>
                 <p className="text-sm text-gray-600">Unique bespoke design</p>
               </div>
             ))}
           </div>
         </div>
       </div>
-
-      {/* Footer — same as Diamonds */}
-      <footer className="bg-black text-white py-16">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <h3 className="text-xl font-bold mb-4">MARTIN OLIVA</h3>
-              <p className="text-gray-400 mb-4">Fine Jewellery</p>
-              <p className="text-gray-400 text-sm leading-relaxed">
-                Creating exceptional jewelry pieces that celebrate life's most precious moments.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Collections</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link href="/engagement-rings" className="hover:text-white transition-colors">Engagement Rings</Link></li>
-                <li><Link href="/wedding-bands" className="hover:text-white transition-colors">Wedding Bands</Link></li>
-                <li><Link href="/diamonds" className="hover:text-white transition-colors">Diamonds</Link></li>
-                <li><Link href="/jewellery" className="hover:text-white transition-colors">Fine Jewellery</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Services</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link href="/bespoke" className="hover:text-white transition-colors">Bespoke Design</Link></li>
-                <li><Link href="/services" className="hover:text-white transition-colors">Repairs & Maintenance</Link></li>
-                <li><Link href="/services" className="hover:text-white transition-colors">Valuations</Link></li>
-                <li><Link href="/services" className="hover:text-white transition-colors">Consultations</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Contact</h4>
-              <div className="space-y-2 text-gray-400">
-                <p>studio@martinoliva.co.uk</p>
-                <p>+44 7565 455568</p>
-                <p>London, UK</p>
-                <div className="flex gap-4 mt-4">
-                  <Facebook className="w-5 h-5 hover:text-white cursor-pointer transition-colors" />
-                  <Instagram className="w-5 h-5 hover:text-white cursor-pointer transition-colors" />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 Martin Oliva. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
     </div>
   )
 }
