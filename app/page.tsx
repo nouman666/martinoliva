@@ -6,6 +6,8 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { useCart } from '@/app/cart/page'
 import { Mail, Phone, Facebook, Instagram, Search, User, ShoppingBag, ChevronDown } from 'lucide-react'
+import { useSearch } from '@/app/search/SearchContext'
+
 
 export default function HomePage() {
   const router = useRouter()
@@ -18,6 +20,8 @@ const [animation, setAnimation] = useState({
   wedding: '',
   jewellery: '',
 })
+  const { openSearch } = useSearch()
+
 
   return (
     <div className="min-h-screen bg-white">
@@ -86,8 +90,10 @@ const [animation, setAnimation] = useState({
 
             {/* Right Icons */}
             <div className="flex items-center gap-3 md:gap-4">
-              <Search className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
-              
+<Search
+  className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors"
+  onClick={openSearch}
+/>              
               <div className="relative">
                 <ShoppingBag
   className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors"
