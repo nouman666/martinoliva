@@ -38,7 +38,7 @@ export default function WatchesPage() {
             </a>
             <a href="tel:+447565455568" className="flex items-center gap-2">
               <Phone className="w-4 h-4" />
-              <span>+44 7565 455568</span>
+              <span>+44 7565 455568 </span>
             </a>
           </div>
           <div className="flex items-center gap-4">
