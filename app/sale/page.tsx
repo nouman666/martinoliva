@@ -2,579 +2,328 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Mail, Phone, Facebook, Instagram, Search, User, ShoppingBag, Tag, Clock, Percent } from 'lucide-react'
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import {
+  Mail, Phone, Facebook, Instagram, Search, User, ShoppingBag,
+  Settings, Shield, Clock, Sparkles, Wrench, Award
+} from 'lucide-react'
 
-export default function SalePage() {
+export default function ServicesPage() {
   const router = useRouter()
   const [cartItems, setCartItems] = useState(0)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-  const saleItems = {
-    rings: [
-      {
-        id: 1,
-        name: "Classic Solitaire Diamond Ring",
-        category: "Engagement Ring",
-        originalPrice: "£4,500",
-        salePrice: "£3,200",
-        discount: "29%",
-        metal: "18k White Gold",
-        diamond: "1.0ct Round Brilliant",
-        reason: "Display Model",
-        timeLeft: "3 days",
-        image: "/sale-solitaire-ring.png"
-      },
-      {
-        id: 2,
-        name: "Vintage Art Deco Ring",
-        category: "Cocktail Ring",
-        originalPrice: "£2,800",
-        salePrice: "£1,950",
-        discount: "30%",
-        metal: "Platinum",
-        diamond: "0.75ct Emerald Cut",
-        reason: "End of Line",
-        timeLeft: "1 week",
-        image: "/sale-art-deco-ring.png"
-      },
-      {
-        id: 3,
-        name: "Three Stone Anniversary Ring",
-        category: "Anniversary Ring",
-        originalPrice: "£6,200",
-        salePrice: "£4,650",
-        discount: "25%",
-        metal: "18k Yellow Gold",
-        diamond: "1.5ct Total Weight",
-        reason: "Seasonal Sale",
-        timeLeft: "5 days",
-        image: "/sale-three-stone-ring.png"
-      }
-    ],
-    jewellery: [
-      {
-        id: 4,
-        name: "Diamond Tennis Bracelet",
-        category: "Bracelet",
-        originalPrice: "£8,500",
-        salePrice: "£6,200",
-        discount: "27%",
-        metal: "18k White Gold",
-        diamond: "3.0ct Total Weight",
-        reason: "Clearance",
-        timeLeft: "2 days",
-        image: "/sale-tennis-bracelet.png"
-      },
-      {
-        id: 5,
-        name: "Pearl & Diamond Earrings",
-        category: "Earrings",
-        originalPrice: "£1,850",
-        salePrice: "£1,295",
-        discount: "30%",
-        metal: "18k Rose Gold",
-        diamond: "South Sea Pearls, 0.40ct Diamonds",
-        reason: "Display Model",
-        timeLeft: "1 week",
-        image: "/sale-pearl-earrings.png"
-      },
-      {
-        id: 6,
-        name: "Sapphire Pendant Necklace",
-        category: "Necklace",
-        originalPrice: "£3,200",
-        salePrice: "£2,240",
-        discount: "30%",
-        metal: "Platinum",
-        diamond: "2.0ct Ceylon Sapphire, 0.25ct Diamonds",
-        reason: "End of Line",
-        timeLeft: "4 days",
-        image: "/sale-sapphire-necklace.png"
-      }
-    ],
-    watches: [
-      {
-        id: 7,
-        name: "Classic Dress Watch",
-        category: "Men's Watch",
-        originalPrice: "£4,200",
-        salePrice: "£2,950",
-        discount: "30%",
-        metal: "18k Gold Case",
-        diamond: "Swiss Automatic Movement",
-        reason: "Previous Season",
-        timeLeft: "6 days",
-        image: "/sale-dress-watch.png"
-      },
-      {
-        id: 8,
-        name: "Diamond Bezel Ladies Watch",
-        category: "Ladies Watch",
-        originalPrice: "£6,800",
-        salePrice: "£4,760",
-        discount: "30%",
-        metal: "Steel & Diamond Bezel",
-        diamond: "Swiss Quartz, 1.0ct Diamonds",
-        reason: "Display Model",
-        timeLeft: "2 weeks",
-        image: "/sale-ladies-watch.png"
-      }
-    ]
-  }
-
-  const allSaleItems = [...saleItems.rings, ...saleItems.jewellery, ...saleItems.watches]
-
-  const calculateSavings = (original: string, sale: string) => {
-    const originalNum = parseInt(original.replace(/[£,]/g, ''))
-    const saleNum = parseInt(sale.replace(/[£,]/g, ''))
-    return `£${(originalNum - saleNum).toLocaleString()}`
-  }
+  const services = [
+    {
+      id: 1,
+      title: "Jewellery Repair & Restoration",
+      description: "Expert repair services for all types of fine jewellery, from simple fixes to complete restorations.",
+      features: ["Ring resizing", "Stone replacement", "Chain repair", "Antique restoration"],
+      icon: Wrench,
+      price: "From £50",
+    },
+    {
+      id: 2,
+      title: "Watch Services",
+      description: "Comprehensive watch servicing by certified watchmakers for all luxury timepiece brands.",
+      features: ["Full service", "Battery replacement", "Water resistance testing", "Bracelet adjustment"],
+      icon: Clock,
+      price: "From £150",
+    },
+    {
+      id: 3,
+      title: "Valuation & Insurance",
+      description: "Professional jewellery valuations for insurance, probate, or personal knowledge.",
+      features: ["Insurance valuations", "Probate valuations", "Verbal valuations", "Written certificates"],
+      icon: Shield,
+      price: "From £75",
+    },
+    {
+      id: 4,
+      title: "Cleaning & Maintenance",
+      description: "Professional cleaning and maintenance to keep your jewellery looking its best.",
+      features: ["Ultrasonic cleaning", "Steam cleaning", "Polishing", "Rhodium plating"],
+      icon: Sparkles,
+      price: "From £25",
+    },
+    {
+      id: 5,
+      title: "Bespoke Design",
+      description: "Create unique, one-of-a-kind pieces tailored to your personal style and preferences.",
+      features: ["Design consultation", "3D rendering", "Custom manufacturing", "Personal service"],
+      icon: Settings,
+      price: "From £2,000",
+    },
+    {
+      id: 6,
+      title: "Certification Services",
+      description: "Diamond and gemstone certification from recognized international laboratories.",
+      features: ["GIA certification", "Diamond grading", "Gemstone identification", "Authenticity verification"],
+      icon: Award,
+      price: "From £200",
+    },
+  ]
 
   return (
-    <div className="min-h-screen bg-stone-50">
-      {/* Top Header Bar */}
-      <div className="bg-slate-800 text-white py-2 px-4">
+    <div className="min-h-screen bg-white">
+      {/* Top Header Bar — matches Home */}
+      <div className="bg-gradient-to-r from-black to-yellow-600 text-white py-2 px-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center text-sm">
-          <div className="flex items-center gap-3 md:gap-6">
-            <a href="mailto:studio@martinoliva.co.uk" className="flex items-center gap-1 md:gap-2 hover:text-stone-300 transition-colors">
-              <Mail className="w-3 h-3 md:w-4 md:h-4" />
-              <span className="hidden sm:inline">studio@martinoliva.co.uk</span>
-              <span className="sm:hidden">Email</span>
-            </a>
-            <a href="tel:+447565455568" className="flex items-center gap-1 md:gap-2 hover:text-stone-300 transition-colors">
-              <Phone className="w-3 h-3 md:w-4 md:h-4" />
-              <span className="hidden sm:inline">+44 7565 455568</span>
-              <span className="sm:hidden">Call</span>
-            </a>
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-2">
+              <Mail className="w-4 h-4" />
+              <span>studio@martinoliva.co.uk</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Phone className="w-4 h-4" />
+              <span>+44 7565 455568</span>
+            </div>
           </div>
-          <div className="flex items-center gap-2 md:gap-3">
+          <div className="flex items-center gap-4">
+            <span className="text-sm">Follow us:</span>
             <a href="https://facebook.com/martinoliva" target="_blank" rel="noopener noreferrer">
-              <Facebook className="w-3 h-3 md:w-4 md:h-4 hover:text-stone-300 cursor-pointer transition-colors" />
+              <Facebook className="w-4 h-4 hover:text-gray-300 cursor-pointer transition-colors" />
             </a>
             <a href="https://instagram.com/martinoliva" target="_blank" rel="noopener noreferrer">
-              <Instagram className="w-3 h-3 md:w-4 md:h-4 hover:text-stone-300 cursor-pointer transition-colors" />
+              <Instagram className="w-4 h-4 hover:text-gray-300 cursor-pointer transition-colors" />
             </a>
           </div>
         </div>
       </div>
 
-      <header className="bg-white border-b border-stone-200">
+      {/* Main Navigation — matches Home */}
+      <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <Search className="w-5 h-5 text-stone-600 cursor-pointer hover:text-stone-800 transition-colors" />
-            
-            <div className="flex items-center">
-              <Link href="/" className="text-2xl font-serif tracking-wider">
-                <div className="flex flex-col items-center">
-                  <div className="relative w-8 h-8 md:w-12 md:h-12 mb-1 md:mb-2">
-                    <div className="w-8 h-8 md:w-12 md:h-12 border-2 border-stone-800 rounded-full flex items-center justify-center bg-white">
-                      <div className="relative">
-                        <div className="w-4 h-0.5 md:w-6 md:h-0.5 bg-stone-800"></div>
-                        <div className="w-0.5 h-4 md:w-0.5 md:h-6 bg-stone-800 absolute top-[-8px] md:top-[-12px] left-[7px] md:left-[11px]"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <span className="text-stone-800 font-bold text-sm md:text-lg tracking-[0.1em]">MARTIN OLIVA</span>
-                  <span className="text-xs tracking-[0.3em] text-stone-600 font-light">LONDON</span>
-                </div>
-              </Link>
-            </div>
+            {/* Mobile Menu Button */}
+            <button
+              className="lg:hidden flex flex-col gap-1 p-2"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              <div className="w-6 h-0.5 bg-yellow-600 transition-all"></div>
+              <div className="w-6 h-0.5 bg-yellow-600 transition-all"></div>
+              <div className="w-6 h-0.5 bg-yellow-600 transition-all"></div>
+            </button>
 
-            <div className="flex items-center gap-4">
-              <User className="w-5 h-5 text-stone-600 cursor-pointer hover:text-stone-800 transition-colors" />
+            {/* Logo */}
+            <Link href="/" className="flex items-center">
+              <div className="text-xl md:text-2xl font-bold tracking-wider">
+                <span className="text-black">MARTIN OLIVA</span>
+                <div className="text-xs text-gray-600 tracking-[0.3em] font-light">FINE JEWELLERY</div>
+              </div>
+            </Link>
+
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center space-x-8">
+              <Link href="/" className="text-black hover:text-yellow-600 transition-colors font-medium">Home</Link>
+              <Link href="/diamonds" className="text-black hover:text-yellow-600 transition-colors font-medium">Diamonds</Link>
+              <Link href="/engagement-rings" className="text-black hover:text-yellow-600 transition-colors font-medium">Engagement Rings</Link>
+              <Link href="/wedding-bands" className="text-black hover:text-yellow-600 transition-colors font-medium">Wedding Bands</Link>
+              <Link href="/watches" className="text-black hover:text-yellow-600 transition-colors font-medium">Watches</Link>
+              <Link href="/jewellery" className="text-black hover:text-yellow-600 transition-colors font-medium">Jewellery</Link>
+              <Link href="/bespoke" className="text-black hover:text-yellow-600 transition-colors font-medium">Bespoke</Link>
+              <Link href="/services" className="text-black hover:text-yellow-600 transition-colors font-medium">Services</Link>
+              <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium">Sale</Link>
+            </nav>
+
+            {/* Right Icons */}
+            <div className="flex items-center gap-3 md:gap-4">
+              <Search className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
+              <User
+                className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors"
+                onClick={() => router.push('/account')}
+              />
               <div className="relative">
-                <ShoppingBag className="w-5 h-5 text-stone-600 cursor-pointer hover:text-stone-800 transition-colors" />
-                <span className="absolute -top-2 -right-2 bg-stone-800 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                  {cartItems}
-                </span>
+                <ShoppingBag
+                  className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors"
+                  onClick={() => router.push('/cart')}
+                />
+                {cartItems > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-yellow-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                    {cartItems}
+                  </span>
+                )}
               </div>
             </div>
           </div>
 
-          {/* Mobile Navigation */}
-          <nav className="mt-6 md:mt-8">
-            {/* Desktop Navigation */}
-            <ul className="hidden lg:flex justify-center items-center gap-8 text-sm font-medium tracking-wider">
-              <li><Link href="/" className="text-stone-800 hover:text-stone-600 transition-colors">HOME</Link></li>
-              <li><Link href="/diamonds" className="text-stone-800 hover:text-stone-600 transition-colors">DIAMONDS</Link></li>
-              <li><Link href="/engagement-rings" className="text-stone-800 hover:text-stone-600 transition-colors">ENGAGEMENT RINGS</Link></li>
-              <li><Link href="/wedding-bands" className="text-stone-800 hover:text-stone-600 transition-colors">WEDDING BANDS</Link></li>
-              <li><Link href="/watches" className="text-stone-800 hover:text-stone-600 transition-colors">WATCHES</Link></li>
-              <li><Link href="/jewellery" className="text-stone-800 hover:text-stone-600 transition-colors">JEWELLERY</Link></li>
-              <li><Link href="/bespoke" className="text-stone-800 hover:text-stone-600 transition-colors">BESPOKE</Link></li>
-              <li><Link href="/services" className="text-stone-800 hover:text-stone-600 transition-colors">SERVICES</Link></li>
-              <li><Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors border-b-2 border-red-600 pb-1">SALE ITEMS</Link></li>
-            </ul>
-            
-            {/* Mobile Navigation - Horizontal Scroll */}
-            <div className="lg:hidden overflow-x-auto">
-              <ul className="flex gap-6 text-xs font-medium tracking-wider whitespace-nowrap pb-2">
-                <li><Link href="/" className="text-stone-800 hover:text-stone-600 transition-colors">HOME</Link></li>
-                <li><Link href="/diamonds" className="text-stone-800 hover:text-stone-600 transition-colors">DIAMONDS</Link></li>
-                <li><Link href="/engagement-rings" className="text-stone-800 hover:text-stone-600 transition-colors">ENGAGEMENT</Link></li>
-                <li><Link href="/wedding-bands" className="text-stone-800 hover:text-stone-600 transition-colors">WEDDING</Link></li>
-                <li><Link href="/watches" className="text-stone-800 hover:text-stone-600 transition-colors">WATCHES</Link></li>
-                <li><Link href="/jewellery" className="text-stone-800 hover:text-stone-600 transition-colors">JEWELLERY</Link></li>
-                <li><Link href="/bespoke" className="text-stone-800 hover:text-stone-600 transition-colors">BESPOKE</Link></li>
-                <li><Link href="/services" className="text-stone-800 hover:text-stone-600 transition-colors">SERVICES</Link></li>
-                <li><Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors border-b-2 border-red-600 pb-1">SALE</Link></li>
-              </ul>
+          {/* Mobile Menu */}
+          {mobileMenuOpen && (
+            <div className="lg:hidden mt-4 pb-4 border-t border-yellow-200">
+              <nav className="flex flex-col space-y-4 pt-4">
+                <Link href="/" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Home</Link>
+                <Link href="/diamonds" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Diamonds</Link>
+                <Link href="/engagement-rings" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Engagement Rings</Link>
+                <Link href="/wedding-bands" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Wedding Bands</Link>
+                <Link href="/watches" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Watches</Link>
+                <Link href="/jewellery" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Jewellery</Link>
+                <Link href="/bespoke" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Bespoke</Link>
+                <Link href="/services" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Services</Link>
+                <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium border-l-4 border-transparent hover:border-red-600 pl-4">Sale</Link>
+              </nav>
             </div>
-          </nav>
+          )}
         </div>
       </header>
 
-      {/* Hero Section */}
-      <div className="bg-gradient-to-r from-red-600 to-red-700 text-white py-12 md:py-20">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <Tag className="w-8 h-8 md:w-12 md:h-12 mx-auto mb-4 md:mb-6" />
-          <h1 className="text-2xl md:text-4xl font-serif mb-3 md:mb-4 tracking-wide">Exclusive Sale</h1>
-          <p className="text-base md:text-xl mb-4 md:mb-6 max-w-3xl mx-auto leading-relaxed px-4">
-            Discover exceptional savings on our finest jewelry and timepieces. 
-            Limited time offers on selected pieces from our luxury collection.
+      {/* Hero Section — black & gold feel */}
+      <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url("/bespoke-portfoliofront.jpg")` }}
+        >
+          <div className="absolute inset-0 bg-black/60"></div>
+        </div>
+
+        <div className="relative z-10 text-center text-white px-4 max-w-3xl mx-auto">
+          <p className="text-sm tracking-[0.3em] uppercase mb-4 text-yellow-400">Expert Care • Honest Advice</p>
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+            Professional <span className="text-yellow-400">Services</span>
+          </h1>
+          <p className="text-lg md:text-xl leading-relaxed mb-8 max-w-2xl mx-auto">
+            Repairs, valuations, cleaning, bespoke design, and more—handled by specialists you can trust.
           </p>
-          <div className="flex items-center justify-center gap-4 md:gap-8 text-sm md:text-lg">
-            <div className="flex items-center gap-2">
-              <Percent className="w-4 h-4 md:w-5 md:h-5" />
-              <span>Up to 30% Off</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Clock className="w-4 h-4 md:w-5 md:h-5" />
-              <span className="hidden sm:inline">Limited Time Only</span>
-              <span className="sm:hidden">Limited Time</span>
-            </div>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Button onClick={() => router.push('/bespoke')} className="btn-gold">BOOK A CONSULTATION</Button>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Sale Banner */}
-      <div className="bg-stone-800 text-white py-3 md:py-4">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <p className="text-sm md:text-lg font-semibold">
-            <span className="hidden sm:inline">🔥 FLASH SALE: Additional 10% off when you buy 2 or more items | Use code: SAVE10</span>
-            <span className="sm:hidden">🔥 Extra 10% off 2+ items | Code: SAVE10</span>
-          </p>
+      {/* Services Grid */}
+      <section className="max-w-7xl mx-auto px-4 py-12 md:py-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+          {services.map((service) => {
+            const IconComponent = service.icon
+            return (
+            <Card key={service.id} className="group flex flex-col h-full hover:shadow-xl transition-all duration-300">
+  <CardContent className="flex flex-col flex-1 p-6">
+    {/* Icon + Title + Price */}
+    <div className="flex items-center mb-6">
+      <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center mr-4">
+        <service.icon className="w-6 h-6 text-white" />
+      </div>
+      <div>
+        <h3 className="text-xl font-semibold text-black">{service.title}</h3>
+        <p className="text-gray-600 text-sm">{service.price}</p>
+      </div>
+    </div>
+
+    {/* Description */}
+    <p className="text-gray-600 mb-6 leading-relaxed">{service.description}</p>
+
+    {/* Features */}
+    <ul className="space-y-2 mb-6">
+      {service.features.map((feature, index) => (
+        <li key={index} className="flex items-center text-sm text-gray-600">
+          <div className="w-2 h-2 bg-yellow-600 rounded-full mr-3"></div>
+          {feature}
+        </li>
+      ))}
+    </ul>
+
+    {/* Book Button pinned at bottom */}
+    <div className="mt-auto">
+      <Button className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-semibold">
+        Book Service
+      </Button>
+    </div>
+  </CardContent>
+</Card>
+            )
+          })}
         </div>
-      </div>
+      </section>
 
-      {/* Sale Items */}
-      <div className="max-w-7xl mx-auto px-4 py-8 md:py-16">
-        <Tabs defaultValue="all" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 mb-8 md:mb-12">
-            <TabsTrigger value="all" className="text-sm md:text-lg py-3 md:py-4">All Items</TabsTrigger>
-            <TabsTrigger value="rings" className="text-sm md:text-lg py-3 md:py-4">Rings</TabsTrigger>
-            <TabsTrigger value="jewellery" className="text-sm md:text-lg py-3 md:py-4 hidden md:block">Jewellery</TabsTrigger>
-            <TabsTrigger value="jewellery" className="text-sm md:text-lg py-3 md:py-4 md:hidden">Jewelry</TabsTrigger>
-            <TabsTrigger value="watches" className="text-sm md:text-lg py-3 md:py-4">Watches</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="all">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
-              {allSaleItems.map((item) => (
-                <Card key={item.id} className="group cursor-pointer hover:shadow-xl transition-all duration-300 border-red-200">
-                  <CardContent className="p-0">
-                    <div className="relative aspect-square bg-stone-100 rounded-t-lg overflow-hidden">
-                      <img 
-                        src={item.image || "/placeholder.svg"} 
-                        alt={item.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute top-4 left-4 flex flex-col gap-2">
-                        <Badge className="bg-red-600 text-white font-bold">
-                          -{item.discount}
-                        </Badge>
-                        <Badge className="bg-stone-800 text-white text-xs">
-                          {item.reason}
-                        </Badge>
-                      </div>
-                      <div className="absolute top-4 right-4">
-                        <Badge variant="outline" className="bg-white/90 text-stone-800 border-stone-300">
-                          <Clock className="w-3 h-3 mr-1" />
-                          {item.timeLeft}
-                        </Badge>
-                      </div>
-                    </div>
-                    <div className="p-6">
-                      <div className="mb-2">
-                        <Badge variant="outline" className="text-xs text-stone-600 border-stone-300">
-                          {item.category}
-                        </Badge>
-                      </div>
-                      <h3 className="text-xl font-semibold text-stone-800 mb-2">{item.name}</h3>
-                      <div className="space-y-1 text-sm text-stone-600 mb-4">
-                        <div>Metal: {item.metal}</div>
-                        <div>Details: {item.diamond}</div>
-                      </div>
-                      <div className="flex justify-between items-center mb-4">
-                        <div className="flex flex-col">
-                          <span className="text-2xl font-bold text-red-600">{item.salePrice}</span>
-                          <span className="text-sm text-stone-500 line-through">{item.originalPrice}</span>
-                        </div>
-                        <div className="text-right">
-                          <div className="text-sm text-stone-600">You Save</div>
-                          <div className="text-lg font-bold text-green-600">
-                            {calculateSavings(item.originalPrice, item.salePrice)}
-                          </div>
-                        </div>
-                      </div>
-                      <Button 
-                        className="w-full bg-red-600 hover:bg-red-700 text-white"
-                        onClick={() => setCartItems(cartItems + 1)}
-                      >
-                        Add to Cart - {item.salePrice}
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="rings">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
-              {saleItems.rings.map((item) => (
-                <Card key={item.id} className="group cursor-pointer hover:shadow-xl transition-all duration-300 border-red-200">
-                  <CardContent className="p-0">
-                    <div className="relative aspect-square bg-stone-100 rounded-t-lg overflow-hidden">
-                      <img 
-                        src={item.image || "/placeholder.svg"} 
-                        alt={item.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute top-4 left-4 flex flex-col gap-2">
-                        <Badge className="bg-red-600 text-white font-bold">
-                          -{item.discount}
-                        </Badge>
-                        <Badge className="bg-stone-800 text-white text-xs">
-                          {item.reason}
-                        </Badge>
-                      </div>
-                      <div className="absolute top-4 right-4">
-                        <Badge variant="outline" className="bg-white/90 text-stone-800 border-stone-300">
-                          <Clock className="w-3 h-3 mr-1" />
-                          {item.timeLeft}
-                        </Badge>
-                      </div>
-                    </div>
-                    <div className="p-6">
-                      <div className="mb-2">
-                        <Badge variant="outline" className="text-xs text-stone-600 border-stone-300">
-                          {item.category}
-                        </Badge>
-                      </div>
-                      <h3 className="text-xl font-semibold text-stone-800 mb-2">{item.name}</h3>
-                      <div className="space-y-1 text-sm text-stone-600 mb-4">
-                        <div>Metal: {item.metal}</div>
-                        <div>Diamond: {item.diamond}</div>
-                      </div>
-                      <div className="flex justify-between items-center mb-4">
-                        <div className="flex flex-col">
-                          <span className="text-2xl font-bold text-red-600">{item.salePrice}</span>
-                          <span className="text-sm text-stone-500 line-through">{item.originalPrice}</span>
-                        </div>
-                        <div className="text-right">
-                          <div className="text-sm text-stone-600">You Save</div>
-                          <div className="text-lg font-bold text-green-600">
-                            {calculateSavings(item.originalPrice, item.salePrice)}
-                          </div>
-                        </div>
-                      </div>
-                      <Button 
-                        className="w-full bg-red-600 hover:bg-red-700 text-white"
-                        onClick={() => setCartItems(cartItems + 1)}
-                      >
-                        Add to Cart - {item.salePrice}
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="jewellery">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
-              {saleItems.jewellery.map((item) => (
-                <Card key={item.id} className="group cursor-pointer hover:shadow-xl transition-all duration-300 border-red-200">
-                  <CardContent className="p-0">
-                    <div className="relative aspect-square bg-stone-100 rounded-t-lg overflow-hidden">
-                      <img 
-                        src={item.image || "/placeholder.svg"} 
-                        alt={item.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute top-4 left-4 flex flex-col gap-2">
-                        <Badge className="bg-red-600 text-white font-bold">
-                          -{item.discount}
-                        </Badge>
-                        <Badge className="bg-stone-800 text-white text-xs">
-                          {item.reason}
-                        </Badge>
-                      </div>
-                      <div className="absolute top-4 right-4">
-                        <Badge variant="outline" className="bg-white/90 text-stone-800 border-stone-300">
-                          <Clock className="w-3 h-3 mr-1" />
-                          {item.timeLeft}
-                        </Badge>
-                      </div>
-                    </div>
-                    <div className="p-6">
-                      <div className="mb-2">
-                        <Badge variant="outline" className="text-xs text-stone-600 border-stone-300">
-                          {item.category}
-                        </Badge>
-                      </div>
-                      <h3 className="text-xl font-semibold text-stone-800 mb-2">{item.name}</h3>
-                      <div className="space-y-1 text-sm text-stone-600 mb-4">
-                        <div>Metal: {item.metal}</div>
-                        <div>Details: {item.diamond}</div>
-                      </div>
-                      <div className="flex justify-between items-center mb-4">
-                        <div className="flex flex-col">
-                          <span className="text-2xl font-bold text-red-600">{item.salePrice}</span>
-                          <span className="text-sm text-stone-500 line-through">{item.originalPrice}</span>
-                        </div>
-                        <div className="text-right">
-                          <div className="text-sm text-stone-600">You Save</div>
-                          <div className="text-lg font-bold text-green-600">
-                            {calculateSavings(item.originalPrice, item.salePrice)}
-                          </div>
-                        </div>
-                      </div>
-                      <Button 
-                        className="w-full bg-red-600 hover:bg-red-700 text-white"
-                        onClick={() => setCartItems(cartItems + 1)}
-                      >
-                        Add to Cart - {item.salePrice}
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="watches">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
-              {saleItems.watches.map((item) => (
-                <Card key={item.id} className="group cursor-pointer hover:shadow-xl transition-all duration-300 border-red-200">
-                  <CardContent className="p-0">
-                    <div className="relative aspect-square bg-stone-100 rounded-t-lg overflow-hidden">
-                      <img 
-                        src={item.image || "/placeholder.svg"} 
-                        alt={item.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute top-4 left-4 flex flex-col gap-2">
-                        <Badge className="bg-red-600 text-white font-bold">
-                          -{item.discount}
-                        </Badge>
-                        <Badge className="bg-stone-800 text-white text-xs">
-                          {item.reason}
-                        </Badge>
-                      </div>
-                      <div className="absolute top-4 right-4">
-                        <Badge variant="outline" className="bg-white/90 text-stone-800 border-stone-300">
-                          <Clock className="w-3 h-3 mr-1" />
-                          {item.timeLeft}
-                        </Badge>
-                      </div>
-                    </div>
-                    <div className="p-6">
-                      <div className="mb-2">
-                        <Badge variant="outline" className="text-xs text-stone-600 border-stone-300">
-                          {item.category}
-                        </Badge>
-                      </div>
-                      <h3 className="text-xl font-semibold text-stone-800 mb-2">{item.name}</h3>
-                      <div className="space-y-1 text-sm text-stone-600 mb-4">
-                        <div>Case: {item.metal}</div>
-                        <div>Movement: {item.diamond}</div>
-                      </div>
-                      <div className="flex justify-between items-center mb-4">
-                        <div className="flex flex-col">
-                          <span className="text-2xl font-bold text-red-600">{item.salePrice}</span>
-                          <span className="text-sm text-stone-500 line-through">{item.originalPrice}</span>
-                        </div>
-                        <div className="text-right">
-                          <div className="text-sm text-stone-600">You Save</div>
-                          <div className="text-lg font-bold text-green-600">
-                            {calculateSavings(item.originalPrice, item.salePrice)}
-                          </div>
-                        </div>
-                      </div>
-                      <Button 
-                        className="w-full bg-red-600 hover:bg-red-700 text-white"
-                        onClick={() => setCartItems(cartItems + 1)}
-                      >
-                        Add to Cart - {item.salePrice}
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-        </Tabs>
-      </div>
-
-      {/* Sale Terms */}
-      <div className="bg-stone-100 py-8 md:py-16">
-        <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-xl md:text-2xl font-serif text-center text-stone-800 mb-6 md:mb-8 tracking-wide">
-            Sale Terms & Conditions
-          </h2>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 text-sm text-stone-600">
-            <div>
-              <h3 className="font-semibold text-stone-800 mb-3">Sale Information</h3>
-              <ul className="space-y-2">
-                <li>• All sale prices are final and cannot be combined with other offers</li>
-                <li>• Limited quantities available - first come, first served</li>
-                <li>• Sale items are subject to availability</li>
-                <li>• Prices shown include VAT where applicable</li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold text-stone-800 mb-3">Returns & Exchanges</h3>
-              <ul className="space-y-2">
-                <li>• 14-day return policy applies to sale items</li>
-                <li>• Items must be in original condition</li>
-                <li>• Exchanges subject to availability</li>
-                <li>• Custom or altered items are final sale</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Urgency CTA */}
-      <div className="bg-red-600 text-white py-8 md:py-12">
+      {/* Contact/Info Strip — dark section like Home’s tone */}
+      <section className="bg-black text-white py-12 md:py-20">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-xl md:text-2xl font-serif mb-3 md:mb-4">Don't Miss Out!</h2>
-          <p className="text-base md:text-lg mb-4 md:mb-6">
-            These exclusive offers won't last long. Shop now and save on luxury jewelry and timepieces.
+          <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Need Expert Advice?</h2>
+          <p className="text-base md:text-lg mb-6 md:mb-8 text-gray-300 leading-relaxed">
+            Our experienced team is here to help with all your jewellery and watch service needs. Contact us today to discuss your requirements.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
-            <Button 
-              className="bg-white text-red-600 hover:bg-stone-100 px-6 md:px-8 py-3"
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            >
-              SHOP SALE NOW
-            </Button>
-            <Button 
-              variant="outline"
-              className="border-white text-white hover:bg-white hover:text-red-600 px-6 md:px-8 py-3"
-              onClick={() => router.push('/services')}
-            >
-              NEED HELP?
+<Button asChild className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-3">
+              <a href="tel:+447565455568">CALL US NOW</a>
+            </Button>            <Button onClick={() => router.push('/bespoke')}  className="btn-white-outline">
+              EMAIL ENQUIRY
             </Button>
           </div>
+
+          <div className="mt-8 md:mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 text-center">
+            <div>
+              <h3 className="font-semibold mb-2">Opening Hours</h3>
+              <p className="text-gray-300 text-sm">Mon–Fri: 10:00–18:00</p>
+              <p className="text-gray-300 text-sm">Sat: 10:00–17:00</p>
+              <p className="text-gray-300 text-sm">Sun: Closed</p>
+            </div>
+            <div>
+              <h3 className="font-semibold mb-2">Location</h3>
+              <p className="text-gray-300 text-sm">Martin Oliva London</p>
+              <p className="text-gray-300 text-sm">Luxury Jewellery Quarter</p>
+              <p className="text-gray-300 text-sm">London, UK</p>
+            </div>
+            <div>
+              <h3 className="font-semibold mb-2">Contact</h3>
+              <p className="text-gray-300 text-sm">+44 20 8530 0382</p>
+              <p className="text-gray-300 text-sm">studio@martinoliva.co.uk</p>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
+
+      {/* Footer — matches Home */}
+      <footer className="bg-black text-white py-16">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <h3 className="text-xl font-bold mb-4">MARTIN OLIVA</h3>
+              <p className="text-gray-400 mb-4">Fine Jewellery</p>
+              <p className="text-gray-400 text-sm leading-relaxed">
+                Creating exceptional jewelry pieces that celebrate life's most precious moments.
+              </p>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-4">Collections</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li><Link href="/engagement-rings" className="hover:text-white transition-colors">Engagement Rings</Link></li>
+                <li><Link href="/wedding-bands" className="hover:text-white transition-colors">Wedding Bands</Link></li>
+                <li><Link href="/diamonds" className="hover:text-white transition-colors">Diamonds</Link></li>
+                <li><Link href="/jewellery" className="hover:text-white transition-colors">Fine Jewellery</Link></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-4">Services</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li><Link href="/bespoke" className="hover:text-white transition-colors">Bespoke Design</Link></li>
+                <li><Link href="/services" className="hover:text-white transition-colors">Repairs & Maintenance</Link></li>
+                <li><Link href="/services" className="hover:text-white transition-colors">Valuations</Link></li>
+                <li><Link href="/services" className="hover:text-white transition-colors">Consultations</Link></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-4">Contact</h4>
+              <div className="space-y-2 text-gray-400">
+                <p>studio@martinoliva.co.uk</p>
+                <p>+44 7565 455568</p>
+                <p>London, UK</p>
+                <div className="flex gap-4 mt-4">
+                  <Facebook className="w-5 h-5 hover:text-white cursor-pointer transition-colors" />
+                  <Instagram className="w-5 h-5 hover:text-white cursor-pointer transition-colors" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+            <p>&copy; 2024 Martin Oliva. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
