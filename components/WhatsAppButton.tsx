@@ -33,7 +33,6 @@ export default function WhatsAppButton({
           <Phone className="w-4 h-4 text-white" />
         </span>
       </span>
-      <span className="pr-1 hidden sm:block font-semibold tracking-wide">Wh</span>
     </a>
   )
 }
