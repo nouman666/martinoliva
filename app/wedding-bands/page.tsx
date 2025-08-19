@@ -145,11 +145,14 @@ const { addItem,count, open } = useCart();
       {/* Tabs & Cards (unchanged) */}
       <div className="max-w-7xl mx-auto px-4 py-16">
         <Tabs defaultValue="women" className="w-full">
-          <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3 mb-8 md:mb-12 gap-2 sm:gap-0 btn-white-outline">
-            <TabsTrigger value="women" className="text-base md:text-lg py-3 md:py-4">Women&apos;s Bands</TabsTrigger>
-            <TabsTrigger value="men" className="text-base md:text-lg py-3 md:py-4">Men&apos;s Bands</TabsTrigger>
-            <TabsTrigger value="sets" className="text-base md:text-lg py-3 md:py-4">Matching Sets</TabsTrigger>
-          </TabsList>
+  <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3 mb-8 md:mb-12 gap-2 sm:gap-0 bg-transparent p-0">
+    <TabsTrigger  value="women"  className="text-black bg-transparent hover:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-black data-[state=active]:text-black" >Women&apos;s Bands </TabsTrigger>
+    <TabsTrigger value="men" className="text-black bg-transparent hover:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-black data-[state=active]:text-black" >
+      Men&apos;s Bands</TabsTrigger>
+    <TabsTrigger value="sets" className="text-black bg-transparent hover:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-black data-[state=active]:text-black" >
+      Matching Sets </TabsTrigger>
+  </TabsList>
+</Tabs>
 
           <TabsContent value="women">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
