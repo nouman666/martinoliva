@@ -93,9 +93,9 @@ const [animation, setAnimation] = useState({
   className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors"
   onClick={open}
 />
-                {cartItems > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-yellow-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                    {cartItems}
+                {count > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-yellow-500 text-black text-xs rounded-full min-w-5 h-5 px-1.5 flex items-center justify-center font-semibold">
+                    {count}
                   </span>
                 )}
               </div>
