@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { Mail, Phone, Facebook, Instagram, Search, ShoppingBag, Users } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
@@ -10,7 +9,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useCart } from '@/app/cart/page'
 
 export default function WeddingBandsPage() {
-  const router = useRouter()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { addItem, open } = useCart()
 
@@ -19,18 +17,18 @@ export default function WeddingBandsPage() {
 
   const weddingBands = {
     women: [
-      { id: 13, name: 'Classic Diamond Eternity', metal: 'Platinum', diamonds: '0.50ct Total', width: '2.5mm', price: '£2,800', image: '/diamond-eternity-band.png' },
-      { id: 14, name: 'Vintage Milgrain Band', metal: '18k Yellow Gold', diamonds: '0.25ct Total', width: '3mm',   price: '£1,650', image: '/vintage-milgrain-band.png' },
-      { id: 15, name: 'Modern Curved Band',    metal: '18k White Gold', diamonds: '0.35ct Total', width: '2mm',   price: '£2,200', image: '/modern-curved-band.png' }
+      { id: 13, name: 'Classic Diamond Eternity', metal: 'Platinum',       diamonds: '0.50ct Total', width: '2.5mm', price: '£2,800', image: '/diamond-eternity-band.png' },
+      { id: 14, name: 'Vintage Milgrain Band',    metal: '18k Yellow Gold', diamonds: '0.25ct Total', width: '3mm',   price: '£1,650', image: '/vintage-milgrain-band.png' },
+      { id: 15, name: 'Modern Curved Band',       metal: '18k White Gold',  diamonds: '0.35ct Total', width: '2mm',   price: '£2,200', image: '/modern-curved-band.png' }
     ],
     men: [
-      { id: 16, name: 'Classic Comfort Fit',  metal: 'Platinum',        diamonds: 'None',         width: '6mm',   price: '£1,200', image: '/mens-comfort-fit-band.png' },
-      { id: 17, name: 'Brushed Titanium',     metal: 'Titanium',        diamonds: 'None',         width: '7mm',   price: '£450',  image: '/brushed-titanium-band.png' },
-      { id: 18, name: 'Diamond Channel Set',  metal: '18k White Gold',  diamonds: '0.75ct Total', width: '8mm',   price: '£3,500', image: '/mens-diamond-channel-band.png' }
+      { id: 16, name: 'Classic Comfort Fit',      metal: 'Platinum',        diamonds: 'None',          width: '6mm',  price: '£1,200', image: '/mens-comfort-fit-band.png' },
+      { id: 17, name: 'Brushed Titanium',         metal: 'Titanium',        diamonds: 'None',          width: '7mm',  price: '£450',   image: '/brushed-titanium-band.png' },
+      { id: 18, name: 'Diamond Channel Set',      metal: '18k White Gold',  diamonds: '0.75ct Total',  width: '8mm',  price: '£3,500', image: '/mens-diamond-channel-band.png' }
     ],
     sets: [
-      { id: 19, name: 'His & Hers Classic Set', metal: 'Platinum',      diamonds: '0.25ct (Hers)', description: 'Matching comfort fit bands', price: '£2,400', image: '/his-hers-classic-set.png' },
-      { id: 20, name: 'Modern Matching Set',    metal: '18k Rose Gold', diamonds: '0.40ct (Hers)', description: 'Contemporary design',        price: '£2,850', image: '/modern-matching-set.png' }
+      { id: 19, name: 'His & Hers Classic Set',   metal: 'Platinum',        diamonds: '0.25ct (Hers)', description: 'Matching comfort fit bands', price: '£2,400', image: '/his-hers-classic-set.png' },
+      { id: 20, name: 'Modern Matching Set',      metal: '18k Rose Gold',   diamonds: '0.40ct (Hers)', description: 'Contemporary design',        price: '£2,850', image: '/modern-matching-set.png' }
     ]
   }
 
@@ -143,45 +141,29 @@ export default function WeddingBandsPage() {
         </div>
       </div>
 
-      {/* Tabs with BLACK active style */}
+      {/* Tabs */}
       <div className="max-w-7xl mx-auto px-4 py-16">
-       <Tabs defaultValue="women" className="w-full">
-  <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3 mb-8 md:mb-12 gap-2 sm:gap-0 bg-transparent p-0">
-    <TabsTrigger
-      value="women"
-      className="w-full rounded-none py-3 md:py-4 text-white bg-black hover:bg-black/90
-                 data-[state=active]:bg-gradient-to-r data-[state=active]:from-black data-[state=active]:to-yellow-600
-                 data-[state=active]:text-white data-[state=active]:font-semibold
-                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500
-                 transition-colors"
-    >
-      Women&apos;s Bands
-    </TabsTrigger>
-
-    <TabsTrigger
-      value="men"
-      className="w-full rounded-none py-3 md:py-4 text-white bg-black hover:bg-black/90
-                 data-[state=active]:bg-gradient-to-r data-[state=active]:from-black data-[state=active]:to-yellow-600
-                 data-[state=active]:text-white data-[state=active]:font-semibold
-                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500
-                 transition-colors"
-    >
-      Men&apos;s Bands
-    </TabsTrigger>
-
-    <TabsTrigger
-      value="sets"
-      className="w-full rounded-none py-3 md:py-4 text-white bg-black hover:bg-black/90
-                 data-[state=active]:bg-gradient-to-r data-[state=active]:from-black data-[state=active]:to-yellow-600
-                 data-[state=active]:text-white data-[state=active]:font-semibold
-                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500
-                 transition-colors"
-    >
-      Matching Sets
-    </TabsTrigger>
-  </TabsList>
-</Tabs>
-</div>
+        <Tabs defaultValue="women" className="w-full">
+          <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3 mb-8 md:mb-12 gap-2 sm:gap-0 bg-transparent p-0">
+            <TabsTrigger
+              value="women"
+              className="w-full rounded-none py-3 md:py-4 text-white bg-black hover:bg-black/90 data-[state=active]:bg-gradient-to-r data-[state=active]:from-black data-[state=active]:to-yellow-600 data-[state=active]:text-white data-[state=active]:font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500 transition-colors"
+            >
+              Women&apos;s Bands
+            </TabsTrigger>
+            <TabsTrigger
+              value="men"
+              className="w-full rounded-none py-3 md:py-4 text-white bg-black hover:bg-black/90 data-[state=active]:bg-gradient-to-r data-[state=active]:from-black data-[state=active]:to-yellow-600 data-[state=active]:text-white data-[state=active]:font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500 transition-colors"
+            >
+              Men&apos;s Bands
+            </TabsTrigger>
+            <TabsTrigger
+              value="sets"
+              className="w-full rounded-none py-3 md:py-4 text-white bg-black hover:bg-black/90 data-[state=active]:bg-gradient-to-r data-[state=active]:from-black data-[state=active]:to-yellow-600 data-[state=active]:text-white data-[state=active]:font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500 transition-colors"
+            >
+              Matching Sets
+            </TabsTrigger>
+          </TabsList>
 
           {/* Women */}
           <TabsContent value="women">
@@ -205,13 +187,7 @@ export default function WeddingBandsPage() {
                           size="sm"
                           className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
                           onClick={() => {
-                            addItem({
-                              id: `band-${band.id}`,
-                              name: band.name,
-                              price: gbp(band.price),
-                              image: band.image,
-                              qty: 1,
-                            })
+                            addItem({ id: `band-${band.id}`, name: band.name, price: gbp(band.price), image: band.image, qty: 1 })
                             open()
                           }}
                         >
@@ -247,13 +223,7 @@ export default function WeddingBandsPage() {
                           size="sm"
                           className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
                           onClick={() => {
-                            addItem({
-                              id: `band-${band.id}`,
-                              name: band.name,
-                              price: gbp(band.price),
-                              image: band.image,
-                              qty: 1,
-                            })
+                            addItem({ id: `band-${band.id}`, name: band.name, price: gbp(band.price), image: band.image, qty: 1 })
                             open()
                           }}
                         >
@@ -289,13 +259,7 @@ export default function WeddingBandsPage() {
                           size="sm"
                           className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
                           onClick={() => {
-                            addItem({
-                              id: `band-${set.id}`,
-                              name: set.name,
-                              price: gbp(set.price),
-                              image: set.image,
-                              qty: 1,
-                            })
+                            addItem({ id: `band-${set.id}`, name: set.name, price: gbp(set.price), image: set.image, qty: 1 })
                             open()
                           }}
                         >
