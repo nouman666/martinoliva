@@ -31,7 +31,7 @@ const [animation, setAnimation] = useState({
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
               <Mail className="w-4 h-4" />
-              <span>studio@martinoliva.co.uk</span>
+              <span>studio@martinoliva.co.uk </span>
             </div>
             <div className="flex items-center gap-2">
               <Phone className="w-4 h-4" />
