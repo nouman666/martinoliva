@@ -12,10 +12,12 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
+import { useCart } from '@/app/cart/page'
 
 export default function ServicesPage() {
   const [cartItems, setCartItems] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const { open, count } = useCart()   // ⬅️ add this
 
   // ---------- DATA ----------
   const services = [
