@@ -247,18 +247,22 @@ const { addItem,count, open } = useCart();
                         <span className="text-sm text-gray-500 line-through">{ring.originalPrice}</span>
                       )}
                     </div>
-  type="button"
-  onClick={() => {
-    addItem({
-      id: String(diamond.id),
-      name: diamond.name,
-      price: Number(String(diamond.price).replace(/[^\d.]/g, "")),
-      image: diamond.image,
-      qty: 1,
-    });
-    open(); // opens the drawer
-  }}
->
+  <Button
+    size="sm"
+    className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
+    onClick={() => {
+      addItem({
+        id: String(ring.id),
+        name: ring.name,
+        price: Number(String(ring.price).replace(/[£,]/g, "")), // £4,500 -> 4500
+        image: ring.image,
+        qty: 1,
+      })
+      open() // open the cart drawer
+    }}
+  >
+    Add to Cart
+  </Button>
                   </div>
                 </div>
               </CardContent>
