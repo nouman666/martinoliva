@@ -5,19 +5,14 @@ import { useRouter } from 'next/navigation'
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { useCart } from '@/app/cart/page'
-import { Mail, Phone, Facebook, Instagram, Search, User, ShoppingBag, ChevronDown } from 'lucide-react'
+import { Mail, Phone, Facebook, Instagram, Search, ShoppingBag, ChevronDown } from 'lucide-react'
 import { useSearch } from '@/app/search/SearchContext'
 
 export default function HomePage() {
   const router = useRouter()
-  const [cartItems, setCartItems] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { open, count } = useCart()
-  const [animation, setAnimation] = useState({
-    engagement: '',
-    wedding: '',
-    jewellery: '',
-  })
+  const [animation, setAnimation] = useState({ engagement: '', wedding: '', jewellery: '' })
   const { openSearch } = useSearch()
 
   return (
@@ -78,13 +73,9 @@ export default function HomePage() {
               <Link href="/" className="text-black hover:text-yellow-600 transition-colors font-medium">Home</Link>
               <Link href="/diamonds" className="text-black hover:text-yellow-600 transition-colors font-medium">Diamonds</Link>
 
-              {/* Jewellery (with dropdown) */}
+              {/* Jewellery dropdown (includes Engagement + Wedding) */}
               <div className="relative group">
-                <button
-                  className="flex items-center gap-1 text-black hover:text-yellow-600 transition-colors font-medium"
-                  aria-haspopup="menu"
-                  aria-expanded="false"
-                >
+                <button className="flex items-center gap-1 text-black hover:text-yellow-600 transition-colors font-medium">
                   Jewellery
                   <ChevronDown className="w-4 h-4" />
                 </button>
@@ -93,33 +84,42 @@ export default function HomePage() {
                              absolute left-0 top-full mt-2 w-56 bg-white shadow-lg border border-gray-100 rounded-md p-2"
                   role="menu"
                 >
-                  <Link
-                    href="/jewellery"
-                    className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900"
-                    role="menuitem"
-                  >
-                    Fine Jewellery
-                  </Link>
-                  <Link
-                    href="/engagement-rings"
-                    className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900"
-                    role="menuitem"
-                  >
-                    Engagement Rings
-                  </Link>
-                  <Link
-                    href="/wedding-bands"
-                    className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900"
-                    role="menuitem"
-                  >
-                    Wedding Bands
-                  </Link>
+                  <Link href="/jewellery" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Fine Jewellery</Link>
+                  <Link href="/engagement-rings" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Engagement Rings</Link>
+                  <Link href="/wedding-bands" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Wedding Bands</Link>
                 </div>
               </div>
 
               <Link href="/watches" className="text-black hover:text-yellow-600 transition-colors font-medium">Watches</Link>
               <Link href="/bespoke" className="text-black hover:text-yellow-600 transition-colors font-medium">Bespoke</Link>
-              <Link href="/services" className="text-black hover:text-yellow-600 transition-colors font-medium">Watch Repair Services</Link>
+
+              {/* Watch Care dropdown (NEW) */}
+              <div className="relative group">
+                <button className="flex items-center gap-1 text-black hover:text-yellow-600 transition-colors font-medium">
+                  Watch Care
+                  <ChevronDown className="w-4 h-4" />
+                </button>
+                <div
+                  className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-150
+                             absolute left-0 top-full mt-2 w-64 bg-white shadow-lg border border-gray-100 rounded-md p-2"
+                  role="menu"
+                >
+                  <Link href="/watch-care/ultrasonic-cleaning" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Ultrasonic Cleaning</Link>
+                  <Link href="/watch-care/resealing" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Resealing</Link>
+                  <Link href="/watch-care/polishing-before-after" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Polishing (Before & After)</Link>
+                  <Link href="/watch-care/water-testing" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Water Testing</Link>
+                  <Link href="/watch-care/regulating" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Regulating</Link>
+                  <Link href="/watch-care/glass-crystal-replacement" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Glass (Crystal) Replacement</Link>
+                  <Link href="/watch-care/crown-and-stem" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Crown & Stem</Link>
+                  <Link href="/watch-care/straps-and-bracelet" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Straps & Bracelet</Link>
+                  <Link href="/watch-care/links-alteration" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Links Alteration</Link>
+                </div>
+              </div>
+
+              {/* Keep Services as its own heading */}
+              <Link href="/services" className="text-black hover:text-yellow-600 transition-colors font-medium">Services</Link>
+
+              {/* Contact (your code points to /sale; keeping consistent) */}
               <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium">Contact</Link>
             </nav>
 
@@ -150,7 +150,7 @@ export default function HomePage() {
                 <Link href="/" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Home</Link>
                 <Link href="/diamonds" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Diamonds</Link>
 
-                {/* Mobile: Jewellery with nested items */}
+                {/* Mobile: Jewellery */}
                 <details className="group">
                   <summary className="cursor-pointer list-none pl-4 pr-4 py-2 flex items-center justify-between text-black font-medium border-l-4 border-transparent hover:text-yellow-600 hover:border-yellow-600">
                     <span>Jewellery</span>
@@ -165,7 +165,29 @@ export default function HomePage() {
 
                 <Link href="/watches" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Watches</Link>
                 <Link href="/bespoke" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Bespoke</Link>
-                <Link href="/services" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Watch Repair Services</Link>
+
+                {/* Mobile: Watch Care (NEW) */}
+                <details className="group">
+                  <summary className="cursor-pointer list-none pl-4 pr-4 py-2 flex items-center justify-between text-black font-medium border-l-4 border-transparent hover:text-yellow-600 hover:border-yellow-600">
+                    <span>Watch Care</span>
+                    <ChevronDown className="w-4 h-4 transition-transform group-open:rotate-180" />
+                  </summary>
+                  <div className="ml-8 mt-1 flex flex-col">
+                    <Link href="/watch-care/ultrasonic-cleaning" className="py-1 text-gray-700 hover:text-yellow-600">Ultrasonic Cleaning</Link>
+                    <Link href="/watch-care/resealing" className="py-1 text-gray-700 hover:text-yellow-600">Resealing</Link>
+                    <Link href="/watch-care/polishing-before-after" className="py-1 text-gray-700 hover:text-yellow-600">Polishing (Before & After)</Link>
+                    <Link href="/watch-care/water-testing" className="py-1 text-gray-700 hover:text-yellow-600">Water Testing</Link>
+                    <Link href="/watch-care/regulating" className="py-1 text-gray-700 hover:text-yellow-600">Regulating</Link>
+                    <Link href="/watch-care/glass-crystal-replacement" className="py-1 text-gray-700 hover:text-yellow-600">Glass (Crystal) Replacement</Link>
+                    <Link href="/watch-care/crown-and-stem" className="py-1 text-gray-700 hover:text-yellow-600">Crown & Stem</Link>
+                    <Link href="/watch-care/straps-and-bracelet" className="py-1 text-gray-700 hover:text-yellow-600">Straps & Bracelet</Link>
+                    <Link href="/watch-care/links-alteration" className="py-1 text-gray-700 hover:text-yellow-600">Links Alteration</Link>
+                  </div>
+                </details>
+
+                {/* Keep Services as its own heading */}
+                <Link href="/services" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Services</Link>
+
                 <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium border-l-4 border-transparent hover:border-red-600 pl-4">Contact</Link>
               </nav>
             </div>
@@ -198,12 +220,8 @@ export default function HomePage() {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button onClick={() => router.push('/diamonds')} className="btn-gold">
-              SHOP NOW
-            </Button>
-            <Button onClick={() => router.push('/engagement-rings')} className="btn-white-outline">
-              VIEW COLLECTIONS
-            </Button>
+            <Button onClick={() => router.push('/diamonds')} className="btn-gold">SHOP NOW</Button>
+            <Button onClick={() => router.push('/engagement-rings')} className="btn-white-outline">VIEW COLLECTIONS</Button>
           </div>
         </div>
       </section>
@@ -350,7 +368,7 @@ export default function HomePage() {
               <h4 className="font-semibold mb-4">Services</h4>
               <ul className="space-y-2 text-gray-400">
                 <li><Link href="/bespoke" className="hover:text-white transition-colors">Bespoke Design</Link></li>
-                <li><Link href="/services" className="hover:text-white transition-colors">Watch Repair Services</Link></li>
+                <li><Link href="/services" className="hover:text-white transition-colors">Services</Link></li>
                 <li><Link href="/services" className="hover:text-white transition-colors">Valuations</Link></li>
                 <li><Link href="/services" className="hover:text-white transition-colors">Consultations</Link></li>
               </ul>
