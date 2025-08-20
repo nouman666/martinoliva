@@ -107,12 +107,12 @@ export default function HomePage() {
                   <Link href="/watch-care/Ultrasonic Cleaning" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Ultrasonic Cleaning</Link>
                   <Link href="/watch-care/Resealing" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Resealing</Link>
                   <Link href="/watch-care/Polishing (Before & After)" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Polishing (Before & After)</Link>
-                  <Link href="/watch-care/water-testing" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Water Testing</Link>
-                  <Link href="/watch-care/regulating" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Regulating</Link>
-                  <Link href="/watch-care/glass-crystal-replacement" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Glass (Crystal) Replacement</Link>
-                  <Link href="/watch-care/crown-and-stem" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Crown & Stem</Link>
-                  <Link href="/watch-care/straps-and-bracelet" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Straps & Bracelet</Link>
-                  <Link href="/watch-care/links-alteration" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Links Alteration</Link>
+                  <Link href="/watch-care/Water Testing" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Water Testing</Link>
+                  <Link href="/watch-care/Regulating" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Regulating</Link>
+                  <Link href="/watch-care/Glass (Crystal) Replacement" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Glass (Crystal) Replacement</Link>
+                  <Link href="/watch-care/Crown & Stem" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Crown & Stem</Link>
+                  <Link href="/watch-care/Straps & Bracelet" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Straps & Bracelet</Link>
+                  <Link href="/watch-care/Links Alteration" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Links Alteration</Link>
                 </div>
               </div>
 
@@ -173,15 +173,15 @@ export default function HomePage() {
                     <ChevronDown className="w-4 h-4 transition-transform group-open:rotate-180" />
                   </summary>
                   <div className="ml-8 mt-1 flex flex-col">
-                    <Link href="/watch-care/ultrasonic-cleaning" className="py-1 text-gray-700 hover:text-yellow-600">Ultrasonic Cleaning</Link>
-                    <Link href="/watch-care/resealing" className="py-1 text-gray-700 hover:text-yellow-600">Resealing</Link>
-                    <Link href="/watch-care/polishing-before-after" className="py-1 text-gray-700 hover:text-yellow-600">Polishing (Before & After)</Link>
-                    <Link href="/watch-care/water-testing" className="py-1 text-gray-700 hover:text-yellow-600">Water Testing</Link>
-                    <Link href="/watch-care/regulating" className="py-1 text-gray-700 hover:text-yellow-600">Regulating</Link>
-                    <Link href="/watch-care/glass-crystal-replacement" className="py-1 text-gray-700 hover:text-yellow-600">Glass (Crystal) Replacement</Link>
-                    <Link href="/watch-care/crown-and-stem" className="py-1 text-gray-700 hover:text-yellow-600">Crown & Stem</Link>
-                    <Link href="/watch-care/straps-and-bracelet" className="py-1 text-gray-700 hover:text-yellow-600">Straps & Bracelet</Link>
-                    <Link href="/watch-care/links-alteration" className="py-1 text-gray-700 hover:text-yellow-600">Links Alteration</Link>
+                    <Link href="/watch-care/Ultrasonic Cleaning" className="py-1 text-gray-700 hover:text-yellow-600">Ultrasonic Cleaning</Link>
+                    <Link href="/watch-care/Resealing" className="py-1 text-gray-700 hover:text-yellow-600">Resealing</Link>
+                    <Link href="/watch-care/Polishing (Before & After)" className="py-1 text-gray-700 hover:text-yellow-600">Polishing (Before & After)</Link>
+                    <Link href="/watch-care/Water Testing" className="py-1 text-gray-700 hover:text-yellow-600">Water Testing</Link>
+                    <Link href="/watch-care/Regulating" className="py-1 text-gray-700 hover:text-yellow-600">Regulating</Link>
+                    <Link href="/watch-care/Glass (Crystal) Replacement" className="py-1 text-gray-700 hover:text-yellow-600">Glass (Crystal) Replacement</Link>
+                    <Link href="/watch-care/Crown & Stem" className="py-1 text-gray-700 hover:text-yellow-600">Crown & Stem</Link>
+                    <Link href="/watch-care/Straps & Bracelet" className="py-1 text-gray-700 hover:text-yellow-600">Straps & Bracelet</Link>
+                    <Link href="/watch-care/Links Alteration" className="py-1 text-gray-700 hover:text-yellow-600">Links Alteration</Link>
                   </div>
                 </details>
 
