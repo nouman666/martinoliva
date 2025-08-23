@@ -20,15 +20,15 @@ type Props = {
 }
 
 const watchCareItems = [
-  { href: '/watch-care/ultrasonic-cleaning', label: 'Ultrasonic Cleaning' },
-  { href: '/watch-care/resealing', label: 'Resealing' },
-  { href: '/watch-care/polishing-before-after', label: 'Polishing (Before & After)' },
-  { href: '/watch-care/water-testing', label: 'Water Testing' },
-  { href: '/watch-care/regulating', label: 'Regulating' },
-  { href: '/watch-care/glass-crystal-replacement', label: 'Glass (Crystal) Replacement' },
-  { href: '/watch-care/crown-and-stem', label: 'Crown & Stem' },
-  { href: '/watch-care/straps-and-bracelet', label: 'Straps & Bracelet' },
-  { href: '/watch-care/links-alteration', label: 'Links Alteration' },
+  { href: '/watch-care/Ultrasonic Cleaning', label: 'Ultrasonic Cleaning' },
+  { href: '/watch-care/Resealing', label: 'Resealing' },
+  { href: '/watch-care/Polishing (Before & After)', label: 'Polishing (Before & After)' },
+  { href: '/watch-care/Water Testing', label: 'Water Testing' },
+  { href: '/watch-care/Regulating', label: 'Regulating' },
+  { href: '/watch-care/Glass (Crystal) Replacement', label: 'Glass (Crystal) Replacement' },
+  { href: '/watch-care/Crown & Stem', label: 'Crown & Stem' },
+  { href: '/watch-care/Straps & Bracelet', label: 'Straps & Bracelet' },
+  { href: '/watch-care/Links Alteration', label: 'Links Alteration' },
 ]
 
 export default function SiteHeader({ active, onCartClick, onSearchClick }: Props) {
