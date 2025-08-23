@@ -1,9 +1,17 @@
 'use client'
 
 import Link from 'next/link'
-import { useState, useRef } from 'react'
 import { usePathname } from 'next/navigation'
-import { Mail, Phone, Facebook, Instagram, Search, ShoppingBag, ChevronDown } from 'lucide-react'
+import { useRef, useState } from 'react'
+import {
+  Mail,
+  Phone,
+  Facebook,
+  Instagram,
+  Search,
+  ShoppingBag,
+  ChevronDown,
+} from 'lucide-react'
 
 type Props = {
   active?: string
@@ -27,9 +35,6 @@ export default function SiteHeader({ active, onCartClick, onSearchClick }: Props
   const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [openMenu, setOpenMenu] = useState<string | null>(null)
-
-  // keep the dropdown open when you're already browsing watch-care pages
-  const onWatchCarePage = pathname?.startsWith('/watch-care')
 
   return (
     <>
@@ -61,7 +66,7 @@ export default function SiteHeader({ active, onCartClick, onSearchClick }: Props
       <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            {/* Mobile menu button */}
+            {/* Mobile hamburger */}
             <button
               className="lg:hidden flex flex-col gap-1 p-2"
               onClick={() => setMobileOpen(v => !v)}
@@ -84,11 +89,12 @@ export default function SiteHeader({ active, onCartClick, onSearchClick }: Props
 
             {/* Desktop nav */}
             <nav className="hidden lg:flex items-center gap-6">
-              <NavLink href="/" label="Home" active={active} />
-              <NavLink href="/diamonds" label="Diamonds" active={active} />
+              <NavLink href="/" label="Home" active={active} pathname={pathname} />
+              <NavLink href="/diamonds" label="Diamonds" active={active} pathname={pathname} />
+
               <Dropdown
                 label="Jewellery"
-                isActive={pathname === '/jewellery' || active === 'jewellery'}
+                isActive={pathname?.startsWith('/jewellery') || active === 'jewellery'}
                 openKey="jewellery"
                 openMenu={openMenu}
                 setOpenMenu={setOpenMenu}
@@ -98,30 +104,38 @@ export default function SiteHeader({ active, onCartClick, onSearchClick }: Props
                 <DropdownLink href="/wedding-bands" label="Wedding Bands" />
               </Dropdown>
 
-              <NavLink href="/watches" label="Watches" active={active} />
+              <NavLink href="/watches" label="Watches" active={active} pathname={pathname} />
 
               <Dropdown
                 label="Watch Care"
-                isActive={onWatchCarePage || active === 'watch-care'}
+                isActive={pathname?.startsWith('/watch-care') || active === 'watch-care'}
                 openKey="watch-care"
                 openMenu={openMenu}
                 setOpenMenu={setOpenMenu}
-                forceOpen={onWatchCarePage} // keep open while on any /watch-care/* route
               >
                 {watchCareItems.map(i => (
                   <DropdownLink key={i.href} href={i.href} label={i.label} />
                 ))}
               </Dropdown>
 
-              <NavLink href="/bespoke" label="Bespoke" active={active} />
-              <NavLink href="/services" label="Services" active={active} />
-              <NavLink href="/sale" label="Contact" active={active} className="text-red-600 hover:text-red-700" />
+              <NavLink href="/bespoke" label="Bespoke" active={active} pathname={pathname} />
+              <NavLink href="/services" label="Services" active={active} pathname={pathname} />
+              {/* NOTE: If you have a /contact route, change href to "/contact" */}
+              <NavLink href="/sale" label="Contact" active={active} pathname={pathname} className="text-red-600 hover:text-red-700" />
             </nav>
 
             {/* Right actions */}
             <div className="flex items-center gap-3 md:gap-4">
-              <Search className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600" onClick={onSearchClick} />
-              <ShoppingBag className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600" onClick={onCartClick} />
+              <Search
+                className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600"
+                onClick={onSearchClick}
+                aria-label="Open search"
+              />
+              <ShoppingBag
+                className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600"
+                onClick={onCartClick}
+                aria-label="Open cart"
+              />
             </div>
           </div>
 
@@ -159,13 +173,18 @@ function NavLink({
   label,
   active,
   className,
+  pathname,
 }: {
   href: string
   label: string
   active?: string
   className?: string
+  pathname?: string | null
 }) {
-  const isActive = active && label.toLowerCase().includes(active)
+  const isActive =
+    (active && label.toLowerCase().includes(active)) ||
+    (pathname && pathname === href)
+
   return (
     <Link
       href={href}
@@ -178,7 +197,7 @@ function NavLink({
   )
 }
 
-/** Debounced + bridged dropdown to prevent flicker */
+/** Debounced + bridged dropdown: opens on hover/click, hides when pointer leaves the whole area */
 function Dropdown({
   label,
   children,
@@ -186,7 +205,6 @@ function Dropdown({
   openKey,
   openMenu,
   setOpenMenu,
-  forceOpen = false,
 }: {
   label: string
   children: React.ReactNode
@@ -194,14 +212,14 @@ function Dropdown({
   openKey: string
   openMenu: string | null
   setOpenMenu: (v: string | null) => void
-  forceOpen?: boolean
 }) {
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const isOpen = forceOpen || openMenu === openKey
+  const isOpen = openMenu === openKey
 
   const setOpenDebounced = (next: boolean) => {
     if (timer.current) clearTimeout(timer.current)
-    timer.current = setTimeout(() => setOpenMenu(next ? openKey : null), next ? 40 : 100) // tiny delay smooths pointer travel
+    // slight delay to smooth tiny pointer jitters; still hides promptly
+    timer.current = setTimeout(() => setOpenMenu(next ? openKey : null), next ? 40 : 80)
   }
 
   return (
@@ -222,8 +240,8 @@ function Dropdown({
         {label} <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
-      {/* Hover bridge to remove the tiny gap between button and panel */}
-      <div className="absolute left-0 right-0 h-2" style={{ top: '100%' }} />
+      {/* Hover bridge: removes the tiny gap between button and panel */}
+      <div className="absolute left-0 right-0 h-2" style={{ top: '100%' }} aria-hidden />
 
       {isOpen && (
         <div
