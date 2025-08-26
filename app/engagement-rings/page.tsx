@@ -2,13 +2,13 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Mail, Phone, Facebook, Instagram, Search, ShoppingBag, Heart } from 'lucide-react'
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Mail, Phone, Facebook, Instagram, Search, ShoppingBag, Grid, List, ChevronDown } from 'lucide-react'
 import { useCart } from '@/app/cart/page'
-import { useSearch } from '@/app/search/SearchContext' // 🔍 same search as homepage
+import { useSearch } from '@/app/search/SearchContext'
 
 export default function EngagementRingsPage() {
   const router = useRouter()
