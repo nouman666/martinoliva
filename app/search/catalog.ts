@@ -9,7 +9,7 @@ export type CatalogItem = {
 
 export const catalog: CatalogItem[] = [
   // --- Wedding Bands (examples)
-  { id: 1, name: "Round Brilliant Diamond", carat: "1.50", cut: "Excellent", color: "D", clarity: "VVS1", price: "£8,500", image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=600&q=80" },
+  { id: 1, name: "Round Brilliant Diamond", carat: "1.50", cut: "Excellent", color: "D", clarity: "VVS1", price: "£8,500", image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=600&q=80" ,href: "/wedding-bands"},
     { id: 2, name: "Princess Cut Diamond",  carat: "1.25", cut: "Very Good", color: "E", clarity: "VS1",  price: "£6,800", image: "https://images.unsplash.com/photo-1544376664-80b17f09d399?auto=format&fit=crop&w=600&q=80" },
     { id: 3, name: "Emerald Cut Diamond",   carat: "2.00", cut: "Excellent", color: "F", clarity: "VVS2", price: "£12,200", image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=600&q=80" },
     { id: 4, name: "Oval Diamond",           carat: "1.75", cut: "Excellent", color: "D", clarity: "VS2",  price: "£9,900", image: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?auto=format&fit=crop&w=600&q=80" },
