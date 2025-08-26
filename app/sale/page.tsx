@@ -46,16 +46,7 @@ export default function ContactPage() {
       mapQuery: '143 High Rd, London SW12 9AU',
       image: '/shop/f2.jpg', // 🔴 your image in /public/shop/
     },
-    {
-      id: 3,
-      title: 'BRIGHTON SHOP UK',
-      address: '130 North Street, Brighton BN1 1RG',
-      phone: '01273 080203',
-      email: 'info@itechmobile.co.uk',
-      hours: 'Mon–Sat 9:00–20:00 • Sun 10:00–20:00',
-      mapQuery: '130 North St, Brighton BN1 1RG',
-      image: '/shop/brighton.jpg', // 🔴 your image in /public/shop/
-    },
+   
     {
       id: 4,
       title: 'SAFFRON WALDEN SHOP UK',
