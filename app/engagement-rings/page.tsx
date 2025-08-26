@@ -2,13 +2,22 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Mail, Phone, Facebook, Instagram, Search, ShoppingBag, Grid, List, ChevronDown } from 'lucide-react'
+import {
+  Mail,
+  Phone,
+  Facebook,
+  Instagram,
+  Search,
+  ShoppingBag,
+  Heart,
+  ChevronDown,
+} from 'lucide-react'
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
 import { useCart } from '@/app/cart/page'
-import { useSearch } from '@/app/search/SearchContext'
+import { useSearch } from '@/app/search/SearchContext' // 🔍 same search as homepage
 
 export default function EngagementRingsPage() {
   const router = useRouter()
@@ -19,70 +28,76 @@ export default function EngagementRingsPage() {
   const rings = [
     {
       id: 7,
-      name: "Classic Solitaire",
-      style: "Solitaire",
-      metal: "Platinum",
-      diamond: "1.0ct Round",
-      price: "£4,500",
-      originalPrice: null,
+      name: 'Classic Solitaire',
+      style: 'Solitaire',
+      metal: 'Platinum',
+      diamond: '1.0ct Round',
+      price: '£4,500',
+      originalPrice: null as string | null,
       isNew: true,
-      image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+      image:
+        'https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
     },
     {
       id: 8,
-      name: "Vintage Halo",
-      style: "Halo",
-      metal: "18k White Gold",
-      diamond: "0.75ct Round",
-      price: "£3,200",
-      originalPrice: null,
+      name: 'Vintage Halo',
+      style: 'Halo',
+      metal: '18k White Gold',
+      diamond: '0.75ct Round',
+      price: '£3,200',
+      originalPrice: null as string | null,
       isNew: false,
-      image: "https://images.unsplash.com/photo-1544376664-80b17f09d399?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+      image:
+        'https://images.unsplash.com/photo-1544376664-80b17f09d399?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
     },
     {
       id: 9,
-      name: "Three Stone Classic",
-      style: "Three Stone",
-      metal: "18k Yellow Gold",
-      diamond: "1.25ct Emerald",
-      price: "£6,800",
-      originalPrice: null,
+      name: 'Three Stone Classic',
+      style: 'Three Stone',
+      metal: '18k Yellow Gold',
+      diamond: '1.25ct Emerald',
+      price: '£6,800',
+      originalPrice: null as string | null,
       isNew: false,
-      image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+      image:
+        'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
     },
     {
       id: 10,
-      name: "Art Deco Inspired",
-      style: "Vintage",
-      metal: "Platinum",
-      diamond: "1.5ct Cushion",
-      price: "£8,900",
-      originalPrice: null,
+      name: 'Art Deco Inspired',
+      style: 'Vintage',
+      metal: 'Platinum',
+      diamond: '1.5ct Cushion',
+      price: '£8,900',
+      originalPrice: null as string | null,
       isNew: true,
-      image: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+      image:
+        'https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
     },
     {
       id: 11,
-      name: "Modern Twist",
-      style: "Contemporary",
-      metal: "18k Rose Gold",
-      diamond: "1.0ct Oval",
-      price: "£4,200",
-      originalPrice: "£5,200",
+      name: 'Modern Twist',
+      style: 'Contemporary',
+      metal: '18k Rose Gold',
+      diamond: '1.0ct Oval',
+      price: '£4,200',
+      originalPrice: '£5,200',
       isNew: false,
-      image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+      image:
+        'https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
     },
     {
       id: 12,
-      name: "Pavé Band Solitaire",
-      style: "Solitaire",
-      metal: "Platinum",
-      diamond: "2.0ct Round",
-      price: "£12,500",
-      originalPrice: null,
+      name: 'Pavé Band Solitaire',
+      style: 'Solitaire',
+      metal: 'Platinum',
+      diamond: '2.0ct Round',
+      price: '£12,500',
+      originalPrice: null as string | null,
       isNew: false,
-      image: "https://images.unsplash.com/photo-1544376664-80b17f09d399?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-    }
+      image:
+        'https://images.unsplash.com/photo-1544376664-80b17f09d399?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+    },
   ]
 
   return (
@@ -102,17 +117,27 @@ export default function EngagementRingsPage() {
           </div>
           <div className="flex items-center gap-4">
             <span className="text-sm">Follow us:</span>
-            <a href="https://facebook.com/martinoliva" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://facebook.com/martinoliva"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+            >
               <Facebook className="w-4 h-4 hover:text-gray-300 cursor-pointer transition-colors" />
             </a>
-            <a href="https://instagram.com/martinoliva" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://instagram.com/martinoliva"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+            >
               <Instagram className="w-4 h-4 hover:text-gray-300 cursor-pointer transition-colors" />
             </a>
           </div>
         </div>
       </div>
 
-      {/* Main Navigation — copied from homepage, with Diamonds active */}
+      {/* Main Navigation — copied from homepage */}
       <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
@@ -122,9 +147,9 @@ export default function EngagementRingsPage() {
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle menu"
             >
-              <div className="w-6 h-0.5 bg-yellow-600 transition-all"></div>
-              <div className="w-6 h-0.5 bg-yellow-600 transition-all"></div>
-              <div className="w-6 h-0.5 bg-yellow-600 transition-all"></div>
+              <div className="w-6 h-0.5 bg-yellow-600 transition-all" />
+              <div className="w-6 h-0.5 bg-yellow-600 transition-all" />
+              <div className="w-6 h-0.5 bg-yellow-600 transition-all" />
             </button>
 
             {/* Logo */}
@@ -132,7 +157,8 @@ export default function EngagementRingsPage() {
               <div className="text-xl md:text-2xl font-bold tracking-wider">
                 <span className="text-black">MARTIN OLIVA</span>
                 <div className="text-xs text-gray-600 tracking-[0.3em] font-light leading-5">
-                  The Total Watch and<br />
+                  The Total Watch and
+                  <br />
                   Jewellery Care Centre
                 </div>
               </div>
@@ -140,8 +166,15 @@ export default function EngagementRingsPage() {
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center space-x-8">
-              <Link href="/" className="text-black hover:text-yellow-600 transition-colors font-medium">Home</Link>
-              <Link href="/diamonds" className="text-yellow-600 font-medium border-b-2 border-yellow-600 pb-1">Diamonds</Link>
+              <Link href="/" className="text-black hover:text-yellow-600 transition-colors font-medium">
+                Home
+              </Link>
+              <Link
+                href="/diamonds"
+                className="text-black hover:text-yellow-600 transition-colors font-medium"
+              >
+                Diamonds
+              </Link>
 
               {/* Jewellery dropdown */}
               <div className="relative group">
@@ -154,16 +187,35 @@ export default function EngagementRingsPage() {
                              absolute left-0 top-full mt-2 w-56 bg-white shadow-lg border border-gray-100 rounded-md p-2"
                   role="menu"
                 >
-                  <Link href="/jewellery" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Fine Jewellery</Link>
-                  <Link href="/engagement-rings" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Engagement Rings</Link>
-                  <Link href="/wedding-bands" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Wedding Bands</Link>
+                  <Link
+                    href="/jewellery"
+                    className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900"
+                  >
+                    Fine Jewellery
+                  </Link>
+                  <Link
+                    href="/engagement-rings"
+                    className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900"
+                  >
+                    Engagement Rings
+                  </Link>
+                  <Link
+                    href="/wedding-bands"
+                    className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900"
+                  >
+                    Wedding Bands
+                  </Link>
                 </div>
               </div>
 
-              <Link href="/watches" className="text-black hover:text-yellow-600 transition-colors font-medium">Watches</Link>
-              <Link href="/bespoke" className="text-black hover:text-yellow-600 transition-colors font-medium">Bespoke</Link>
+              <Link href="/watches" className="text-black hover:text-yellow-600 transition-colors font-medium">
+                Watches
+              </Link>
+              <Link href="/bespoke" className="text-black hover:text-yellow-600 transition-colors font-medium">
+                Bespoke
+              </Link>
 
-              {/* Watch Care dropdown (uses same paths you had on homepage) */}
+              {/* Watch Care dropdown (slugified URLs) */}
               <div className="relative group">
                 <button className="flex items-center gap-1 text-black hover:text-yellow-600 transition-colors font-medium">
                   Watch Care
@@ -174,20 +226,69 @@ export default function EngagementRingsPage() {
                              absolute left-0 top-full mt-2 w-64 bg-white shadow-lg border border-gray-100 rounded-md p-2"
                   role="menu"
                 >
-                  <Link href="/watch-care/Ultrasonic Cleaning" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Ultrasonic Cleaning</Link>
-                  <Link href="/watch-care/Resealing" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Resealing</Link>
-                  <Link href="/watch-care/Polishing (Before & After)" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Polishing (Before & After)</Link>
-                  <Link href="/watch-care/Water Testing" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Water Testing</Link>
-                  <Link href="/watch-care/Regulating" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Regulating</Link>
-                  <Link href="/watch-care/Glass (Crystal) Replacement" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Glass (Crystal) Replacement</Link>
-                  <Link href="/watch-care/Crown & Stem" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Crown & Stem</Link>
-                  <Link href="/watch-care/Straps & Bracelet" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Straps & Bracelet</Link>
-                  <Link href="/watch-care/Links Alteration" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Links Alteration</Link>
+                  <Link
+                    href="/watch-care/ultrasonic-cleaning"
+                    className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900"
+                  >
+                    Ultrasonic Cleaning
+                  </Link>
+                  <Link
+                    href="/watch-care/resealing"
+                    className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900"
+                  >
+                    Resealing
+                  </Link>
+                  <Link
+                    href="/watch-care/polishing-before-after"
+                    className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900"
+                  >
+                    Polishing (Before &amp; After)
+                  </Link>
+                  <Link
+                    href="/watch-care/water-testing"
+                    className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900"
+                  >
+                    Water Testing
+                  </Link>
+                  <Link
+                    href="/watch-care/regulating"
+                    className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900"
+                  >
+                    Regulating
+                  </Link>
+                  <Link
+                    href="/watch-care/glass-crystal-replacement"
+                    className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900"
+                  >
+                    Glass (Crystal) Replacement
+                  </Link>
+                  <Link
+                    href="/watch-care/crown-and-stem"
+                    className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900"
+                  >
+                    Crown &amp; Stem
+                  </Link>
+                  <Link
+                    href="/watch-care/straps-and-bracelet"
+                    className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900"
+                  >
+                    Straps &amp; Bracelet
+                  </Link>
+                  <Link
+                    href="/watch-care/links-alteration"
+                    className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900"
+                  >
+                    Links Alteration
+                  </Link>
                 </div>
               </div>
 
-              <Link href="/services" className="text-black hover:text-yellow-600 transition-colors font-medium">Services</Link>
-              <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium">Contact</Link>
+              <Link href="/services" className="text-black hover:text-yellow-600 transition-colors font-medium">
+                Services
+              </Link>
+              <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium">
+                Contact
+              </Link>
             </nav>
 
             {/* Right Icons — Search now opens the same SearchOverlay via useSearch */}
@@ -214,8 +315,18 @@ export default function EngagementRingsPage() {
           {mobileMenuOpen && (
             <div className="lg:hidden mt-4 pb-4 border-t border-yellow-200">
               <nav className="flex flex-col space-y-2 pt-4">
-                <Link href="/" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Home</Link>
-                <Link href="/diamonds" className="text-yellow-600 font-medium border-l-4 border-yellow-600 pl-4">Diamonds</Link>
+                <Link
+                  href="/"
+                  className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4"
+                >
+                  Home
+                </Link>
+                <Link
+                  href="/diamonds"
+                  className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4"
+                >
+                  Diamonds
+                </Link>
 
                 {/* Mobile: Jewellery */}
                 <details className="group">
@@ -224,14 +335,30 @@ export default function EngagementRingsPage() {
                     <ChevronDown className="w-4 h-4 transition-transform group-open:rotate-180" />
                   </summary>
                   <div className="ml-8 mt-1 flex flex-col">
-                    <Link href="/jewellery" className="py-1 text-gray-700 hover:text-yellow-600">Fine Jewellery</Link>
-                    <Link href="/engagement-rings" className="py-1 text-gray-700 hover:text-yellow-600">Engagement Rings</Link>
-                    <Link href="/wedding-bands" className="py-1 text-gray-700 hover:text-yellow-600">Wedding Bands</Link>
+                    <Link href="/jewellery" className="py-1 text-gray-700 hover:text-yellow-600">
+                      Fine Jewellery
+                    </Link>
+                    <Link href="/engagement-rings" className="py-1 text-gray-700 hover:text-yellow-600">
+                      Engagement Rings
+                    </Link>
+                    <Link href="/wedding-bands" className="py-1 text-gray-700 hover:text-yellow-600">
+                      Wedding Bands
+                    </Link>
                   </div>
                 </details>
 
-                <Link href="/watches" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Watches</Link>
-                <Link href="/bespoke" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Bespoke</Link>
+                <Link
+                  href="/watches"
+                  className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4"
+                >
+                  Watches
+                </Link>
+                <Link
+                  href="/bespoke"
+                  className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4"
+                >
+                  Bespoke
+                </Link>
 
                 {/* Mobile: Watch Care */}
                 <details className="group">
@@ -240,25 +367,60 @@ export default function EngagementRingsPage() {
                     <ChevronDown className="w-4 h-4 transition-transform group-open:rotate-180" />
                   </summary>
                   <div className="ml-8 mt-1 flex flex-col">
-                    <Link href="/watch-care/Ultrasonic Cleaning" className="py-1 text-gray-700 hover:text-yellow-600">Ultrasonic Cleaning</Link>
-                    <Link href="/watch-care/Resealing" className="py-1 text-gray-700 hover:text-yellow-600">Resealing</Link>
-                    <Link href="/watch-care/Polishing (Before & After)" className="py-1 text-gray-700 hover:text-yellow-600">Polishing (Before & After)</Link>
-                    <Link href="/watch-care/Water Testing" className="py-1 text-gray-700 hover:text-yellow-600">Water Testing</Link>
-                    <Link href="/watch-care/Regulating" className="py-1 text-gray-700 hover:text-yellow-600">Regulating</Link>
-                    <Link href="/watch-care/Glass (Crystal) Replacement" className="py-1 text-gray-700 hover:text-yellow-600">Glass (Crystal) Replacement</Link>
-                    <Link href="/watch-care/Crown & Stem" className="py-1 text-gray-700 hover:text-yellow-600">Crown & Stem</Link>
-                    <Link href="/watch-care/Straps & Bracelet" className="py-1 text-gray-700 hover:text-yellow-600">Straps & Bracelet</Link>
-                    <Link href="/watch-care/Links Alteration" className="py-1 text-gray-700 hover:text-yellow-600">Links Alteration</Link>
+                    <Link href="/watch-care/ultrasonic-cleaning" className="py-1 text-gray-700 hover:text-yellow-600">
+                      Ultrasonic Cleaning
+                    </Link>
+                    <Link href="/watch-care/resealing" className="py-1 text-gray-700 hover:text-yellow-600">
+                      Resealing
+                    </Link>
+                    <Link
+                      href="/watch-care/polishing-before-after"
+                      className="py-1 text-gray-700 hover:text-yellow-600"
+                    >
+                      Polishing (Before &amp; After)
+                    </Link>
+                    <Link href="/watch-care/water-testing" className="py-1 text-gray-700 hover:text-yellow-600">
+                      Water Testing
+                    </Link>
+                    <Link href="/watch-care/regulating" className="py-1 text-gray-700 hover:text-yellow-600">
+                      Regulating
+                    </Link>
+                    <Link
+                      href="/watch-care/glass-crystal-replacement"
+                      className="py-1 text-gray-700 hover:text-yellow-600"
+                    >
+                      Glass (Crystal) Replacement
+                    </Link>
+                    <Link href="/watch-care/crown-and-stem" className="py-1 text-gray-700 hover:text-yellow-600">
+                      Crown &amp; Stem
+                    </Link>
+                    <Link href="/watch-care/straps-and-bracelet" className="py-1 text-gray-700 hover:text-yellow-600">
+                      Straps &amp; Bracelet
+                    </Link>
+                    <Link href="/watch-care/links-alteration" className="py-1 text-gray-700 hover:text-yellow-600">
+                      Links Alteration
+                    </Link>
                   </div>
                 </details>
 
-                <Link href="/services" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Services</Link>
-                <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium border-l-4 border-transparent hover:border-red-600 pl-4">Contact</Link>
+                <Link
+                  href="/services"
+                  className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4"
+                >
+                  Services
+                </Link>
+                <Link
+                  href="/sale"
+                  className="text-red-600 hover:text-red-700 transition-colors font-medium border-l-4 border-transparent hover:border-red-600 pl-4"
+                >
+                  Contact
+                </Link>
               </nav>
             </div>
           )}
         </div>
       </header>
+
       {/* Hero Section */}
       <div className="bg-gray-50 py-20">
         <div className="max-w-7xl mx-auto px-4 text-center">
@@ -274,16 +436,16 @@ export default function EngagementRingsPage() {
       {/* Ring Categories */}
       <div className="max-w-7xl mx-auto px-4 py-16">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
-          <Button variant="outline" className="py-6 text-black border-black hover:bg:black hover:text-white">
+          <Button variant="outline" className="py-6 text-black border-black hover:bg-black hover:text-white">
             Solitaire
           </Button>
-          <Button variant="outline" className="py-6 text-black border-black hover:bg:black hover:text-white">
+          <Button variant="outline" className="py-6 text-black border-black hover:bg-black hover:text-white">
             Halo
           </Button>
-          <Button variant="outline" className="py-6 text-black border-black hover:bg:black hover:text-white">
+          <Button variant="outline" className="py-6 text-black border-black hover:bg-black hover:text-white">
             Three Stone
           </Button>
-          <Button variant="outline" className="py-6 text-black border-black hover:bg:black hover:text-white">
+          <Button variant="outline" className="py-6 text-black border-black hover:bg-black hover:text-white">
             Vintage
           </Button>
         </div>
@@ -291,23 +453,22 @@ export default function EngagementRingsPage() {
         {/* Ring Collection */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {rings.map((ring) => (
-            <Card key={ring.id} className="group cursor-pointer hover:shadow-xl transition-all duration-300 border-0 shadow-md">
+            <Card
+              key={ring.id}
+              className="group cursor-pointer hover:shadow-xl transition-all duration-300 border-0 shadow-md"
+            >
               <CardContent className="p-0">
                 <div className="relative aspect-square bg-gray-100 overflow-hidden">
                   <img
-                    src={ring.image || "/placeholder.svg"}
+                    src={ring.image || '/placeholder.svg'}
                     alt={ring.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   {ring.isNew && (
-                    <Badge className="absolute top-4 left-4 bg-black text-white">
-                      NEW
-                    </Badge>
+                    <Badge className="absolute top-4 left-4 bg-black text-white">NEW</Badge>
                   )}
                   {ring.originalPrice && (
-                    <Badge className="absolute top-4 right-4 bg-red-600 text-white">
-                      SALE
-                    </Badge>
+                    <Badge className="absolute top-4 right-4 bg-red-600 text-white">SALE</Badge>
                   )}
                 </div>
                 <div className="p-6">
@@ -321,7 +482,9 @@ export default function EngagementRingsPage() {
                     <div className="flex items-center gap-2">
                       <span className="text-xl font-bold text-black">{ring.price}</span>
                       {ring.originalPrice && (
-                        <span className="text-sm text-gray-500 line-through">{ring.originalPrice}</span>
+                        <span className="text-sm text-gray-500 line-through">
+                          {ring.originalPrice}
+                        </span>
                       )}
                     </div>
                     <Button
@@ -331,7 +494,7 @@ export default function EngagementRingsPage() {
                         addItem({
                           id: String(ring.id),
                           name: ring.name,
-                          price: Number(String(ring.price).replace(/[£,]/g, "")),
+                          price: Number(String(ring.price).replace(/[£,]/g, '')),
                           image: ring.image,
                           qty: 1,
                         })
@@ -355,8 +518,8 @@ export default function EngagementRingsPage() {
             Need Help Choosing the Perfect Ring?
           </h2>
           <p className="text-lg mb-8 text-gray-300 leading-relaxed">
-            Our expert consultants are here to guide you through every step of selecting
-            the perfect engagement ring. Book a private consultation today.
+            Our expert consultants are here to guide you through every step of selecting the perfect
+            engagement ring. Book a private consultation today.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
@@ -388,20 +551,52 @@ export default function EngagementRingsPage() {
             <div>
               <h4 className="font-semibold mb-4">Collections</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><Link href="/engagement-rings" className="hover:text-white transition-colors">Engagement Rings</Link></li>
-                <li><Link href="/wedding-bands" className="hover:text-white transition-colors">Wedding Bands</Link></li>
-                <li><Link href="/diamonds" className="hover:text-white transition-colors">Diamonds</Link></li>
-                <li><Link href="/jewellery" className="hover:text-white transition-colors">Fine Jewellery</Link></li>
+                <li>
+                  <Link href="/engagement-rings" className="hover:text-white transition-colors">
+                    Engagement Rings
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/wedding-bands" className="hover:text-white transition-colors">
+                    Wedding Bands
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/diamonds" className="hover:text-white transition-colors">
+                    Diamonds
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/jewellery" className="hover:text-white transition-colors">
+                    Fine Jewellery
+                  </Link>
+                </li>
               </ul>
             </div>
 
             <div>
               <h4 className="font-semibold mb-4">Services</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><Link href="/bespoke" className="hover:text-white transition-colors">Bespoke Design</Link></li>
-                <li><Link href="/services" className="hover:text-white transition-colors">Repairs & Maintenance</Link></li>
-                <li><Link href="/services" className="hover:text-white transition-colors">Valuations</Link></li>
-                <li><Link href="/services" className="hover:text-white transition-colors">Consultations</Link></li>
+                <li>
+                  <Link href="/bespoke" className="hover:text-white transition-colors">
+                    Bespoke Design
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/services" className="hover:text-white transition-colors">
+                    Repairs &amp; Maintenance
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/services" className="hover:text-white transition-colors">
+                    Valuations
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/services" className="hover:text-white transition-colors">
+                    Consultations
+                  </Link>
+                </li>
               </ul>
             </div>
 
