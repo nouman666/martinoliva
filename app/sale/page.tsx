@@ -40,7 +40,7 @@ export default function ContactPage() {
       email: 'info@itechmobile.co.uk',
       hours: 'Mon–Sat 9:00–20:00 • Sun 10:00–20:00',
       mapQuery: '34 Fitzroy Street, Cambridge CB1 1EW',
-      image: '/shop/f1.png', // 🔴 your image here
+      image: f1, // 🔴 your image here
       // e.g. /public/shops/cambridge.jpg
     },
     {
