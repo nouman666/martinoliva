@@ -113,21 +113,20 @@ export default function EngagementRingsPage() {
       </div>
 
       {/* Main Navigation — matches homepage; Engagement Rings active */}
-      <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
+     <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             {/* Mobile Menu Button */}
-            <button
+            <button 
               className="lg:hidden flex flex-col gap-1 p-2"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle menu"
             >
-              <div className="w-6 h-0.5 bg-yellow-600 transition-all"></div>
-              <div className="w-6 h-0.5 bg-yellow-600 transition-all"></div>
-              <div className="w-6 h-0.5 bg-yellow-600 transition-all"></div>
+              <div className="w-6 h-0.5 bg-yellow-600"></div>
+              <div className="w-6 h-0.5 bg-yellow-600"></div>
+              <div className="w-6 h-0.5 bg-yellow-600"></div>
             </button>
 
-            {/* Logo + tagline (same as homepage) */}
+            {/* Logo */}
             <Link href="/" className="flex items-center">
               <div className="text-xl md:text-2xl font-bold tracking-wider">
                 <span className="text-black">MARTIN OLIVA</span>
@@ -137,54 +136,46 @@ export default function EngagementRingsPage() {
               </div>
             </Link>
 
-            {/* Desktop Nav */}
+            {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center space-x-8">
-              <Link href="/" className="text-black hover:text-yellow-600 transition-colors font-medium">Home</Link>
-              <Link href="/diamonds" className="text-black hover:text-yellow-600 transition-colors font-medium">Diamonds</Link>
-              <Link href="/engagement-rings" className="text-yellow-600 font-medium border-b-2 border-yellow-600 pb-1">Engagement Rings</Link>
-              <Link href="/wedding-bands" className="text-black hover:text-yellow-600 transition-colors font-medium">Wedding Bands</Link>
-              <Link href="/watches" className="text-black hover:text-yellow-600 transition-colors font-medium">Watches</Link>
-              <Link href="/jewellery" className="text-black hover:text-yellow-600 transition-colors font-medium">Jewellery</Link>
-              <Link href="/bespoke" className="text-black hover:text-yellow-600 transition-colors font-medium">Bespoke</Link>
-              <Link href="/services" className="text-black hover:text-yellow-600 transition-colors font-medium">Services</Link>
-              <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium">Contact</Link>
+              <Link href="/" className="hover:text-yellow-600">Home</Link>
+              <Link href="/diamonds" className="hover:text-yellow-600">Diamonds</Link>
+              <Link href="/engagement-rings" className="text-yellow-600 font-medium border-b-2 border-yellow-600 pb-1">
+                Engagement Rings
+              </Link>
+              <Link href="/wedding-bands" className="hover:text-yellow-600">Wedding Bands</Link>
+              <Link href="/watches" className="hover:text-yellow-600">Watches</Link>
+              <Link href="/jewellery" className="hover:text-yellow-600">Jewellery</Link>
+              <Link href="/bespoke" className="hover:text-yellow-600">Bespoke</Link>
+              <Link href="/services" className="hover:text-yellow-600">Services</Link>
+              <Link href="/sale" className="text-red-600 hover:text-red-700">Sale</Link>
             </nav>
 
-            {/* Right Icons — Search opens shared overlay; Bag opens your cart drawer */}
+            {/* Right Icons — SAME SEARCH + CART AS HOMEPAGE */}
             <div className="flex items-center gap-3 md:gap-4">
-              <Search
-                className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors"
-                onClick={openSearch} // 🔍 open same overlay as homepage
-                aria-label="Open search"
+              <Search className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600" />
+              <ShoppingBag
+                className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600"
+                onClick={open}
               />
-              <div className="relative">
-                <ShoppingBag
-                  className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors"
-                  onClick={open}
-                  aria-label="Open cart"
-                />
-                {count > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-yellow-500 text-black text-xs rounded-full min-w-5 h-5 px-1.5 flex items-center justify-center font-semibold">
-                    {count}
-                  </span>
-                )}
-              </div>
             </div>
           </div>
 
-          {/* Mobile Menu */}
+          {/* Mobile Nav */}
           {mobileMenuOpen && (
             <div className="lg:hidden mt-4 pb-4 border-t border-yellow-200">
               <nav className="flex flex-col space-y-4 pt-4">
-                <Link href="/" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Home</Link>
-                <Link href="/diamonds" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Diamonds</Link>
-                <Link href="/engagement-rings" className="text-yellow-600 font-medium border-l-4 border-yellow-600 pl-4">Engagement Rings</Link>
-                <Link href="/wedding-bands" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Wedding Bands</Link>
-                <Link href="/watches" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Watches</Link>
-                <Link href="/jewellery" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Jewellery</Link>
-                <Link href="/bespoke" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Bespoke</Link>
-                <Link href="/services" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Services</Link>
-                <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium border-l-4 border-transparent hover:border-red-600 pl-4">Contact</Link>
+                <Link href="/" className="hover:text-yellow-600">Home</Link>
+                <Link href="/diamonds" className="hover:text-yellow-600">Diamonds</Link>
+                <Link href="/engagement-rings" className="text-yellow-600 border-l-4 border-yellow-600 pl-4">
+                  Engagement Rings
+                </Link>
+                <Link href="/wedding-bands" className="hover:text-yellow-600">Wedding Bands</Link>
+                <Link href="/watches" className="hover:text-yellow-600">Watches</Link>
+                <Link href="/jewellery" className="hover:text-yellow-600">Jewellery</Link>
+                <Link href="/bespoke" className="hover:text-yellow-600">Bespoke</Link>
+                <Link href="/services" className="hover:text-yellow-600">Services</Link>
+                <Link href="/sale" className="text-red-600 hover:text-red-700">Sale</Link>
               </nav>
             </div>
           )}
