@@ -7,12 +7,7 @@ import { Mail, Phone, Facebook, Instagram, Search, User, ShoppingBag, MapPin, Lo
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { useCart } from '@/app/cart/page'
-import Image from 'next/image'
-import f1 from '@/app/shop/f1.png'
-import f2 from '@/app/shop/f2.jpg'
-import brighton from '@/app/shop/brighton.jpg'
-import f4 from '@/app/shop/f4.png'
-import f5 from '@/app/shop/f5.jpg'
+
 type Location = {
   id: number
   title: string
@@ -40,7 +35,7 @@ export default function ContactPage() {
       email: 'info@itechmobile.co.uk',
       hours: 'Mon–Sat 9:00–20:00 • Sun 10:00–20:00',
       mapQuery: '34 Fitzroy Street, Cambridge CB1 1EW',
-      image: f1, // 🔴 your image here
+      image:  '/shop/f4.png',// 🔴 your image here
       // e.g. /public/shops/cambridge.jpg
     },
     {
