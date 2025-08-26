@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Mail, Phone, Facebook, Instagram, Search, User, ShoppingBag, MapPin, Loader2 } from 'lucide-react'
+import { Mail, Phone, Facebook, Instagram, Search, ShoppingBag, MapPin, Loader2, ChevronDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { useCart } from '@/app/cart/page'
@@ -22,9 +22,8 @@ type Location = {
 
 export default function ContactPage() {
   const router = useRouter()
-  const [cartItems] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const { addItem, open, count } = useCart()
+  const { open, count } = useCart()
 
   const locations: Location[] = [
     {
@@ -35,8 +34,7 @@ export default function ContactPage() {
       email: 'info@itechmobile.co.uk',
       hours: 'Mon–Sat 9:00–20:00 • Sun 10:00–20:00',
       mapQuery: '34 Fitzroy Street, Cambridge CB1 1EW',
-      image:  '/shop/f4.png',// 🔴 your image here
-      // e.g. /public/shops/cambridge.jpg
+      image: '/shop/f4.png', // 🔴 your image in /public/shop/
     },
     {
       id: 2,
@@ -46,7 +44,7 @@ export default function ContactPage() {
       email: 'info@itechmobile.co.uk',
       hours: 'Mon–Sat 9:00–20:00 • Sun 10:00–20:00',
       mapQuery: '143 High Rd, London SW12 9AU',
-      image: '/shop/f2.jpg', // 🔴 your image here
+      image: '/shop/f2.jpg', // 🔴 your image in /public/shop/
     },
     {
       id: 3,
@@ -56,7 +54,7 @@ export default function ContactPage() {
       email: 'info@itechmobile.co.uk',
       hours: 'Mon–Sat 9:00–20:00 • Sun 10:00–20:00',
       mapQuery: '130 North St, Brighton BN1 1RG',
-      image: '/shop/brighton.jpg', // 🔴 your image here
+      image: '/shop/brighton.jpg', // 🔴 your image in /public/shop/
     },
     {
       id: 4,
@@ -66,7 +64,7 @@ export default function ContactPage() {
       email: 'info@itechmobile.co.uk',
       hours: 'Mon–Sat 9:00–20:00 • Sun 10:00–20:00',
       mapQuery: '38 High St, Saffron Walden CB10 1EP',
-      image: '/shop/f4.png', // 🔴 your image here
+      image: '/shop/f4.png', // 🔴 your image in /public/shop/
     },
     {
       id: 5,
@@ -77,15 +75,15 @@ export default function ContactPage() {
       hours: 'Closed • Opens 10:00',
       note: 'Walk-in repairs available',
       mapQuery: '120 George Ln, London E18 1AD',
-      image: '/shop/f5.jpg', // 🔴 your image here
+      image: '/shop/f5.jpg', // 🔴 your image in /public/shop/
     },
   ]
 
   const [selected, setSelected] = useState<Location>(locations[0])
 
-  // map loading state for a short "few seconds" visual
+  // map loading shimmer
   const [mapLoading, setMapLoading] = useState(false)
-  const [mapVersion, setMapVersion] = useState(0) // bump to force iframe refresh if needed
+  const [mapVersion, setMapVersion] = useState(0)
 
   const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(selected.mapQuery)}&output=embed`
 
@@ -225,30 +223,37 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Locations + Map */}
+      {/* Locations + Visuals */}
       <div className="max-w-7xl mx-auto px-4 py-10 md:py-16 grid grid-cols-1 lg:grid-cols-5 gap-8">
-        {/* Locations list */}
-        <div className="lg:col-span-2 space-y-4">
-          {locations.map((loc, idx) => {
-            const isHorizontal = idx >= locations.length - 2 // last two cards horizontal on md+
-            return (
+        {/* Locations list (scrollable, shows ~2, sticky on desktop) */}
+        <div className="lg:col-span-2 lg:sticky lg:top-4">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-lg font-semibold">Our Shops</h3>
+            <div className="flex items-center gap-2 text-xs text-stone-600">
+              <span>Scroll for more</span>
+              <ChevronDown className="w-4 h-4" />
+            </div>
+          </div>
+
+          <div className="space-y-4 max-h-[420px] overflow-y-auto pr-2">
+            {locations.map((loc) => (
               <Card
                 key={loc.id}
                 className={`cursor-pointer transition-all hover:shadow-lg ${selected.id === loc.id ? 'ring-2 ring-yellow-500' : ''}`}
                 onClick={() => handleSelect(loc)}
               >
-                <CardContent className={`p-5 ${isHorizontal ? 'md:flex md:items-start md:gap-4' : ''}`}>
+                <CardContent className="p-5">
                   <div className="flex items-start gap-3">
-                    {/* ✅ Shop picture (thumbnail) */}
+                    {/* ✅ Thumbnail (optional) */}
                     {loc.image && (
                       <img
-                        src={loc.image}             // 🔴 your image here
+                        src={loc.image}
                         alt={loc.title}
-                        className="w-24 h-24 object-cover rounded-md border border-stone-200"
+                        className="w-20 h-20 object-cover rounded-md border border-stone-200"
                       />
                     )}
 
-                    <div className={`${isHorizontal ? 'md:flex-1' : ''}`}>
+                    <div className="flex-1">
                       <h3 className="text-lg font-semibold text-black">{loc.title}</h3>
                       {loc.note && <p className="text-xs text-stone-600 mt-0.5">{loc.note}</p>}
                       <p className="text-stone-700 mt-2">{loc.address}</p>
@@ -282,25 +287,25 @@ export default function ContactPage() {
                   </div>
                 </CardContent>
               </Card>
-            )
-          })}
+            ))}
+          </div>
         </div>
 
-        {/* Map + selected shop banner */}
+        {/* Big image + Map */}
         <div className="lg:col-span-3">
-          {/* ✅ Optional larger banner of selected shop */}
+          {/* ✅ Large, centered shop image above map */}
           {selected.image && (
-            <div className="mb-4 rounded-lg overflow-hidden border border-stone-200">
+            <div className="mb-6 rounded-lg overflow-hidden border border-stone-200">
               <img
-                src={selected.image}            // 🔴 your image here
+                src={selected.image}
                 alt={`${selected.title} photo`}
-                className="w-full h-48 md:h-56 object-cover"
+                className="w-full h-72 md:h-[450px] object-cover object-center"
               />
             </div>
           )}
 
+          {/* Map */}
           <div className="relative w-full aspect-video rounded-lg overflow-hidden shadow-md border border-stone-200">
-            {/* shimmer overlay while map updates */}
             {mapLoading && (
               <div className="absolute inset-0 z-10 bg-stone-100/80 backdrop-blur-sm flex flex-col items-center justify-center animate-pulse">
                 <Loader2 className="w-8 h-8 mb-3 text-stone-600 animate-spin" />
@@ -332,8 +337,7 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
               <h3 className="text-xl font-bold mb-4">MARTIN OLIVA</h3>
-              <p className="text-gray-400 mb-4">The Total Watch and<br />
-                  Jewellery Care Centre</p>
+              <p className="text-gray-400 mb-4">The Total Watch and<br />Jewellery Care Centre</p>
               <p className="text-gray-400 text-sm leading-relaxed">
                 Creating exceptional jewelry pieces that celebrate life's most precious moments.
               </p>
