@@ -17,6 +17,7 @@ type Location = {
   hours?: string
   note?: string
   mapQuery: string
+  image?: string // ✅ add image field
 }
 
 export default function ContactPage() {
@@ -33,7 +34,9 @@ export default function ContactPage() {
       phone: '01223 678708',
       email: 'info@itechmobile.co.uk',
       hours: 'Mon–Sat 9:00–20:00 • Sun 10:00–20:00',
-      mapQuery: '34 Fitzroy Street, Cambridge CB1 1EW'
+      mapQuery: '34 Fitzroy Street, Cambridge CB1 1EW',
+      image: '/shops/cambridge.jpg', // 🔴 your image here
+      // e.g. /public/shops/cambridge.jpg
     },
     {
       id: 2,
@@ -42,7 +45,8 @@ export default function ContactPage() {
       phone: '020 8793 6137',
       email: 'info@itechmobile.co.uk',
       hours: 'Mon–Sat 9:00–20:00 • Sun 10:00–20:00',
-      mapQuery: '143 High Rd, London SW12 9AU'
+      mapQuery: '143 High Rd, London SW12 9AU',
+      image: '/shops/balham.jpg', // 🔴 your image here
     },
     {
       id: 3,
@@ -51,7 +55,8 @@ export default function ContactPage() {
       phone: '01273 080203',
       email: 'info@itechmobile.co.uk',
       hours: 'Mon–Sat 9:00–20:00 • Sun 10:00–20:00',
-      mapQuery: '130 North St, Brighton BN1 1RG'
+      mapQuery: '130 North St, Brighton BN1 1RG',
+      image: '/shops/brighton.jpg', // 🔴 your image here
     },
     {
       id: 4,
@@ -60,7 +65,8 @@ export default function ContactPage() {
       phone: '01223 375690',
       email: 'info@itechmobile.co.uk',
       hours: 'Mon–Sat 9:00–20:00 • Sun 10:00–20:00',
-      mapQuery: '38 High St, Saffron Walden CB10 1EP'
+      mapQuery: '38 High St, Saffron Walden CB10 1EP',
+      image: '/shops/saffron-walden.jpg', // 🔴 your image here
     },
     {
       id: 5,
@@ -70,7 +76,8 @@ export default function ContactPage() {
       email: 'info@itechmobile.co.uk',
       hours: 'Closed • Opens 10:00',
       note: 'Walk-in repairs available',
-      mapQuery: '120 George Ln, London E18 1AD'
+      mapQuery: '120 George Ln, London E18 1AD',
+      image: '/shops/george-lane.jpg', // 🔴 your image here
     },
   ]
 
@@ -85,16 +92,12 @@ export default function ContactPage() {
   function handleSelect(loc: Location) {
     setSelected(loc)
     setMapLoading(true)
-    // bump the version to ensure the iframe re-renders even if URL stays same
     setMapVersion(v => v + 1)
-
-    // safety timeout: keep the shimmer visible briefly
     const t = setTimeout(() => setMapLoading(false), 1000)
     return () => clearTimeout(t)
   }
 
   useEffect(() => {
-    // initial quick shimmer on first paint looks nicer
     setMapLoading(true)
     const t = setTimeout(() => setMapLoading(false), 700)
     return () => clearTimeout(t)
@@ -142,13 +145,14 @@ export default function ContactPage() {
             </button>
 
             {/* Logo */}
-          <Link href="/" className="flex items-center">
+            <Link href="/" className="flex items-center">
               <div className="text-xl md:text-2xl font-bold tracking-wider">
                 <span className="text-black">MARTIN OLIVA</span>
-<div className="text-xs text-gray-600 tracking-[0.3em] font-light">
+                <div className="text-xs text-gray-600 tracking-[0.3em] font-light">
                   The Total Watch and<br />
                   Jewellery Care Centre
-                </div>              </div>
+                </div>
+              </div>
             </Link>
 
             {/* Desktop Navigation */}
@@ -172,7 +176,7 @@ export default function ContactPage() {
                   className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors"
                   onClick={open}
                 />
-                 {count > 0 && (
+                {count > 0 && (
                   <span className="absolute -top-2 -right-2 bg-yellow-500 text-black text-xs rounded-full min-w-5 h-5 px-1.5 flex items-center justify-center font-semibold">
                     {count}
                   </span>
@@ -235,9 +239,15 @@ export default function ContactPage() {
               >
                 <CardContent className={`p-5 ${isHorizontal ? 'md:flex md:items-start md:gap-4' : ''}`}>
                   <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 rounded-full bg-black flex items-center justify-center shrink-0">
-                      <MapPin className="w-5 h-5 text-white" />
-                    </div>
+                    {/* ✅ Shop picture (thumbnail) */}
+                    {loc.image && (
+                      <img
+                        src={loc.image}             // 🔴 your image here
+                        alt={loc.title}
+                        className="w-24 h-24 object-cover rounded-md border border-stone-200"
+                      />
+                    )}
+
                     <div className={`${isHorizontal ? 'md:flex-1' : ''}`}>
                       <h3 className="text-lg font-semibold text-black">{loc.title}</h3>
                       {loc.note && <p className="text-xs text-stone-600 mt-0.5">{loc.note}</p>}
@@ -276,8 +286,19 @@ export default function ContactPage() {
           })}
         </div>
 
-        {/* Map */}
+        {/* Map + selected shop banner */}
         <div className="lg:col-span-3">
+          {/* ✅ Optional larger banner of selected shop */}
+          {selected.image && (
+            <div className="mb-4 rounded-lg overflow-hidden border border-stone-200">
+              <img
+                src={selected.image}            // 🔴 your image here
+                alt={`${selected.title} photo`}
+                className="w-full h-48 md:h-56 object-cover"
+              />
+            </div>
+          )}
+
           <div className="relative w-full aspect-video rounded-lg overflow-hidden shadow-md border border-stone-200">
             {/* shimmer overlay while map updates */}
             {mapLoading && (
