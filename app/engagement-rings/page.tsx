@@ -2,18 +2,19 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Mail, Phone, Facebook, Instagram, Search, User, ShoppingBag, Heart } from 'lucide-react'
+import { Mail, Phone, Facebook, Instagram, Search, ShoppingBag, Heart } from 'lucide-react'
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { useCart } from '@/app/cart/page'
+import { useSearch } from '@/app/search/SearchContext' // 🔍 same search as homepage
 
 export default function EngagementRingsPage() {
   const router = useRouter()
-  const [cartItems, setCartItems] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-const { addItem,count, open } = useCart();
+  const { addItem, count, open } = useCart()
+  const { openSearch } = useSearch() // 🔍 open overlay
 
   const rings = [
     {
@@ -86,7 +87,7 @@ const { addItem,count, open } = useCart();
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Top Header Bar — MATCHES DIAMONDS */}
+      {/* Top Header Bar — same look as homepage */}
       <div className="bg-gradient-to-r from-black to-yellow-600 text-white py-2 px-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center text-sm">
           <div className="flex items-center gap-6">
@@ -111,7 +112,7 @@ const { addItem,count, open } = useCart();
         </div>
       </div>
 
-      {/* Main Navigation — MATCHES DIAMONDS (active = Engagement Rings) */}
+      {/* Main Navigation — matches homepage; Engagement Rings active */}
       <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
@@ -119,30 +120,28 @@ const { addItem,count, open } = useCart();
             <button
               className="lg:hidden flex flex-col gap-1 p-2"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle menu"
             >
               <div className="w-6 h-0.5 bg-yellow-600 transition-all"></div>
               <div className="w-6 h-0.5 bg-yellow-600 transition-all"></div>
               <div className="w-6 h-0.5 bg-yellow-600 transition-all"></div>
             </button>
 
-            {/* Logo */}
-             <Link href="/" className="flex items-center">
+            {/* Logo + tagline (same as homepage) */}
+            <Link href="/" className="flex items-center">
               <div className="text-xl md:text-2xl font-bold tracking-wider">
                 <span className="text-black">MARTIN OLIVA</span>
-              <div className="text-xs text-gray-600 tracking-[0.3em] font-light">
-  The Total Watch and <br/>
-  Jewellery Care Centre 
-</div>
+                <div className="text-xs text-gray-600 tracking-[0.3em] font-light">
+                  The Total Watch and <br /> Jewellery Care Centre
+                </div>
               </div>
             </Link>
 
-            {/* Desktop Navigation */}
+            {/* Desktop Nav */}
             <nav className="hidden lg:flex items-center space-x-8">
               <Link href="/" className="text-black hover:text-yellow-600 transition-colors font-medium">Home</Link>
               <Link href="/diamonds" className="text-black hover:text-yellow-600 transition-colors font-medium">Diamonds</Link>
-              <Link href="/engagement-rings" className="text-yellow-600 font-medium border-b-2 border-yellow-600 pb-1">
-                Engagement Rings
-              </Link>
+              <Link href="/engagement-rings" className="text-yellow-600 font-medium border-b-2 border-yellow-600 pb-1">Engagement Rings</Link>
               <Link href="/wedding-bands" className="text-black hover:text-yellow-600 transition-colors font-medium">Wedding Bands</Link>
               <Link href="/watches" className="text-black hover:text-yellow-600 transition-colors font-medium">Watches</Link>
               <Link href="/jewellery" className="text-black hover:text-yellow-600 transition-colors font-medium">Jewellery</Link>
@@ -151,15 +150,20 @@ const { addItem,count, open } = useCart();
               <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium">Contact</Link>
             </nav>
 
-            {/* Right Icons */}
-             <div className="flex items-center gap-3 md:gap-4">
-              <Search className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors" />
+            {/* Right Icons — Search opens shared overlay; Bag opens your cart drawer */}
+            <div className="flex items-center gap-3 md:gap-4">
+              <Search
+                className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors"
+                onClick={openSearch} // 🔍 open same overlay as homepage
+                aria-label="Open search"
+              />
               <div className="relative">
-               <ShoppingBag
-  className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors"
-  onClick={open}
-/>
-                 {count > 0 && (
+                <ShoppingBag
+                  className="w-5 h-5 text-black cursor-pointer hover:text-yellow-600 transition-colors"
+                  onClick={open}
+                  aria-label="Open cart"
+                />
+                {count > 0 && (
                   <span className="absolute -top-2 -right-2 bg-yellow-500 text-black text-xs rounded-full min-w-5 h-5 px-1.5 flex items-center justify-center font-semibold">
                     {count}
                   </span>
@@ -202,16 +206,16 @@ const { addItem,count, open } = useCart();
       {/* Ring Categories */}
       <div className="max-w-7xl mx-auto px-4 py-16">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
-          <Button variant="outline" className="py-6 text-black border-black hover:bg-black hover:text-white">
+          <Button variant="outline" className="py-6 text-black border-black hover:bg:black hover:text-white">
             Solitaire
           </Button>
-          <Button variant="outline" className="py-6 text-black border-black hover:bg-black hover:text-white">
+          <Button variant="outline" className="py-6 text-black border-black hover:bg:black hover:text-white">
             Halo
           </Button>
-          <Button variant="outline" className="py-6 text-black border-black hover:bg-black hover:text-white">
+          <Button variant="outline" className="py-6 text-black border-black hover:bg:black hover:text-white">
             Three Stone
           </Button>
-          <Button variant="outline" className="py-6 text-black border-black hover:bg-black hover:text-white">
+          <Button variant="outline" className="py-6 text-black border-black hover:bg:black hover:text-white">
             Vintage
           </Button>
         </div>
@@ -252,22 +256,22 @@ const { addItem,count, open } = useCart();
                         <span className="text-sm text-gray-500 line-through">{ring.originalPrice}</span>
                       )}
                     </div>
-  <Button
-    size="sm"
-    className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
-    onClick={() => {
-      addItem({
-        id: String(ring.id),
-        name: ring.name,
-        price: Number(String(ring.price).replace(/[£,]/g, "")), // £4,500 -> 4500
-        image: ring.image,
-        qty: 1,
-      })
-      open() // open the cart drawer
-    }}
-  >
-    Add to Cart
-  </Button>
+                    <Button
+                      size="sm"
+                      className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
+                      onClick={() => {
+                        addItem({
+                          id: String(ring.id),
+                          name: ring.name,
+                          price: Number(String(ring.price).replace(/[£,]/g, "")),
+                          image: ring.image,
+                          qty: 1,
+                        })
+                        open() // open the cart drawer
+                      }}
+                    >
+                      Add to Cart
+                    </Button>
                   </div>
                 </div>
               </CardContent>
@@ -301,13 +305,13 @@ const { addItem,count, open } = useCart();
         </div>
       </div>
 
-      {/* Footer — SAME AS DIAMONDS */}
+      {/* Footer — same as Diamonds/Home */}
       <footer className="bg-black text-white py-16">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
               <h3 className="text-xl font-bold mb-4">MARTIN OLIVA</h3>
-              <p className="text-gray-400 mb-4">  The Total Watch and Jewellery Care Centre </p>
+              <p className="text-gray-400 mb-4">The Total Watch and Jewellery Care Centre</p>
               <p className="text-gray-400 text-sm leading-relaxed">
                 Creating exceptional jewelry pieces that celebrate life's most precious moments.
               </p>
