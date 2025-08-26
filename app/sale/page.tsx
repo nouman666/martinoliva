@@ -35,7 +35,7 @@ export default function ContactPage() {
       email: 'info@itechmobile.co.uk',
       hours: 'Mon–Sat 9:00–20:00 • Sun 10:00–20:00',
       mapQuery: '34 Fitzroy Street, Cambridge CB1 1EW',
-      image: '/shops/f1.png', // 🔴 your image here
+      image: '/shop/f1.png', // 🔴 your image here
       // e.g. /public/shops/cambridge.jpg
     },
     {
@@ -46,7 +46,7 @@ export default function ContactPage() {
       email: 'info@itechmobile.co.uk',
       hours: 'Mon–Sat 9:00–20:00 • Sun 10:00–20:00',
       mapQuery: '143 High Rd, London SW12 9AU',
-      image: '/shops/f2.jpg', // 🔴 your image here
+      image: '/shop/f2.jpg', // 🔴 your image here
     },
     {
       id: 3,
@@ -56,7 +56,7 @@ export default function ContactPage() {
       email: 'info@itechmobile.co.uk',
       hours: 'Mon–Sat 9:00–20:00 • Sun 10:00–20:00',
       mapQuery: '130 North St, Brighton BN1 1RG',
-      image: '/shops/brighton.jpg', // 🔴 your image here
+      image: '/shop/brighton.jpg', // 🔴 your image here
     },
     {
       id: 4,
@@ -66,7 +66,7 @@ export default function ContactPage() {
       email: 'info@itechmobile.co.uk',
       hours: 'Mon–Sat 9:00–20:00 • Sun 10:00–20:00',
       mapQuery: '38 High St, Saffron Walden CB10 1EP',
-      image: '/shops/f4.png', // 🔴 your image here
+      image: '/shop/f4.png', // 🔴 your image here
     },
     {
       id: 5,
@@ -77,7 +77,7 @@ export default function ContactPage() {
       hours: 'Closed • Opens 10:00',
       note: 'Walk-in repairs available',
       mapQuery: '120 George Ln, London E18 1AD',
-      image: '/shops/f5.jpg', // 🔴 your image here
+      image: '/shop/f5.jpg', // 🔴 your image here
     },
   ]
 
