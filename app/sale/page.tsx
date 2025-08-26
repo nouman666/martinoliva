@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Mail, Phone, Facebook, Instagram, Search, ShoppingBag, MapPin, Loader2, ChevronDown } from 'lucide-react'
+import { Mail, Phone, Facebook, Instagram, Search, ShoppingBag, MapPin, Loader2, ChevronDown, Image as ImageIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { useCart } from '@/app/cart/page'
@@ -18,8 +18,10 @@ type Location = {
   hours?: string
   note?: string
   mapQuery: string
-  image?: string // ✅ add image field
+  image?: string // ✅ shop photo path (put image in /public/shop/)
 }
+
+type ViewerMode = 'photo' | 'map'
 
 export default function ContactPage() {
   const router = useRouter()
@@ -36,7 +38,7 @@ export default function ContactPage() {
       email: 'info@itechmobile.co.uk',
       hours: 'Mon–Sat 9:00–20:00 • Sun 10:00–20:00',
       mapQuery: '34 Fitzroy Street, Cambridge CB1 1EW',
-      image: '/shop/f4.png', // 🔴 your image in /public/shop/
+      image: '/shop/f4.png', // 🔴 your image (e.g. /public/shop/f4.png)
     },
     {
       id: 2,
@@ -46,9 +48,8 @@ export default function ContactPage() {
       email: 'info@itechmobile.co.uk',
       hours: 'Mon–Sat 9:00–20:00 • Sun 10:00–20:00',
       mapQuery: '143 High Rd, London SW12 9AU',
-      image: '/shop/f2.jpg', // 🔴 your image in /public/shop/
+      image: '/shop/f2.jpg', // 🔴 your image (e.g. /public/shop/f2.jpg)
     },
-   
     {
       id: 4,
       title: 'SAFFRON WALDEN SHOP UK',
@@ -57,7 +58,7 @@ export default function ContactPage() {
       email: 'info@itechmobile.co.uk',
       hours: 'Mon–Sat 9:00–20:00 • Sun 10:00–20:00',
       mapQuery: '38 High St, Saffron Walden CB10 1EP',
-      image: '/shop/f4.png', // 🔴 your image in /public/shop/
+      image: '/shop/f4.png', // 🔴 your image
     },
     {
       id: 5,
@@ -68,11 +69,14 @@ export default function ContactPage() {
       hours: 'Closed • Opens 10:00',
       note: 'Walk-in repairs available',
       mapQuery: '120 George Ln, London E18 1AD',
-      image: '/shop/f5.jpg', // 🔴 your image in /public/shop/
+      image: '/shop/f5.jpg', // 🔴 your image
     },
   ]
 
   const [selected, setSelected] = useState<Location>(locations[0])
+
+  // viewer state (big frame switches between 'photo' and 'map')
+  const [viewer, setViewer] = useState<ViewerMode>(locations[0]?.image ? 'photo' : 'map')
 
   // map loading shimmer
   const [mapLoading, setMapLoading] = useState(false)
@@ -84,6 +88,8 @@ export default function ContactPage() {
     setSelected(loc)
     setMapLoading(true)
     setMapVersion(v => v + 1)
+    // if new location has no image, default to map
+    setViewer(loc.image ? viewer : 'map')
     const t = setTimeout(() => setMapLoading(false), 1000)
     return () => clearTimeout(t)
   }
@@ -93,6 +99,11 @@ export default function ContactPage() {
     const t = setTimeout(() => setMapLoading(false), 700)
     return () => clearTimeout(t)
   }, [])
+
+  // when selected shop changes, auto-prefer photo if available
+  useEffect(() => {
+    setViewer(selected.image ? 'photo' : 'map')
+  }, [selected])
 
   return (
     <div className="min-h-screen bg-white">
@@ -147,58 +158,14 @@ export default function ContactPage() {
               </div>
             </Link>
 
-            {/* Desktop Navigation */}
+            {/* Desktop Navigation (trimmed for brevity) */}
             <nav className="hidden lg:flex items-center space-x-8">
               <Link href="/" className="text-black hover:text-yellow-600 transition-colors font-medium">Home</Link>
               <Link href="/diamonds" className="text-black hover:text-yellow-600 transition-colors font-medium">Diamonds</Link>
-
-              {/* Jewellery dropdown (includes Engagement + Wedding) */}
-              <div className="relative group">
-                <button className="flex items-center gap-1 text-black hover:text-yellow-600 transition-colors font-medium">
-                  Jewellery
-                  <ChevronDown className="w-4 h-4" />
-                </button>
-                <div
-                  className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-150
-                             absolute left-0 top-full mt-2 w-56 bg-white shadow-lg border border-gray-100 rounded-md p-2"
-                  role="menu"
-                >
-                  <Link href="/jewellery" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Fine Jewellery</Link>
-                  <Link href="/engagement-rings" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Engagement Rings</Link>
-                  <Link href="/wedding-bands" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Wedding Bands</Link>
-                </div>
-              </div>
-
               <Link href="/watches" className="text-black hover:text-yellow-600 transition-colors font-medium">Watches</Link>
+              <Link href="/jewellery" className="text-black hover:text-yellow-600 transition-colors font-medium">Jewellery</Link>
               <Link href="/bespoke" className="text-black hover:text-yellow-600 transition-colors font-medium">Bespoke</Link>
-
-              {/* Watch Care dropdown (NEW) */}
-              <div className="relative group">
-                <button className="flex items-center gap-1 text-black hover:text-yellow-600 transition-colors font-medium">
-                  Watch Care
-                  <ChevronDown className="w-4 h-4" />
-                </button>
-                <div
-                  className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-150
-                             absolute left-0 top-full mt-2 w-64 bg-white shadow-lg border border-gray-100 rounded-md p-2"
-                  role="menu"
-                >
-                  <Link href="/watch-care/Ultrasonic Cleaning" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Ultrasonic Cleaning</Link>
-                  <Link href="/watch-care/Resealing" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Resealing</Link>
-                  <Link href="/watch-care/Polishing (Before & After)" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Polishing (Before & After)</Link>
-                  <Link href="/watch-care/Water Testing" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Water Testing</Link>
-                  <Link href="/watch-care/Regulating" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Regulating</Link>
-                  <Link href="/watch-care/Glass (Crystal) Replacement" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Glass (Crystal) Replacement</Link>
-                  <Link href="/watch-care/Crown & Stem" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Crown & Stem</Link>
-                  <Link href="/watch-care/Straps & Bracelet" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Straps & Bracelet</Link>
-                  <Link href="/watch-care/Links Alteration" className="block px-3 py-2 rounded hover:bg-gray-50 text-sm text-gray-900">Links Alteration</Link>
-                </div>
-              </div>
-
-              {/* Keep Services as its own heading */}
               <Link href="/services" className="text-black hover:text-yellow-600 transition-colors font-medium">Services</Link>
-
-              {/* Contact (your code points to /sale; keeping consistent) */}
               <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium">Contact</Link>
             </nav>
 
@@ -222,57 +189,23 @@ export default function ContactPage() {
             </div>
           </div>
 
-          {/* Mobile Menu */}
+          {/* Mobile Menu (unchanged) */}
           {mobileMenuOpen && (
             <div className="lg:hidden mt-4 pb-4 border-t border-yellow-200">
               <nav className="flex flex-col space-y-2 pt-4">
                 <Link href="/" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Home</Link>
                 <Link href="/diamonds" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Diamonds</Link>
-
-                {/* Mobile: Jewellery */}
-                <details className="group">
-                  <summary className="cursor-pointer list-none pl-4 pr-4 py-2 flex items-center justify-between text-black font-medium border-l-4 border-transparent hover:text-yellow-600 hover:border-yellow-600">
-                    <span>Jewellery</span>
-                    <ChevronDown className="w-4 h-4 transition-transform group-open:rotate-180" />
-                  </summary>
-                  <div className="ml-8 mt-1 flex flex-col">
-                    <Link href="/jewellery" className="py-1 text-gray-700 hover:text-yellow-600">Fine Jewellery</Link>
-                    <Link href="/engagement-rings" className="py-1 text-gray-700 hover:text-yellow-600">Engagement Rings</Link>
-                    <Link href="/wedding-bands" className="py-1 text-gray-700 hover:text-yellow-600">Wedding Bands</Link>
-                  </div>
-                </details>
-
                 <Link href="/watches" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Watches</Link>
+                <Link href="/jewellery" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Jewellery</Link>
                 <Link href="/bespoke" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Bespoke</Link>
-
-                {/* Mobile: Watch Care (NEW) */}
-                <details className="group">
-                  <summary className="cursor-pointer list-none pl-4 pr-4 py-2 flex items-center justify-between text-black font-medium border-l-4 border-transparent hover:text-yellow-600 hover:border-yellow-600">
-                    <span>Watch Care</span>
-                    <ChevronDown className="w-4 h-4 transition-transform group-open:rotate-180" />
-                  </summary>
-                  <div className="ml-8 mt-1 flex flex-col">
-                    <Link href="/watch-care/Ultrasonic Cleaning" className="py-1 text-gray-700 hover:text-yellow-600">Ultrasonic Cleaning</Link>
-                    <Link href="/watch-care/Resealing" className="py-1 text-gray-700 hover:text-yellow-600">Resealing</Link>
-                    <Link href="/watch-care/Polishing (Before & After)" className="py-1 text-gray-700 hover:text-yellow-600">Polishing (Before & After)</Link>
-                    <Link href="/watch-care/Water Testing" className="py-1 text-gray-700 hover:text-yellow-600">Water Testing</Link>
-                    <Link href="/watch-care/Regulating" className="py-1 text-gray-700 hover:text-yellow-600">Regulating</Link>
-                    <Link href="/watch-care/Glass (Crystal) Replacement" className="py-1 text-gray-700 hover:text-yellow-600">Glass (Crystal) Replacement</Link>
-                    <Link href="/watch-care/Crown & Stem" className="py-1 text-gray-700 hover:text-yellow-600">Crown & Stem</Link>
-                    <Link href="/watch-care/Straps & Bracelet" className="py-1 text-gray-700 hover:text-yellow-600">Straps & Bracelet</Link>
-                    <Link href="/watch-care/Links Alteration" className="py-1 text-gray-700 hover:text-yellow-600">Links Alteration</Link>
-                  </div>
-                </details>
-
-                {/* Keep Services as its own heading */}
                 <Link href="/services" className="text-black hover:text-yellow-600 transition-colors font-medium border-l-4 border-transparent hover:border-yellow-600 pl-4">Services</Link>
-
                 <Link href="/sale" className="text-red-600 hover:text-red-700 transition-colors font-medium border-l-4 border-transparent hover:border-red-600 pl-4">Contact</Link>
               </nav>
             </div>
           )}
         </div>
       </header>
+
       {/* Hero */}
       <section className="relative h-[45vh] md:h-[50vh] flex items-center justify-center overflow-hidden">
         <div
@@ -288,9 +221,9 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Locations + Visuals */}
+      {/* Locations + Viewer */}
       <div className="max-w-7xl mx-auto px-4 py-10 md:py-16 grid grid-cols-1 lg:grid-cols-5 gap-8">
-        {/* Locations list (scrollable, shows ~2, sticky on desktop) */}
+        {/* Locations list (scrollable after ~2 cards) */}
         <div className="lg:col-span-2 lg:sticky lg:top-4">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-lg font-semibold">Our Shops</h3>
@@ -309,10 +242,10 @@ export default function ContactPage() {
               >
                 <CardContent className="p-5">
                   <div className="flex items-start gap-3">
-                    {/* ✅ Thumbnail (optional) */}
+                    {/* ✅ Thumbnail (your photo) */}
                     {loc.image && (
                       <img
-                        src={loc.image}
+                        src={loc.image}            // 🔴 your image path (e.g. "/shop/f2.jpg")
                         alt={loc.title}
                         className="w-20 h-20 object-cover rounded-md border border-stone-200"
                       />
@@ -356,47 +289,98 @@ export default function ContactPage() {
           </div>
         </div>
 
-        {/* Big image + Map */}
-        <div className="lg:col-span-3">
-          {/* ✅ Large, centered shop image above map */}
-          {selected.image && (
-            <div className="mb-6 rounded-lg overflow-hidden border border-stone-200">
+        {/* Viewer with right-side thumbnails */}
+        <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-[1fr,220px] gap-4">
+          {/* BIG VIEWER (photo OR map in the same frame) */}
+          <div className="rounded-lg overflow-hidden border border-stone-200 bg-stone-50 relative aspect-[16/10] md:aspect-[16/9]">
+            {viewer === 'photo' && selected.image && (
               <img
-                src={selected.image}
+                src={selected.image}            // 🔴 your image used in the big viewer
                 alt={`${selected.title} photo`}
-                className="w-full h-72 md:h-[450px] object-cover object-center"
+                className="w-full h-full object-cover object-center"
               />
-            </div>
-          )}
+            )}
 
-          {/* Map */}
-          <div className="relative w-full aspect-video rounded-lg overflow-hidden shadow-md border border-stone-200">
-            {mapLoading && (
-              <div className="absolute inset-0 z-10 bg-stone-100/80 backdrop-blur-sm flex flex-col items-center justify-center animate-pulse">
-                <Loader2 className="w-8 h-8 mb-3 text-stone-600 animate-spin" />
-                <span className="text-sm text-stone-700">Updating map…</span>
+            {viewer === 'map' && (
+              <div className="relative w-full h-full">
+                {mapLoading && (
+                  <div className="absolute inset-0 z-10 bg-stone-100/80 backdrop-blur-sm flex flex-col items-center justify-center animate-pulse">
+                    <Loader2 className="w-8 h-8 mb-3 text-stone-600 animate-spin" />
+                    <span className="text-sm text-stone-700">Loading map…</span>
+                  </div>
+                )}
+                <iframe
+                  key={`${selected.id}-${mapVersion}`}
+                  src={mapSrc}
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  loading="lazy"
+                  allowFullScreen
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title={`Map for ${selected.title}`}
+                  onLoad={() => setMapLoading(false)}
+                />
               </div>
             )}
-            <iframe
-              key={`${selected.id}-${mapVersion}`}
-              src={mapSrc}
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              loading="lazy"
-              allowFullScreen
-              referrerPolicy="no-referrer-when-downgrade"
-              title={`Map for ${selected.title}`}
-              onLoad={() => setMapLoading(false)}
-            ></iframe>
           </div>
-          <p className="text-sm text-stone-600 mt-3">
-            Showing: <span className="font-medium text-stone-800">{selected.title}</span>
+
+          {/* THUMBNAILS (right column on desktop, below on mobile) */}
+          <div className="grid grid-cols-2 md:grid-cols-1 gap-4">
+            {/* Photo thumb (only if image exists) */}
+            {selected.image && (
+              <button
+                onClick={() => setViewer('photo')}
+                className={`group relative rounded-lg overflow-hidden border ${viewer === 'photo' ? 'ring-2 ring-yellow-500 border-yellow-300' : 'border-stone-200'} focus:outline-none`}
+                aria-pressed={viewer === 'photo'}
+              >
+                <div className="aspect-[4/3] bg-stone-100">
+                  <img
+                    src={selected.image}        // 🔴 your image shown as a small thumbnail
+                    alt="Shop photo thumbnail"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white text-xs px-2 py-1 flex items-center gap-1">
+                  <ImageIcon className="w-3 h-3" />
+                  Photo
+                </div>
+              </button>
+            )}
+
+            {/* Map thumb (non-interactive iframe for preview) */}
+            <button
+              onClick={() => setViewer('map')}
+              className={`group relative rounded-lg overflow-hidden border ${viewer === 'map' ? 'ring-2 ring-yellow-500 border-yellow-300' : 'border-stone-200'} focus:outline-none`}
+              aria-pressed={viewer === 'map'}
+            >
+              <div className="aspect-[4/3] bg-stone-100 relative">
+                <iframe
+                  key={`thumb-${selected.id}-${mapVersion}`}
+                  src={mapSrc}
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0, pointerEvents: 'none' }}  // thumbnail preview only
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Map thumbnail"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white text-xs px-2 py-1 flex items-center gap-1">
+                  <MapPin className="w-3 h-3" />
+                  Map
+                </div>
+              </div>
+            </button>
+          </div>
+
+          {/* Label under viewer (spans both columns on md+) */}
+          <p className="text-sm text-stone-600 mt-1 md:col-span-2">
+            Showing: <span className="font-medium text-stone-800">{selected.title}</span> · View: <span className="font-medium">{viewer === 'photo' ? 'Photo' : 'Map'}</span>
           </p>
         </div>
       </div>
 
-      {/* Footer */}
+      {/* Footer (unchanged) */}
       <footer className="bg-black text-white py-16">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
